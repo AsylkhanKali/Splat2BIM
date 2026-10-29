@@ -78,53 +78,53 @@ def main():
     (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     fig,axes=plt.subplots(2,2,figsize=(12,8),constrained_layout=True);x=np.arange(7)
     for ax,key,title in zip(axes.flat,['roof_median_m','bank_mid_median_m','mean_region_median_m','global_p90_m'],
-        ['Крыша: медиана на неиспользованных записях','Берег: медиана на неиспользованных записях','Среднее двух медиан: равный вес областей','Вся сцена: P90 на пространственном контроле']):
-        ax.bar(x-.18,[r['stable_parent_'+key] for r in summaries],.34,label='До уточнения',color='#748397')
-        ax.bar(x+.18,[r['structural_refinement_'+key] for r in summaries],.34,label='После уточнения',color='#208473')
-        ax.set(xticks=x,xticklabels=DATES,title=title,ylabel='Метры; меньше — лучше');ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True);ax.legend(fontsize=8)
+        ['Roof: median on unused records','Riverside: median on unused records','Mean of two medians: equal region weights','Whole scene: P90 on spatial holdout']):
+        ax.bar(x-.18,[r['stable_parent_'+key] for r in summaries],.34,label='Before refinement',color='#748397')
+        ax.bar(x+.18,[r['structural_refinement_'+key] for r in summaries],.34,label='After refinement',color='#208473')
+        ax.set(xticks=x,xticklabels=DATES,title=title,ylabel='Metres; lower is better');ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True);ax.legend(fontsize=8)
     fig.savefig(OUT/'comparison.png',dpi=160);plt.close(fig)
-    headline=f'Среднее по семи датам и двум областям: {before:.3f} → {after:.3f} м ({100*(before-after)/before:.1f}% снижения).'
-    table=['| Дата | Крыша: до → после, м | Берег: до → после, м | Средняя медиана: до → после, м | Изменение | Строгих опор |',
+    headline=f'Mean across seven dates and two regions: {before:.3f} → {after:.3f} m ({100*(before-after)/before:.1f}% reduction).'
+    table=['| Date | Roof: before → after, m | Riverside: before → after, m | Mean median: before → after, m | Change | Strict supports |',
         '|---|---:|---:|---:|---|---:|'];htmlrows=[]
     for r in summaries:
         values=[r['date']]+[f'{r["stable_parent_"+k]:.3f} → {r["structural_refinement_"+k]:.3f}' for k in ['roof_median_m','bank_mid_median_m','mean_region_median_m']]
-        values+=[f'{r["mean_region_median_improvement_percent"]:+.1f}% снижения' if r['status']=='refined' else 'Прежняя поза',str(r['strict_support_count'])]
+        values+=[f'{r["mean_region_median_improvement_percent"]:+.1f}% reduction' if r['status']=='refined' else 'Previous pose retained',str(r['strict_support_count'])]
         table.append('| '+' | '.join(values)+' |');htmlrows.append('<tr>'+''.join('<td>'+v+'</td>' for v in values)+'</tr>')
     limits=[
-        'Это уточнение использует существующую ручную разметку двух неподвижных областей — крыши и берега. Оно не является новым полностью автоматическим детектором конструкций.',
-        'В подгонке участвуют только чётные исходные записи 3DGS вне прежних отложенных пространственных ячеек. Внутри обучающих данных выделена отдельная блочная выборка для выбора поправки. Показанные основные ошибки вычислены на прежних записях 5, 15, 25…; они не участвуют в подгонке или выборе.',
-        'Разметка областей теперь служит обучающей подсказкой. Поэтому проверка на других записях этих же областей слабее проверки на совершенно новых конструкциях. Восстановленные центры гауссианов также не являются независимыми геодезическими измерениями.',
-        'Сильный пространственный контроль сохранён отдельно. В контрольной крыше достаточно точек только на 0331, 0504, 0609, 0723 и 0831; на берегу во всех датах их меньше 30. Недостаточные выборки не засчитываются как доказательство улучшения.',
-        'Масштаб зафиксирован. Проверены подгонки по плоскостям, точкам и их комбинации, затем одинаковые доли поправки. Выбор использует только обучающую и внутреннюю блочную выборки. Сдвиг всей сцены ограничен 0,5 м на фиксированных контрольных вершинах её объёма.',
-        'Прежние строгие условия сохранены: ≥3 разных опор; прямое перекрытие ≥80%, обратное ≥50% в пределах 1 м; расстояние между опорами ≥10 м, вторая ось ≥2 м; центр ≤5 м, нормали ≤20°, размеры 0,5–2. Банк пар фиксирован до уточнения, новые идентичности после подгонки не добавляются.',
-        'Первый автоматический опыт улучшал выбранные опоры, но ухудшал берег, например на 0504 примерно на 9 см. Вариант с контекстом сцены и запретом роста обучающих медианы/P90 сохранил прежние позы всех семи дат. Оба опыта сохранены; experiments.csv позволяет сравнить их с уточнением по размеченным областям.',
-        'Метод разрабатывался на этой площадке с учётом предыдущих контрольных результатов. Это экспериментальное сравнение, а не независимый тест переноса. Полные рабочие сцены и BIM в просмотрщике не перезаписаны; новые локальные и глобальные матрицы сохранены в папках дат.'
+        'This refinement uses the existing manual definitions of two fixed regions: the roof and riverside structure. It is not a new fully automatic structure detector.',
+        'Fitting uses only even original 3DGS records outside the previous spatial holdout tiles. A separate block-based calibration sample within the training data selects the correction. The headline errors use the unchanged records 5, 15, 25…; these participate in neither fitting nor selection.',
+        'Region definitions now provide training supervision. Evaluation on different records within the same regions is therefore weaker than evaluation on entirely new structures. Reconstructed Gaussian centers are also not independent survey measurements.',
+        'The stronger spatial holdout is retained separately. Roof samples are sufficient only on 0331, 0504, 0609, 0723, and 0831; riverside samples contain fewer than 30 points on every date. Insufficient samples do not count as evidence of improvement.',
+        'Scale is fixed. Plane, point, and hybrid fits are tested, followed by the same correction fractions. Selection uses only training and internal block-calibration samples. Whole-scene motion is limited to 0.5 m at fixed bounding-volume anchors.',
+        'The previous strict conditions are preserved: ≥3 distinct supports; ≥80% forward and ≥50% reverse overlap within 1 m; support spacing ≥10 m, second axis ≥2 m; center distance ≤5 m, normals ≤20°, size ratio 0.5–2. The pair bank is fixed before refinement; no identities are added after fitting.',
+        'The first automatic experiment improved selected supports but worsened the riverside region, by about 9 cm on 0504. The scene-context variant with a no-regression guard on training median/P90 retained the previous poses for all seven dates. Both experiments are preserved; experiments.csv compares them with reviewed-region refinement.',
+        'The method was developed on this site with knowledge of earlier control results. This is an experimental comparison, not an independent transfer test. The complete working scenes and BIM in the viewer were not overwritten; new local and global matrices are stored in the date folders.'
     ]
-    tradeoff=f'Медиана всей сцены на изменённых датах выросла на {1000*min(global_median_increases):.1f}–{1000*max(global_median_increases):.1f} мм. Даты с ростом P90 всей сцены более 1 см: '+(', '.join(tail_regressions) or 'нет')+'. Поэтому новые матрицы сохранены отдельно и не заменяют рабочие экспорты автоматически.'
-    regressions='Области с ростом медианы более 1 мм: '+('; '.join(f'{r["date"]} {r["region"]}: +{1000*r["increase_m"]:.1f} мм' for r in regional_regressions) or 'нет')+'.'
-    spatial_text='На более строгом пространственном контроле крыши медиана снизилась на 0331, 0504, 0723 и 0831; на 0609 выросла на 3,3 мм. На 0708 и 0929 эта выборка недостаточна. На берегу пространственных контрольных точек недостаточно во всех датах.'
-    lines=['# Уточнение точности по размеченным неподвижным конструкциям','',headline,'',
-        f'Строгий допуск: {len(summary["strict_pass_dates"])}/7. Приняты поправки: '+', '.join(summary['refined_dates'])+'. Прежняя поза: '+(', '.join(summary['retained_dates']) or 'нет')+'.','',*table,'',tradeoff,'',regressions,'',
-        '![Сравнение](comparison.png)','',spatial_text,'', '## Условия и ограничения','',*sum(([p,''] for p in limits),[]),
-        '## Проверка всей сцены','', '| Дата | Медиана до → после, м | P90 до → после, м |','|---|---:|---:|']
+    tradeoff=f'Whole-scene median increased on changed dates by {1000*min(global_median_increases):.1f}–{1000*max(global_median_increases):.1f} mm. Dates with a whole-scene P90 increase above 1 cm: '+(', '.join(tail_regressions) or 'no')+'. New matrices are therefore saved separately and do not automatically replace the working exports.'
+    regressions='Regions with a median increase above 1 mm: '+('; '.join(f'{r["date"]} {r["region"]}: +{1000*r["increase_m"]:.1f} mm' for r in regional_regressions) or 'no')+'.'
+    spatial_text='On the stronger spatial roof holdout, the median decreased on 0331, 0504, 0723, and 0831; it increased by 3.3 mm on 0609. The sample is insufficient on 0708 and 0929. Spatial riverside control samples are insufficient on every date.'
+    lines=['# Accuracy refinement with reviewed stable regions','',headline,'',
+        f'Strict acceptance: {len(summary["strict_pass_dates"])}/7. Accepted corrections: '+', '.join(summary['refined_dates'])+'. Previous pose: '+(', '.join(summary['retained_dates']) or 'no')+'.','',*table,'',tradeoff,'',regressions,'',
+        '![Comparison](comparison.png)','',spatial_text,'', '## Conditions and limitations','',*sum(([p,''] for p in limits),[]),
+        '## Whole-scene evaluation','', '| Date | Median before → after, m | P90 before → after, m |','|---|---:|---:|']
     for r in summaries:lines.append('| '+r['date']+' | '+' | '.join(f'{r["stable_parent_global_"+k+"_m"]:.3f} → {r["structural_refinement_global_"+k+"_m"]:.3f}' for k in ['median','p90'])+' |')
-    lines+=['','Сравнение с исходным автоматическим методом и последним вариантом устойчивых поверхностей находится в summary.csv. Сырые ошибки двух видов контрольных выборок — static_structures.csv; дополнительные автоматические поверхности — automatic_structural_controls.csv. Все кандидаты, включая непринятые, сохранены в <дата>/fit.json и candidate_comparison.csv.','',
-        '## Воспроизведение','', '```sh','.venv/bin/python scripts/fit_structural_refinement.py','.venv/bin/python scripts/fit_guarded_structural_refinement.py',
+    lines+=['','summary.csv compares the original automatic method and the latest persistent-surface method. static_structures.csv contains errors for both control-sample types; automatic_structural_controls.csv covers additional automatic surfaces. All candidates, including rejected ones, are stored in <date>/fit.json and candidate_comparison.csv.','',
+        '## Reproduction','', '```sh','.venv/bin/python scripts/fit_structural_refinement.py','.venv/bin/python scripts/fit_guarded_structural_refinement.py',
         '.venv/bin/python scripts/fit_reviewed_structural_refinement.py',
         ".venv/bin/python -c \"import sys;sys.path.insert(0,'scripts');from evaluate_structural_refinement import main;from fit_reviewed_structural_refinement import OUT;main(OUT)\"",
         '.venv/bin/python scripts/verify_structural_refinement.py','.venv/bin/python scripts/report_structural_refinement.py','```','',
-        'Численная перепроверка сохранена в validation.json. Первые два опыта имеют собственные каталоги results/structural_refinement и results/guarded_structural_refinement. Все исходные данные и предыдущие матрицы сохранены.','']
+        'Numerical re-verification is recorded in validation.json. The first two experiments have separate results/structural_refinement and results/guarded_structural_refinement directories. All original inputs and previous matrices are preserved.','']
     (OUT/'REPORT.md').write_text('\n'.join(lines))
-    page=['<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Точность по неподвижным конструкциям</title>',
+    page=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stable-structure alignment accuracy</title>',
         '<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:105ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:9px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}h1{font-size:clamp(24px,3vw,36px)}a:focus-visible,summary:focus-visible{outline:2px solid #175794}</style>',
-        '<a href="/viewer/">← 3D-просмотрщик</a><h1>Точность по неподвижным конструкциям</h1>',
-        '<p><strong>'+headline+'</strong> Строгие пороги сохранены; допуск '+str(len(summary['strict_pass_dates']))+'/7.</p>',
-        '<p>Уточнение использует заранее размеченные области крыши и берега. Ни одна контрольная запись не участвует в подгонке или выборе поправки.</p>',
-        '<p><a href="REPORT.md">Методика</a> · <a href="summary.csv">Сравнение семи дат</a> · <a href="static_structures.csv">Контрольные выборки</a> · <a href="experiments.csv">Все три опыта</a> · <a href="validation.json">Проверка расчётов</a></p>',
-        '<div class="table"><table><thead><tr><th>Дата</th><th>Крыша, м</th><th>Берег, м</th><th>Средняя медиана, м</th><th>Результат</th><th>Строгих опор</th></tr></thead><tbody>',*htmlrows,
-        '</tbody></table></div><p>До → после. Равный вес двух областей и каждой даты; ошибки на прежних неиспользованных записях.</p>',
-        '<p>'+tradeoff+' '+regressions+'</p><p>'+spatial_text+'</p><img src="comparison.png" alt="Изменение ошибок крыши, берега и всей сцены на семи датах">',
-        '<details><summary>Что использовано и насколько независима проверка</summary>',*['<p>'+p+'</p>' for p in limits],'</details></html>']
+        '<a href="/viewer/">← 3D viewer</a><h1>Stable-structure alignment accuracy</h1>',
+        '<p><strong>'+headline+'</strong> Strict thresholds are unchanged; acceptance '+str(len(summary['strict_pass_dates']))+'/7.</p>',
+        '<p>Refinement uses predefined roof and riverside regions. No control record participates in fitting or correction selection.</p>',
+        '<p><a href="REPORT.md">Method</a> · <a href="summary.csv">Seven-date comparison</a> · <a href="static_structures.csv">Control samples</a> · <a href="experiments.csv">All three experiments</a> · <a href="validation.json">Numerical verification</a></p>',
+        '<div class="table"><table><thead><tr><th>Date</th><th>Roof, m</th><th>Riverside, m</th><th>Mean median, m</th><th>Result</th><th>Strict supports</th></tr></thead><tbody>',*htmlrows,
+        '</tbody></table></div><p>Before → after. Equal weight for both regions and every date; errors use the unchanged unused records.</p>',
+        '<p>'+tradeoff+' '+regressions+'</p><p>'+spatial_text+'</p><img src="comparison.png" alt="Changes in roof, riverside, and whole-scene errors across seven dates">',
+        '<details><summary>Inputs and evaluation independence</summary>',*['<p>'+p+'</p>' for p in limits],'</details></html>']
     (OUT/'inspection.html').write_text('\n'.join(page)+'\n');print(json.dumps(summary,indent=2))
 
 

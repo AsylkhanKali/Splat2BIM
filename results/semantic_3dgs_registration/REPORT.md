@@ -1,66 +1,66 @@
-# Совмещение с новыми метками 3DGS: семь дат
+# Registration with new 3DGS labels: seven dates
 
-Текущий метод: основной 7/7, строгий 4/7; Прежняя семантика: основной 7/7, строгий 5/7; Новые метки 3DGS: основной 7/7, строгий 5/7.
+Current method: primary 7/7, strict 4/7; Previous semantics: primary 7/7, strict 5/7; New 3DGS labels: primary 7/7, strict 5/7.
 
-Среди принятых результатов улучшений медианы более 1 см относительно текущего метода: 0; ухудшений более 1 см: 0. Отклонённые результаты: нет.
+Among accepted results, median improvements above 1 cm relative to the current method: 0; regressions above 1 cm: 0. Rejected results: no.
 
-## Сравнение
+## Comparison
 
-| Дата | Текущий: медиана / P90, м | Прежняя семантика: медиана / P90, м | Новые метки: медиана / P90, м | Новый допуск | Строгий: текущий / прежний / новый |
+| Date | Current median / P90, m | Previous semantic median / P90, m | New-label median / P90, m | New acceptance | Strict: current / previous / new |
 |---|---:|---:|---:|---|---|
-| 0331 | 0.272 / 1.148 | 0.272 / 1.148 | 0.272 / 1.148 | да | да / да / да |
-| 0504 | 0.205 / 0.754 | 0.205 / 0.754 | 0.205 / 0.754 | да | да / да / да |
-| 0609 | 0.253 / 0.805 | 0.253 / 0.805 | 0.253 / 0.805 | да | да / да / да |
-| 0708 | 0.255 / 1.006 | 0.255 / 1.006 | 0.255 / 1.006 | да | нет / нет / нет |
-| 0723 | 0.213 / 0.753 | 0.213 / 0.753 | 0.213 / 0.753 | да | нет / нет / нет |
-| 0831 | 0.234 / 0.752 | 0.234 / 0.752 | 0.234 / 0.752 | да | да / да / да |
-| 0929 | 0.219 / 0.742 | 0.219 / 0.742 | 0.219 / 0.742 | да | нет / да / да |
+| 0331 | 0.272 / 1.148 | 0.272 / 1.148 | 0.272 / 1.148 | yes | yes / yes / yes |
+| 0504 | 0.205 / 0.754 | 0.205 / 0.754 | 0.205 / 0.754 | yes | yes / yes / yes |
+| 0609 | 0.253 / 0.805 | 0.253 / 0.805 | 0.253 / 0.805 | yes | yes / yes / yes |
+| 0708 | 0.255 / 1.006 | 0.255 / 1.006 | 0.255 / 1.006 | yes | no / no / no |
+| 0723 | 0.213 / 0.753 | 0.213 / 0.753 | 0.213 / 0.753 | yes | no / no / no |
+| 0831 | 0.234 / 0.752 | 0.234 / 0.752 | 0.234 / 0.752 | yes | yes / yes / yes |
+| 0929 | 0.219 / 0.742 | 0.219 / 0.742 | 0.219 / 0.742 | yes | no / yes / yes |
 
-![Ошибки совмещения](comparison.png)
+![Alignment errors](comparison.png)
 
-Отклонённые результаты показаны с их фактическими ошибками и не считаются успешными. Расстояния — от одинаковых пространственно отложенных центров 3DGS до предоставленного LAS, при неизменной области покрытия. Это внутренняя согласованность, не независимая геодезическая точность. Порог 1 см описывает величину различия, не статистическую значимость.
+Rejected results retain their measured errors and are not counted as successes. Distances use identical spatially held-out 3DGS centers and the supplied LAS with unchanged coverage. This is internal agreement, not independent survey accuracy. The 1 cm threshold describes difference magnitude, not statistical significance.
 
-Текущий метод — прежний автоматический комбинированный выбор. Прежняя семантика — опыт со специалистом LoveDA и банком пар соседних стартов. Третий вариант заменяет только исходные метки 3DGS на прогнозы по гауссиановому изображению; LAS-метки прежние. Исторические рабочие экспорты просмотрщика отличаются от экспериментального автоматического метода и не заменены.
+The current method is the previous automatic combined selection. Previous semantics refers to the LoveDA specialist with the neighboring-start pair bank. The third variant replaces only source 3DGS labels with Gaussian-view predictions; LAS labels are unchanged. Historical viewer exports differ from the experimental automatic method and are not replaced.
 
-## Условия повторного опыта
+## Repeat-experiment conditions
 
-Для каждой даты заново оценён весь прежний пул гипотез, выбраны четыре разнесённых старта, выполнен ICP и окончательная подгонка. Классы, их веса, случайное зерно, пороги и бюджет сохранены. Пары соседних гипотез зафиксированы до ICP. Прежние окончательные матрицы не служат стартами и вводятся только после нового расчёта для сравнения.
+For every date, the entire previous hypothesis pool is rescored, four spaced starts are selected, and ICP and final refinement are rerun. Classes, weights, random seed, thresholds, and budget are preserved. Neighboring-hypothesis pairs are fixed before ICP. Previous final matrices are not used as starts; they enter only the comparison after the new fit.
 
-В этой реализации семантика влияет на ранжирование стартов и выбор кандидата после грубой подгонки. Окончательная подгонка остаётся геометрической, а фрагменты для строгой проверки не выделяются заново по новым меткам. Поэтому лучшее распознавание класса зданий ещё не исправляет границы или пространственное расположение проверяемых опор.
+In this implementation, semantics affects start ranking and candidate selection after coarse fitting. Final refinement remains geometric, and strict-check fragments are not re-extracted using the new labels. Better building recognition therefore does not automatically repair support boundaries or spatial distribution.
 
-Основной допуск требует прежних ограничений масштаба, обучающей медианы ≤0,5 м, цветовой разницы ≤0,35 и трёх разнесённых пар с двусторонним перекрытием ≥50% в пределах 1 м. Строгий допуск дополнительно требует прямого перекрытия ≥80%; расстояние между опорами ≥10 м, вторая сингулярная величина их центрированных координат ≥2 м в обеих сценах. Ни один порог не менялся после просмотра результата.
+Primary acceptance retains the scale constraints, training median ≤0.5 m, color difference ≤0.35, and three spaced pairs with ≥50% bidirectional overlap within 1 m. Strict acceptance additionally requires ≥80% forward overlap, support spacing ≥10 m, and a second singular value of centered support coordinates ≥2 m in both scenes. No threshold changed after inspecting the result.
 
-Новые метки уже разработаны на этой площадке: это контролируемое сравнение вариантов, не независимый тест переноса. Контрольные области крыши и берега не выбирают позу или параметры.
+The new labels were developed on this site: this is a controlled variant comparison, not an independent transfer test. Roof and riverside control regions do not select the pose or parameters.
 
-## 0708 и 0723
+## 0708 and 0723
 
-0708: строгая проверка не пройдена. Пар с прямым перекрытием ≥80% и обратным ≥50%: 3; допустимых троек в исходном банке: 0. Для лучшей тройки вторые пространственные оси 3DGS / LAS равны 1.962274 / 4.353667 м при минимуме 2 м. Диагностическое сопоставление всех фрагментов в новой окончательной позе даёт 3 подходящих пар и 0 допустимых троек; в допуск оно не вмешивается.
+0708: strict check failed. Pairs with ≥80% forward and ≥50% reverse overlap: 3; valid triples in the initial bank: 0. For the best triple, second spatial axes in 3DGS / LAS are 1.962274 / 4.353667 m against a minimum of 2 m. Diagnostic matching of all fragments at the new final pose gives 3 eligible pairs and 0 valid triples; it does not affect acceptance.
 
-0723: строгая проверка не пройдена. Пар с прямым перекрытием ≥80% и обратным ≥50%: 2; допустимых троек в исходном банке: 0. Диагностическое сопоставление всех фрагментов в новой окончательной позе даёт 2 подходящих пар и 0 допустимых троек; в допуск оно не вмешивается.
+0723: strict check failed. Pairs with ≥80% forward and ≥50% reverse overlap: 2; valid triples in the initial bank: 0. Diagnostic matching of all fragments at the new final pose gives 2 eligible pairs and 0 valid triples; it does not affect acceptance.
 
-На 0708 в 3DGS много новых меток зданий, но в LAS их только 23 при минимуме 128 для общего класса. Поэтому класс зданий там не участвует в семантическом расстоянии. На 0723 общий класс конструкций появился; его наличие само по себе не гарантирует три надёжные пространственные опоры.
+0708 has many new building labels in 3DGS, but only 23 in LAS against a 128-point shared-class minimum. Buildings therefore do not contribute to semantic distance on this date. A shared structure class appears on 0723; its presence alone does not guarantee three reliable spatial supports.
 
-Подробности всех пар, их прямого/обратного перекрытия и троек сохранены в `<дата>/audit.json` и `strict_diagnostics.json`. Итоговое сопоставление всех фрагментов используется только для объяснения и не добавляет пары задним числом.
+All pairs, forward/reverse overlaps, and triples are recorded in `<date>/audit.json` and `strict_diagnostics.json`. All-fragment matching at the final pose is explanatory only and does not add pairs retrospectively.
 
-## Изменение инициализации
+## Initialization changes
 
-| Дата | Прежний выбранный старт | Новый выбранный старт | Общий класс конструкций | Смещение позы к текущей, P95, м |
+| Date | Previous selected start | New selected start | Shared structure class | Pose displacement vs current, P95, m |
 |---|---|---|---|---:|
-| 0331 | consensus_16 | consensus_76 | да | 0 |
-| 0504 | recovery_3087 | recovery_3491 | да | 2.49318e-05 |
-| 0609 | recovery_3618 | recovery_3618 | да | 8.20423e-13 |
-| 0708 | recovery_61 | recovery_61 | нет | 3.15932e-13 |
-| 0723 | recovery_366 | recovery_373 | да | 0 |
-| 0831 | recovery_1141 | recovery_562 | да | 7.23205e-13 |
-| 0929 | recovery_1639 | recovery_1639 | да | 3.76904e-08 |
+| 0331 | consensus_16 | consensus_76 | yes | 0 |
+| 0504 | recovery_3087 | recovery_3491 | yes | 2.49318e-05 |
+| 0609 | recovery_3618 | recovery_3618 | yes | 8.20423e-13 |
+| 0708 | recovery_61 | recovery_61 | no | 3.15932e-13 |
+| 0723 | recovery_366 | recovery_373 | yes | 0 |
+| 0831 | recovery_1141 | recovery_562 | yes | 7.23205e-13 |
+| 0929 | recovery_1639 | recovery_1639 | yes | 3.76904e-08 |
 
-Смещение позы — расстояние между положениями одних и тех же отложенных точек после двух преобразований. Оно отделяет изменение положения от изменения набора подтверждающих пар.
+Pose displacement is the distance between the same held-out points under two transforms. It separates position change from changes in the supporting-pair set.
 
-## Неподвижные конструкции
+## Stable structures
 
-Крыша и прибрежная конструкция проверены в прежних фиксированных масках без кранов и техники. `static_structures.csv` содержит отдельные неиспользованные записи и пространственно отложенные выборки, медианы, P90 и число точек для всех трёх методов. Выборки меньше 30 точек помечены как недостаточные; пустые метрики не превращены в нули. Соседние обучающие точки существуют для выборки отдельных записей, поэтому она слабее пространственного отложения.
+The roof and riverside structure are evaluated in the previous fixed masks excluding cranes and equipment. `static_structures.csv` includes unused-record and spatial-holdout samples, medians, P90, and counts for all three methods. Samples below 30 points are marked insufficient; missing metrics are not converted to zero. Unused-record samples have nearby training points and are weaker than spatial holdouts.
 
-## Воспроизведение
+## Reproduction
 
 ```sh
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/align_semantic_3dgs.py
@@ -69,4 +69,4 @@ OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/align_semantic
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/verify_semantic_3dgs_registration.py
 ```
 
-Прежние метки, геометрические пулы и модели уже находятся в проекте. Новых пакетов и загрузок не требуется. `protocol.json` фиксирует условия и хеши кода; `validation.json` — численную перепроверку всех гипотез, допуска и ошибок; `summary.csv` — таблицу результатов, `initialization_changes.csv` — влияние меток на выбор старта. [Предыдущий опыт распознавания](../semantic_3dgs/REPORT.md).
+The previous labels, geometric pools, and models are prerequisites. No new packages or downloads are required once these are restored. `protocol.json` records conditions and code hashes; `validation.json` records numerical re-verification of hypotheses, acceptance, and errors; `summary.csv` contains results; `initialization_changes.csv` records label effects on start selection. See the [previous recognition experiment](../semantic_3dgs/REPORT.md).

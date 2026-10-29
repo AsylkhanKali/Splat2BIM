@@ -1,51 +1,51 @@
-# 3DGS: распознавание конструкций и строгие отказы
+# 3DGS: structure recognition and strict failures
 
-В этом опыте улучшено распознавание конструкций в 3DGS. Строгие статусы относятся к прежнему семантическому совмещению: его преобразования и геометрические опоры сохранены. Улучшение распознавания само по себе не доказывает улучшения совмещения.
+This experiment improves structure recognition in 3DGS. Strict statuses refer to the previous semantic registration: its transforms and geometric supports are preserved. Improved recognition alone does not prove better alignment.
 
-Контрольная крыша получила метки конструкций на 7/7 датах вместо 0/7. Это доля выбранных видимых точек в одном объёме, не IoU и не точность всей модели.
+The control roof received structure labels on 7/7 dates instead of 0/7. This is a fraction of selected visible points in one volume, not IoU or whole-model accuracy.
 
-| Дата | Точек крыши | Крыша: было → стало | Ложные здания в растительности | Пар с достаточным перекрытием | Строгая проверка прежней позы |
+| Date | Roof points | Roof: before → after | False buildings in vegetation | Pairs with sufficient overlap | Strict check of previous pose |
 |---|---:|---:|---:|---:|---|
-| 0331 | 666 | 0.0% → 86.2% | 0.0% | 4 | пройдена |
-| 0504 | 1269 | 0.0% → 99.7% | 0.0% | 10 | пройдена |
-| 0609 | 1143 | 0.0% → 99.0% | 0.0% | 9 | пройдена |
-| 0708 | 888 | 0.0% → 59.8% | 0.0% | 3 | не пройдена |
-| 0723 | 1319 | 0.0% → 91.9% | 0.0% | 2 | не пройдена |
-| 0831 | 317 | 0.0% → 85.5% | 0.0% | 5 | пройдена |
-| 0929 | 284 | 0.0% → 80.6% | 0.0% | 6 | пройдена |
+| 0331 | 666 | 0.0% → 86.2% | 0.0% | 4 | passed |
+| 0504 | 1269 | 0.0% → 99.7% | 0.0% | 10 | passed |
+| 0609 | 1143 | 0.0% → 99.0% | 0.0% | 9 | passed |
+| 0708 | 888 | 0.0% → 59.8% | 0.0% | 3 | failed |
+| 0723 | 1319 | 0.0% → 91.9% | 0.0% | 2 | failed |
+| 0831 | 317 | 0.0% → 85.5% | 0.0% | 5 | passed |
+| 0929 | 284 | 0.0% → 80.6% | 0.0% | 6 | passed |
 
-![Сравнение](recognition.png)
+![Comparison](recognition.png)
 
-## Что изменено
+## What changed
 
-Прежние разреженные центры с заполненными цветом пробелами заменены ортографическим рендером 3D-гауссианов: проецируются ковариации из масштаба и кватерниона, используется прозрачность с композитингом от дальних к ближним, цвет вычисляется со сферическими гармониками до степени 3. Разрешение увеличено с 1024 до 2048, границы изображения сохранены. Это ортографический вид, а не точное воспроизведение камеры исходного фото.
+Sparse centers with color-filled gaps are replaced by orthographic Gaussian rendering: covariance is projected from scale and quaternion rotation, opacity is composited back to front, and color includes spherical harmonics up to degree 3. Resolution increases from 1024 to 2048 while preserving image boundaries. This is an orthographic view, not an exact rendering from the original photo camera.
 
-Модель LoveDA B2, нормализация, плитки 512 пикселей с четырьмя поворотами, порог зданий 0,6 и защита уверенных drone-классов растительности, воды и подвижных объектов сохранены. Новые классы присвоены ровно прежним видимым 3D-точкам; заполненные пиксели не создают геометрию. LAS-метки берутся из прежнего опыта.
+LoveDA B2, normalization, 512-pixel tiles with four rotations, the 0.6 building threshold, and protection of confident drone vegetation/water/moving-object classes remain unchanged. New labels are assigned to exactly the previous visible 3D points; filled pixels create no geometry. LAS labels come from the preceding experiment.
 
-Для изображения используются только чётные исходные записи PLY, внутри прежних обучающих границ и вне пространственно отложенных плиток 0,4 исходной единицы. Прозрачные гауссианы с alpha >1/255 сохранены для контекста. Их отпечатки могут пересекать границы исключённых плиток, но центры контрольных гауссианов не читаются рендером. Ни окончательная матрица, ни BIM, ни диагностические объёмы не задают проекцию или прогноз.
+Rendering uses only even original PLY records within the previous training bounds and outside spatial holdout tiles of 0.4 source units. Transparent Gaussians with alpha >1/255 are retained for context. Their footprints may cross excluded-tile boundaries, but control-center records are not read by the renderer. Final poses, BIM, and diagnostic volumes do not define the projection or prediction.
 
-**Граница проверки:** разрешение выбрано после исследовательских проб на крыше 0723 и 0929; это этап разработки на известной площадке. Одинаковая конфигурация затем применена ко всем семи датам. Результаты на крыше не являются независимой тестовой оценкой. Изменились одновременно способ изображения и разрешение; их отдельный вклад здесь не измерен. Предыдущая автоматическая матрица используется только для нахождения диагностических объёмов.
+**Evaluation boundary:** resolution was selected after exploratory roof trials on 0723 and 0929; this is development on a known site. The same configuration was then applied to all seven dates. Roof results are not an independent test. Rendering method and resolution changed together, so their separate contributions are not measured. The previous automatic matrix is used only to locate diagnostic volumes.
 
-[RGB отрицательной области на семи датах](negative_region_review.png). Полоса растительности проверяет один тип ложных срабатываний. Она не оценивает краны, технику, грунт или всю площадку; отдельного класса кранов эта модель не имеет.
+[Negative-region RGB across seven dates](negative_region_review.png). The vegetation strip checks one type of false positive. It does not evaluate cranes, equipment, ground, or the whole site; the model has no separate crane class.
 
-## Почему строгая проверка не пройдена
+## Why the strict check fails
 
-0708: три пары имеют нужное перекрытие, но их центры почти лежат на одной линии. Вторая сингулярная величина центрированных координат источника равна 1,962274 м при минимуме 2 м; для LAS — 4,353667 м. Минимальное расстояние между опорами около 59 м, поэтому проблема именно в поперечном разнесении. Отступ до порога — 3,77 см по этой метрике, не ошибка положения объекта. Порог не снижен.
+0708: three pairs meet the overlap gates, but their centers are almost collinear. The second singular value of centered source coordinates is 1.962274 m against a 2 m minimum; LAS gives 4.353667 m. Minimum spacing is about 59 m, so the issue is transverse spread. The 3.77 cm gap is in this support metric, not object-position error. The threshold is unchanged.
 
-0723: только две пары удовлетворяют прямому перекрытию ≥80% и обратному ≥50% в пределах 1 м. Третья разнесённая пара p8_c16 → p8_c39 даёт 71,15% / 55,38%: 37 из 52 исходных точек ближе 1 м к назначенному фрагменту, нужно минимум 42. Это нехватка пяти подтверждённых точек, а не предложение добавить искусственные точки.
+0723: only two pairs meet ≥80% forward and ≥50% reverse overlap within 1 m. The third spaced pair p8_c16 → p8_c39 gives 71.15% / 55.38%: 37 of 52 source points are within 1 m of the assigned fragment, while at least 42 are needed. Five confirmed points are missing; this does not justify adding artificial points.
 
-На обеих датах перебраны все тройки подходящих пар: допустимой тройки нет. Дополнительное сопоставление всех фрагментов в окончательной позе также не нашло её; оно выполнено только для диагностики и не использовано для принятия результата.
+All triples of eligible pairs were checked on both dates; none passes. An additional all-fragment match at the final pose also found none. That check is diagnostic only and does not decide acceptance.
 
-Все точки третьей пары 0723 находятся в пределах 1 м от полного LAS, но не все близки к назначенному фрагменту. Это указывает на различия границ/идентичности фрагментов: близость к любому соседу в LAS не подтверждает правильное соответствие объекта. На 0708 у пары p9_c36 → p6_c2 обратное перекрытие лишь 44,52%; 87,2% обратных промахов находятся в отложенных плитках источника. Исключать эти промахи из проверки ради допуска нельзя.
+All points in the third 0723 pair are within 1 m of the full LAS, but not all are near the assigned fragment. This indicates differences in fragment extent or identity: closeness to any LAS neighbor does not establish object correspondence. On 0708, pair p9_c36 → p6_c2 has only 44.52% reverse overlap; 87.2% of reverse misses fall in source holdout tiles. Removing these misses to gain acceptance is not valid.
 
-Следующий обоснованный шаг для строгого допуска: на 0708 подтвердить устойчивую опору вне почти прямой линии, на 0723 выделить полные соответствующие части одного объекта. Нужны проверяемые идентичности конструкций, заданные до подгонки; подмена пар после результата или ослабление порогов не применены.
+The next justified step is to confirm a persistent support away from the near-straight line on 0708 and extract complete corresponding parts of the same object on 0723. Structure identities must be testable and fixed before fitting; pairs were not substituted after seeing results and thresholds were not relaxed.
 
 ![0708](../strict_diagnostics/0708_diagnostic.png)
 ![0723](../strict_diagnostics/0723_diagnostic.png)
 
-## Файлы и воспроизведение
+## Files and reproduction
 
-`summary.csv` — сравнение семи дат; `recognition.csv` — количества в контрольных областях; `<дата>/source_labels.npz` — новые метки исходных 3D-точек и отдельные вероятности LoveDA; `render_context.npz` — исходные индексы контекста; `segmentation_protocol.json` — параметры и хеши; `../strict_diagnostics/` — пары, тройки и пороги. Поле probabilities остаётся прежним распределением drone-модели, building_expert_probabilities хранит новый прогноз LoveDA, labels/confidence/label_origin — итог слияния.
+`summary.csv` compares seven dates; `recognition.csv` records control-region counts; `<date>/source_labels.npz` stores new source-point labels and separate LoveDA probabilities; `render_context.npz` stores original context indices; `segmentation_protocol.json` records parameters and hashes; `../strict_diagnostics/` stores pairs, triples, and thresholds. probabilities remains the previous drone-model distribution, building_expert_probabilities stores the separate LoveDA prediction, and labels/confidence/label_origin describe fusion.
 
 ```sh
 .venv/bin/python scripts/prepare_semantic_3dgs.py
@@ -55,4 +55,4 @@
 .venv/bin/python scripts/verify_semantic_3dgs.py
 ```
 
-Используются существующие пакеты и веса; нужен clang++ для локального компилятора рендера (на этой машине уже установлен). Предыдущие результаты и исходные assets сохранены. Детали выполненных проверок — в validation.json. [Прежнее сравнение регистрации](../semantic_fusion/REPORT.md).
+The existing packages and weights are used. A clang++ compiler is required for the local renderer. Previous results and raw assets are preserved. validation.json records the checks. See the [previous registration comparison](../semantic_fusion/REPORT.md).

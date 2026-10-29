@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>New labels: repeated registration across seven dates</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:95ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:8px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}details{border-bottom:1px solid #ccd2d8}a:focus-visible,summary:focus-visible{outline:2px solid #175794}h1{font-size:clamp(24px,3vw,36px)}.rejected{color:#a52635;font-weight:650}</style>
+<a href="/viewer/">← 3D viewer</a><h1>New labels: repeated registration across seven dates</h1>
+<p>Current method: primary 7/7, strict 4/7; Previous semantics: primary 7/7, strict 5/7; New 3DGS labels: primary 7/7, strict 5/7.</p>
+<p>With unchanged thresholds and four initial hypotheses per date, new accepted median improvements above 1 cm: <strong>0</strong>; regressions: <strong>0</strong>. Rejected results are shown in the table and are not counted as successes.</p>
+<p><a href="REPORT.md">Method and findings</a> · <a href="summary.csv">All results CSV</a> · <a href="static_structures.csv">Stable structures</a> · <a href="../semantic_3dgs/inspection.html">Recognition before / after</a></p>
+<div class="table"><table><thead><tr><th>Date</th><th>Current median / P90, m</th><th>Previous semantics, m</th><th>New labels, m</th><th>New acceptance</th><th>Strict: current / previous / new</th></tr></thead><tbody>
+<tr><td>0331</td><td>0.272 / 1.148</td><td>0.272 / 1.148</td><td>0.272 / 1.148</td><td class="">yes</td><td>yes / yes / yes</td></tr>
+<tr><td>0504</td><td>0.205 / 0.754</td><td>0.205 / 0.754</td><td>0.205 / 0.754</td><td class="">yes</td><td>yes / yes / yes</td></tr>
+<tr><td>0609</td><td>0.253 / 0.805</td><td>0.253 / 0.805</td><td>0.253 / 0.805</td><td class="">yes</td><td>yes / yes / yes</td></tr>
+<tr><td>0708</td><td>0.255 / 1.006</td><td>0.255 / 1.006</td><td>0.255 / 1.006</td><td class="">yes</td><td>no / no / no</td></tr>
+<tr><td>0723</td><td>0.213 / 0.753</td><td>0.213 / 0.753</td><td>0.213 / 0.753</td><td class="">yes</td><td>no / no / no</td></tr>
+<tr><td>0831</td><td>0.234 / 0.752</td><td>0.234 / 0.752</td><td>0.234 / 0.752</td><td class="">yes</td><td>yes / yes / yes</td></tr>
+<tr><td>0929</td><td>0.219 / 0.742</td><td>0.219 / 0.742</td><td>0.219 / 0.742</td><td class="">yes</td><td>no / yes / yes</td></tr>
+</tbody></table></div><p>Identical held-out points; lower distance is better. This measures agreement with the supplied LAS. Full working scenes and BIM are preserved.</p>
+<img src="comparison.png" alt="Median and P90 distance to LAS for three variants across seven dates">
+<h2>Strict checks on the difficult dates</h2>
+<p>0708: strict check failed. Pairs with ≥80% forward and ≥50% reverse overlap: 3; valid triples in the initial bank: 0. For the best triple, second spatial axes in 3DGS / LAS are 1.962274 / 4.353667 m against a minimum of 2 m. Diagnostic matching of all fragments at the new final pose gives 3 eligible pairs and 0 valid triples; it does not affect acceptance.</p>
+<p>0723: strict check failed. Pairs with ≥80% forward and ≥50% reverse overlap: 2; valid triples in the initial bank: 0. Diagnostic matching of all fragments at the new final pose gives 2 eligible pairs and 0 valid triples; it does not affect acceptance.</p>
+<p>On 0708, a shared building class is unavailable: LAS has only 23 confident points against a minimum of 128. The class appears on 0723. All thresholds are unchanged.</p>
+<details><summary>0708: checks for every initial pair</summary><div class="table"><table><thead><tr><th>3DGS → LAS</th><th>Forward overlap</th><th>Reverse overlap</th><th>Strict overlap and assignment</th></tr></thead><tbody>
+<tr><td>p3_c11 → p8_c23</td><td>1.8%</td><td>2.9%</td><td>no</td></tr>
+<tr><td>p4_c59 → p5_c119</td><td>0.0%</td><td>0.0%</td><td>no</td></tr>
+<tr><td>p5_c25 → p4_c46</td><td>92.8%</td><td>86.9%</td><td>yes</td></tr>
+<tr><td>p5_c27 → p6_c0</td><td>62.5%</td><td>85.9%</td><td>no</td></tr>
+<tr><td>p6_c19 → p5_c39</td><td>70.0%</td><td>56.0%</td><td>no</td></tr>
+<tr><td>p9_c16 → p6_c10</td><td>94.7%</td><td>53.7%</td><td>yes</td></tr>
+<tr><td>p9_c21 → p6_c8</td><td>86.0%</td><td>90.0%</td><td>yes</td></tr>
+<tr><td>p9_c36 → p6_c2</td><td>98.2%</td><td>44.5%</td><td>no</td></tr>
+</tbody></table></div><p>Final strict acceptance still requires at least three spatially separated supports.</p></details>
+<details><summary>0723: checks for every initial pair</summary><div class="table"><table><thead><tr><th>3DGS → LAS</th><th>Forward overlap</th><th>Reverse overlap</th><th>Strict overlap and assignment</th></tr></thead><tbody>
+<tr><td>p10_c3 → p5_c31</td><td>0.0%</td><td>0.0%</td><td>no</td></tr>
+<tr><td>p1_c28 → p8_c18</td><td>0.0%</td><td>0.0%</td><td>no</td></tr>
+<tr><td>p5_c13 → p8_c41</td><td>80.3%</td><td>100.0%</td><td>yes</td></tr>
+<tr><td>p5_c31 → p8_c1</td><td>75.4%</td><td>98.8%</td><td>no</td></tr>
+<tr><td>p6_c12 → p5_c33</td><td>100.0%</td><td>85.5%</td><td>yes</td></tr>
+<tr><td>p8_c16 → p8_c39</td><td>71.2%</td><td>55.4%</td><td>no</td></tr>
+</tbody></table></div><p>Final strict acceptance still requires at least three spatially separated supports.</p></details></html>

@@ -165,14 +165,14 @@ def main():
             p,c=context[date][region['id']];order=np.argsort(p[:,2]);ax.scatter(p[order,0],p[order,1],c=c[order],s=3)
             polygon=np.array(region['polygon']);closed=np.r_[polygon,polygon[:1]];ax.plot(closed[:,0],closed[:,1],color='#dc2626',lw=1)
             ax.set(aspect='equal',title=date,xlabel='X, m',ylabel='Y, m');ax.grid(alpha=.25)
-        axes.flat[-1].axis('off');axes.flat[-1].text(.05,.9,region['label']+'\nRed: fixed XY mask\nZ band: '+str(region['z_range'])+' m\nSelected without 3DGS residuals',va='top')
+        axes.flat[-1].axis('off');axes.flat[-1].text(.05,.9,{'roof':'Fixed-block roof','bank_mid':'Riverside structure, middle section'}[region['id']]+'\nRed: fixed XY mask\nZ band: '+str(region['z_range'])+' m\nSelected without 3DGS residuals',va='top')
         fig.savefig(OUT/f'{region["id"]}_selection_review.png',dpi=160);plt.close(fig)
     fig,axes=plt.subplots(1,3,figsize=(15,4.6),constrained_layout=True)
     for region,ax in zip(regions,axes):
         rr=[r for r in rows if r['region']==region['id']];x=np.arange(7)
         ax.bar(x-.17,[r['median_m'] for r in rr],width=.34,label='Median',color='#188f91')
         ax.bar(x+.17,[r['p90_m'] for r in rr],width=.34,label='P90',color='#dd873c')
-        ax.set(xticks=x,xticklabels=DATES,ylabel='Distance to own masked LAS, m',title=region['label']);ax.tick_params(axis='x',rotation=45);ax.grid(axis='y',alpha=.25);ax.legend()
+        ax.set(xticks=x,xticklabels=DATES,ylabel='Distance to own masked LAS, m',title={'roof':'Fixed-block roof','bank_mid':'Riverside structure, middle section'}[region['id']]);ax.tick_params(axis='x',rotation=45);ax.grid(axis='y',alpha=.25);ax.legend()
     axes[2].plot(DATES,[by_date[d]['roof_plane']['las_plane_z_delta_vs_0929_m'] for d in DATES],'o-',color='#734b97');axes[2].axhline(0,color='gray',lw=.8)
     support=by_date['0929']['roof_plane']['las_fraction_within_015m_of_plane']
     axes[2].set(title=f'Dominant LAS roof plane vs 0929\n0929: {support:.0%} within 0.15 m of plane',ylabel='Plane height difference at fixed XY, m');axes[2].tick_params(axis='x',rotation=45);axes[2].grid(alpha=.25)

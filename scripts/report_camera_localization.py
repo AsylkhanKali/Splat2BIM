@@ -66,16 +66,16 @@ def main():
         photo=cv2.imread(str(DATA/'photos'/pose['name']));photo=cv2.cvtColor(cv2.resize(photo,tuple(pose['image_size'])),cv2.COLOR_BGR2RGB)
         fitted='world_to_camera_rotation' in pose
         fig,axes=plt.subplots(1,3,figsize=(18,5.2),constrained_layout=True)
-        panels=[photo,photo,photo];titles=['Исходное фото','Положение камеры не рассчитано','Положение камеры не рассчитано']
+        panels=[photo,photo,photo];titles=['Original photo','Camera pose unavailable','Camera pose unavailable']
         if fitted:
             R=np.array(pose['world_to_camera_rotation']);t=np.array(pose['world_to_camera_translation'])
             K=np.array(pose['intrinsics']);d=np.array(pose['distortion'])
             panels=[photo,overlay_las(photo,points,R,t,K,d),overlay_edges(photo,edges,R,t,K,d)]
-            titles=['Исходное фото','LAS в рассчитанном ракурсе','BIM v3: каркас, включая скрытые линии']
+            titles=['Original photo','LAS from the estimated camera','BIM v3 wireframe, including hidden edges']
         for ax,panel,title in zip(axes,panels,titles):ax.imshow(panel);ax.set_title(title);ax.axis('off')
-        status='кандидат прошёл фильтр' if pose['status']=='candidate_for_review' else 'ОТКЛОНЁН'
-        note=f" · Δ к COLMAP {pose['center_difference_to_colmap_m']:.2f} м / {pose['rotation_difference_to_colmap_degrees']:.2f}°" if fitted else ''
-        fig.suptitle(f"Снимок {pose['query_index']+1}/12 · {status}{note}\n{pose['name']}",fontsize=13)
+        status='candidate passed the gate' if pose['status']=='candidate_for_review' else 'REJECTED'
+        note=f" · difference vs COLMAP {pose['center_difference_to_colmap_m']:.2f} m / {pose['rotation_difference_to_colmap_degrees']:.2f}°" if fitted else ''
+        fig.suptitle(f"Image {pose['query_index']+1}/12 · {status}{note}\n{pose['name']}",fontsize=13)
         fig.savefig(figures/f"query_{pose['query_index']:02d}.png",dpi=130);plt.close(fig)
     accepted=[p for p in poses if p['status']=='candidate_for_review'];fitted=[p for p in poses if 'camera_center_local_m' in p]
     summary={'queries':len(poses),'accepted_candidates':len(accepted),'rejected':len(poses)-len(accepted),
@@ -85,40 +85,40 @@ def main():
         for name in ['center_difference_to_colmap_m','rotation_difference_to_colmap_degrees','validation_fraction_within_3px']:
             values=[p[name] for p in accepted];summary[name]={'median':float(np.median(values)),'max':float(np.max(values))}
     (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
-    lines=['# Оценка положения камеры по одной фотографии','',
-        f"**0929: {len(accepted)} из {len(poses)} снимков прошли внутренний фильтр качества.** Фотография сопоставляется с опорным набором снимков, затем положение камеры рассчитывается по соответствиям с LAS. BIM остаётся в исходной общей системе координат.",'',
-        '## Протокол','',
-        'Взяты 12 равномерно распределённых по имени доступных кадров. Они и ±10 соседних кадров исключены из опорного набора; точный состав сохранён в `protocol.json`. Опорные камеры уже откалиброваны через прежнюю матрицу COLMAP → LAS. По ним выбираются видимые глубины LAS и строятся 2D–3D соответствия. Используются SIFT/RootSIFT, поиск пяти опорных изображений по визуальному содержимому, взаимные совпадения с отношением расстояний <0,75, PnP-RANSAC и уточнение LM. Координаты/RTK проверяемой камеры не подаются в поиск или оценку позы. Известные параметры объектива проверяемого фото используются.','',
-        'Примерно четверть блоков изображения 150 × 150 пикселей исключена из PnP и LM. Для принятия нужны ≥25 обучающих inliers, доля inliers ≥20%, ≥10 контрольных соответствий, ≥35% контрольных совпадений ближе 3 пикселей, площадь выпуклой оболочки inliers ≥5% кадра и положительная глубина. Порог 3 пикселя задан на изображении 1200 × 900, а не на оригинале 4032 × 3024. Полная медиана ошибки контроля включает ложные соответствия.','',
-        'Все 12 результатов публикуются, включая отказы. Параметры и критерии установлены перед первым запуском этой серии. Это исследовательский опыт на уже известной площадке. Отложенные фото могли участвовать в построении исходного LAS/COLMAP; расстояние до камеры COLMAP измеряет согласованность с тем же проектом и не является независимой абсолютной точностью. Блоки одного фото тоже не независимы статистически.','',
-        '## Результаты','',
-        '| Снимок | Решение | Соответствия / inliers | Контроль ≤3 px | Δ центра к COLMAP, м | Δ поворота, ° |',
+    lines=['# Camera pose from a single photograph','',
+        f"**0929: {len(accepted)} of {len(poses)} images passed the internal quality gate.** The query is matched to a reference image set, then its camera pose is estimated from LAS correspondences. BIM remains in the original shared coordinate frame.",'',
+        '## Protocol','',
+        'Twelve available images are sampled uniformly by filename. These queries and ±10 neighboring frames are excluded from the reference set; protocol.json records the exact split. Reference cameras are calibrated through the previous COLMAP → LAS transform. Visible LAS depths provide 2D–3D correspondences. The method uses SIFT/RootSIFT, visual retrieval of five reference images, mutual matches with distance ratio <0.75, PnP-RANSAC, and LM refinement. Query-camera coordinates and RTK are not used for retrieval or pose fitting. Known query-lens calibration is used.','',
+        'Approximately one quarter of the 150 × 150 pixel image blocks is excluded from PnP and LM. Acceptance requires ≥25 training inliers, an inlier fraction ≥20%, ≥10 control matches, ≥35% of control matches within 3 pixels, an inlier convex hull covering ≥5% of the image, and positive depth. The 3-pixel threshold applies at 1200 × 900, not the original 4032 × 3024 resolution. The full control-error median includes false matches.','',
+        'All 12 results are reported, including any rejections. Parameters and gates were fixed before the first run of this series. This is a research experiment on a known site. Withheld photos may have contributed to the original LAS/COLMAP reconstruction; distance to a COLMAP camera measures internal consistency, not independent absolute accuracy. Blocks within one image are not statistically independent either.','',
+        '## Results','',
+        '| Image | Decision | Matches / inliers | Control ≤3 px | Center difference vs COLMAP, m | Rotation difference, ° |',
         '|---|---|---:|---:|---:|---:|']
     for p in poses:
-        decision='кандидат' if p['status']=='candidate_for_review' else 'отказ'
+        decision='candidate' if p['status']=='candidate_for_review' else 'rejected'
         val=lambda key,fmt:format(p[key],fmt) if key in p else '—'
         lines.append(f"| {p['query_index']+1} | {decision} | {p['correspondences']} / {p.get('ransac_inliers','—')} | {val('validation_fraction_within_3px','.0%')} | {val('center_difference_to_colmap_m','.3f')} | {val('rotation_difference_to_colmap_degrees','.3f')} |")
-    lines+=['','## Наложение на фотографию','',
-        'Бирюзовые точки: прореженный LAS без полного расчёта перекрытий поверхностей. Жёлтые линии: рёбра BIM v3 в рассчитанном ракурсе, включая скрытые конструкции. Объективная дисторсия применяется к проекциям; исходная фотография не выпрямляется. Вариант BIM v3 выбран для иллюстрации, его актуальность на дату 0929 не подтверждена. Качество совпадения с BIM не входит в фильтр камеры. Каркас не является маской построенных объектов; несовпадение может быть связано с состоянием стройки, версией проекта или ошибкой привязки.','']
-    for p in poses:lines+=[f"### Снимок {p['query_index']+1}: {p['name']}",'',f"![Фото, LAS и BIM](figures/query_{p['query_index']:02d}.png)",'']
-    lines+=['## Файлы и повторение','',
-        '`poses.json` содержит матрицы world→camera (X вправо, Y вниз, Z вперёд), центры в локальных метрах, K и коэффициенты дисторсии. Локальное начало: [825800, 842100, 0]. `query_*_matches.npz` хранит контрольные/обучающие пары, индексы inliers и ошибки. `inputs.json` и кэш содержат SHA-256 исходных данных и параметров. Статус candidate_for_review означает внутренний допуск к осмотру, а не геодезическую приёмку.','',
+    lines+=['','## Photo overlays','',
+        'Cyan points show subsampled LAS without full surface-occlusion handling. Yellow lines show BIM v3 edges from the estimated camera, including hidden structures. Lens distortion is applied to projections; the original photo is not rectified. BIM v3 is illustrative; its validity for 0929 is unconfirmed. BIM agreement is not part of the camera gate. The wireframe is not a mask of completed structures; mismatch may reflect construction stage, design revision, or alignment error.','']
+    for p in poses:lines+=[f"### Image {p['query_index']+1}: {p['name']}",'',f"![Photo, LAS and BIM](figures/query_{p['query_index']:02d}.png)",'']
+    lines+=['## Files and reproduction','',
+        '`poses.json` contains world→camera matrices (X right, Y down, Z forward), centers in local metres, K, and distortion coefficients. The local origin is [825800, 842100, 0]. `query_*_matches.npz` stores control/training pairs, inlier indices, and errors. `inputs.json` and the cache contain input and parameter SHA-256 hashes. The status candidate_for_review means internal acceptance for inspection, not survey approval.','',
         '```sh','OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/run_camera_localization.py',
         '.venv/bin/python scripts/report_camera_localization.py','```','',
-        'Отдельный снимок можно обработать командой ниже. Примерная калибровка относится только к первому контрольному фото; для другого объектива/снимка нужна его калибровка. Выходной файл должен быть новым. Фото из самого опорного индекса отклоняется, чтобы не выдавать поиск самого себя за локализацию.','',
+        'The command below processes one image. The example calibration applies only to the first control photo; a different lens/image needs its own calibration. The output file must be new. Images already in the reference index are rejected to avoid presenting self-retrieval as localization.','',
         '```sh',f'.venv/bin/python scripts/localize_photo.py --image assets/0929/photos/{example["name"]} --calibration results/camera_localization/example_calibration.json --output results/camera_localization/my_pose.json','```','',
-        'Метод предполагает известные параметры объектива, перекрытие с опорными фото и уже привязанные камеры опорного набора. Данных для такого же опыта на остальных шести датах нет. Перенос на новую площадку, неизвестный объектив и существенно иной ракурс не проверен.','',
-        'Первичные справочники: [COLMAP: текстовый формат](https://colmap.github.io/format.html), [OpenCV: PnP и LM](https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html), [SIFT](https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html).','']
+        'The method assumes known lens calibration, overlap with reference photos, and already aligned reference cameras. Equivalent data is unavailable for the other six dates. Transfer to a new site, an unknown lens, or a substantially different viewpoint is untested.','',
+        'Primary references: [COLMAP text format](https://colmap.github.io/format.html), [OpenCV PnP and LM](https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html), [SIFT](https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html).','']
     (OUT/'REPORT.md').write_text('\n'.join(lines))
-    gallery=['<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
-        '<title>0929: фото, LAS и BIM</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;background:#fff;margin:24px auto;padding:0 20px;max-width:1400px}p{max-width:78ch}img{width:100%;height:auto}figure{margin:36px 0;border-top:1px solid #ccd2d8;padding-top:16px}a{color:#175794}a:focus-visible{outline:2px solid #175794}figcaption{overflow-wrap:anywhere}h1{font-size:clamp(24px,3vw,36px)}</style>',
-        '<a href="/viewer/">← 3D-просмотрщик</a><h1>0929: оценка камеры по фотографии</h1>',
-        f'<p>{len(accepted)} из {len(poses)} снимков прошли внутренний фильтр. Во всех наложениях используется рассчитанная камера. Положение BIM фиксировано.</p>',
-        '<p>Бирюзовые точки: LAS. Жёлтые линии: BIM v3, включая скрытые конструкции. Разница с COLMAP показывает согласованность с исходным проектом. Независимая геодезическая точность и актуальность BIM не подтверждены.</p>',
-        '<p><a href="REPORT.md">Методика и ограничения</a> · <a href="comparison.csv">Все численные результаты (CSV)</a> · <a href="poses.json">Матрицы камер (JSON)</a></p>']
+    gallery=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
+        '<title>0929: photos, LAS and BIM</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;background:#fff;margin:24px auto;padding:0 20px;max-width:1400px}p{max-width:78ch}img{width:100%;height:auto}figure{margin:36px 0;border-top:1px solid #ccd2d8;padding-top:16px}a{color:#175794}a:focus-visible{outline:2px solid #175794}figcaption{overflow-wrap:anywhere}h1{font-size:clamp(24px,3vw,36px)}</style>',
+        '<a href="/viewer/">← 3D viewer</a><h1>0929: camera pose from a photograph</h1>',
+        f'<p>{len(accepted)} of {len(poses)} images passed the internal gate. All overlays use the estimated camera. BIM placement is fixed.</p>',
+        '<p>Cyan points: LAS. Yellow lines: BIM v3, including hidden structures. Difference from COLMAP measures consistency with the original project. Independent survey accuracy and BIM validity are unconfirmed.</p>',
+        '<p><a href="REPORT.md">Method and limitations</a> · <a href="comparison.csv">All numerical results (CSV)</a> · <a href="poses.json">Camera matrices (JSON)</a></p>']
     for p in poses:
-        decision='Прошёл внутренний фильтр' if p['status']=='candidate_for_review' else 'Отклонён'
-        gallery.append(f'<figure><figcaption><strong>Снимок {p["query_index"]+1}. {decision}</strong><br>{escape(p["name"])}</figcaption><a href="figures/query_{p["query_index"]:02d}.png"><img loading="lazy" width="2340" height="676" src="figures/query_{p["query_index"]:02d}.png" alt="Снимок {p["query_index"]+1}: исходная фотография, наложение LAS и каркас BIM"></a></figure>')
+        decision='Passed the internal gate' if p['status']=='candidate_for_review' else 'Rejected'
+        gallery.append(f'<figure><figcaption><strong>Image {p["query_index"]+1}. {decision}</strong><br>{escape(p["name"])}</figcaption><a href="figures/query_{p["query_index"]:02d}.png"><img loading="lazy" width="2340" height="676" src="figures/query_{p["query_index"]:02d}.png" alt="Image {p["query_index"]+1}: original photo, LAS overlay and BIM wireframe"></a></figure>')
     (OUT/'inspection.html').write_text('\n'.join(gallery)+'</html>\n')
     print(json.dumps(summary,indent=2),flush=True)
 

@@ -1,99 +1,99 @@
-# Оценка положения камеры по одной фотографии
+# Camera pose from a single photograph
 
-**0929: 12 из 12 снимков прошли внутренний фильтр качества.** Фотография сопоставляется с опорным набором снимков, затем положение камеры рассчитывается по соответствиям с LAS. BIM остаётся в исходной общей системе координат.
+**0929: 12 of 12 images passed the internal quality gate.** The query is matched to a reference image set, then its camera pose is estimated from LAS correspondences. BIM remains in the original shared coordinate frame.
 
-## Протокол
+## Protocol
 
-Взяты 12 равномерно распределённых по имени доступных кадров. Они и ±10 соседних кадров исключены из опорного набора; точный состав сохранён в `protocol.json`. Опорные камеры уже откалиброваны через прежнюю матрицу COLMAP → LAS. По ним выбираются видимые глубины LAS и строятся 2D–3D соответствия. Используются SIFT/RootSIFT, поиск пяти опорных изображений по визуальному содержимому, взаимные совпадения с отношением расстояний <0,75, PnP-RANSAC и уточнение LM. Координаты/RTK проверяемой камеры не подаются в поиск или оценку позы. Известные параметры объектива проверяемого фото используются.
+Twelve available images are sampled uniformly by filename. These queries and ±10 neighboring frames are excluded from the reference set; protocol.json records the exact split. Reference cameras are calibrated through the previous COLMAP → LAS transform. Visible LAS depths provide 2D–3D correspondences. The method uses SIFT/RootSIFT, visual retrieval of five reference images, mutual matches with distance ratio <0.75, PnP-RANSAC, and LM refinement. Query-camera coordinates and RTK are not used for retrieval or pose fitting. Known query-lens calibration is used.
 
-Примерно четверть блоков изображения 150 × 150 пикселей исключена из PnP и LM. Для принятия нужны ≥25 обучающих inliers, доля inliers ≥20%, ≥10 контрольных соответствий, ≥35% контрольных совпадений ближе 3 пикселей, площадь выпуклой оболочки inliers ≥5% кадра и положительная глубина. Порог 3 пикселя задан на изображении 1200 × 900, а не на оригинале 4032 × 3024. Полная медиана ошибки контроля включает ложные соответствия.
+Approximately one quarter of the 150 × 150 pixel image blocks is excluded from PnP and LM. Acceptance requires ≥25 training inliers, an inlier fraction ≥20%, ≥10 control matches, ≥35% of control matches within 3 pixels, an inlier convex hull covering ≥5% of the image, and positive depth. The 3-pixel threshold applies at 1200 × 900, not the original 4032 × 3024 resolution. The full control-error median includes false matches.
 
-Все 12 результатов публикуются, включая отказы. Параметры и критерии установлены перед первым запуском этой серии. Это исследовательский опыт на уже известной площадке. Отложенные фото могли участвовать в построении исходного LAS/COLMAP; расстояние до камеры COLMAP измеряет согласованность с тем же проектом и не является независимой абсолютной точностью. Блоки одного фото тоже не независимы статистически.
+All 12 results are reported, including any rejections. Parameters and gates were fixed before the first run of this series. This is a research experiment on a known site. Withheld photos may have contributed to the original LAS/COLMAP reconstruction; distance to a COLMAP camera measures internal consistency, not independent absolute accuracy. Blocks within one image are not statistically independent either.
 
-## Результаты
+## Results
 
-| Снимок | Решение | Соответствия / inliers | Контроль ≤3 px | Δ центра к COLMAP, м | Δ поворота, ° |
+| Image | Decision | Matches / inliers | Control ≤3 px | Center difference vs COLMAP, m | Rotation difference, ° |
 |---|---|---:|---:|---:|---:|
-| 1 | кандидат | 607 / 384 | 88% | 0.114 | 0.031 |
-| 2 | кандидат | 728 / 511 | 74% | 0.117 | 0.036 |
-| 3 | кандидат | 922 / 588 | 89% | 0.152 | 0.045 |
-| 4 | кандидат | 794 / 531 | 90% | 0.190 | 0.052 |
-| 5 | кандидат | 1244 / 847 | 94% | 0.119 | 0.037 |
-| 6 | кандидат | 652 / 442 | 82% | 0.258 | 0.104 |
-| 7 | кандидат | 740 / 399 | 91% | 0.336 | 0.155 |
-| 8 | кандидат | 202 / 84 | 68% | 0.486 | 0.212 |
-| 9 | кандидат | 1045 / 768 | 91% | 0.202 | 0.059 |
-| 10 | кандидат | 527 / 303 | 93% | 0.135 | 0.072 |
-| 11 | кандидат | 1755 / 1210 | 94% | 0.058 | 0.050 |
-| 12 | кандидат | 411 / 249 | 85% | 0.181 | 0.103 |
+| 1 | candidate | 607 / 384 | 88% | 0.114 | 0.031 |
+| 2 | candidate | 728 / 511 | 74% | 0.117 | 0.036 |
+| 3 | candidate | 922 / 588 | 89% | 0.152 | 0.045 |
+| 4 | candidate | 794 / 531 | 90% | 0.190 | 0.052 |
+| 5 | candidate | 1244 / 847 | 94% | 0.119 | 0.037 |
+| 6 | candidate | 652 / 442 | 82% | 0.258 | 0.104 |
+| 7 | candidate | 740 / 399 | 91% | 0.336 | 0.155 |
+| 8 | candidate | 202 / 84 | 68% | 0.486 | 0.212 |
+| 9 | candidate | 1045 / 768 | 91% | 0.202 | 0.059 |
+| 10 | candidate | 527 / 303 | 93% | 0.135 | 0.072 |
+| 11 | candidate | 1755 / 1210 | 94% | 0.058 | 0.050 |
+| 12 | candidate | 411 / 249 | 85% | 0.181 | 0.103 |
 
-## Наложение на фотографию
+## Photo overlays
 
-Бирюзовые точки: прореженный LAS без полного расчёта перекрытий поверхностей. Жёлтые линии: рёбра BIM v3 в рассчитанном ракурсе, включая скрытые конструкции. Объективная дисторсия применяется к проекциям; исходная фотография не выпрямляется. Вариант BIM v3 выбран для иллюстрации, его актуальность на дату 0929 не подтверждена. Качество совпадения с BIM не входит в фильтр камеры. Каркас не является маской построенных объектов; несовпадение может быть связано с состоянием стройки, версией проекта или ошибкой привязки.
+Cyan points show subsampled LAS without full surface-occlusion handling. Yellow lines show BIM v3 edges from the estimated camera, including hidden structures. Lens distortion is applied to projections; the original photo is not rectified. BIM v3 is illustrative; its validity for 0929 is unconfirmed. BIM agreement is not part of the camera gate. The wireframe is not a mask of completed structures; mismatch may reflect construction stage, design revision, or alignment error.
 
-### Снимок 1: DJI_20260929091641_0042_V.jpeg
+### Image 1: DJI_20260929091641_0042_V.jpeg
 
-![Фото, LAS и BIM](figures/query_00.png)
+![Photo, LAS and BIM](figures/query_00.png)
 
-### Снимок 2: DJI_20260929091902_0178_V.jpeg
+### Image 2: DJI_20260929091902_0178_V.jpeg
 
-![Фото, LAS и BIM](figures/query_01.png)
+![Photo, LAS and BIM](figures/query_01.png)
 
-### Снимок 3: DJI_20260929092113_0315_V.jpeg
+### Image 3: DJI_20260929092113_0315_V.jpeg
 
-![Фото, LAS и BIM](figures/query_02.png)
+![Photo, LAS and BIM](figures/query_02.png)
 
-### Снимок 4: DJI_20260929092317_0452_V.jpeg
+### Image 4: DJI_20260929092317_0452_V.jpeg
 
-![Фото, LAS и BIM](figures/query_03.png)
+![Photo, LAS and BIM](figures/query_03.png)
 
-### Снимок 5: DJI_20260929092506_0589_V.jpeg
+### Image 5: DJI_20260929092506_0589_V.jpeg
 
-![Фото, LAS и BIM](figures/query_04.png)
+![Photo, LAS and BIM](figures/query_04.png)
 
-### Снимок 6: DJI_20260929092710_0726_V.jpeg
+### Image 6: DJI_20260929092710_0726_V.jpeg
 
-![Фото, LAS и BIM](figures/query_05.png)
+![Photo, LAS and BIM](figures/query_05.png)
 
-### Снимок 7: DJI_20260929092906_0863_V.jpeg
+### Image 7: DJI_20260929092906_0863_V.jpeg
 
-![Фото, LAS и BIM](figures/query_06.png)
+![Photo, LAS and BIM](figures/query_06.png)
 
-### Снимок 8: DJI_20260929093111_1000_V.jpeg
+### Image 8: DJI_20260929093111_1000_V.jpeg
 
-![Фото, LAS и BIM](figures/query_07.png)
+![Photo, LAS and BIM](figures/query_07.png)
 
-### Снимок 9: DJI_20260929093325_1137_V.jpeg
+### Image 9: DJI_20260929093325_1137_V.jpeg
 
-![Фото, LAS и BIM](figures/query_08.png)
+![Photo, LAS and BIM](figures/query_08.png)
 
-### Снимок 10: DJI_20260929093550_1274_V.jpeg
+### Image 10: DJI_20260929093550_1274_V.jpeg
 
-![Фото, LAS и BIM](figures/query_09.png)
+![Photo, LAS and BIM](figures/query_09.png)
 
-### Снимок 11: DJI_20260929093957_1411_V.jpeg
+### Image 11: DJI_20260929093957_1411_V.jpeg
 
-![Фото, LAS и BIM](figures/query_10.png)
+![Photo, LAS and BIM](figures/query_10.png)
 
-### Снимок 12: DJI_20260929101456_0136_V.jpeg
+### Image 12: DJI_20260929101456_0136_V.jpeg
 
-![Фото, LAS и BIM](figures/query_11.png)
+![Photo, LAS and BIM](figures/query_11.png)
 
-## Файлы и повторение
+## Files and reproduction
 
-`poses.json` содержит матрицы world→camera (X вправо, Y вниз, Z вперёд), центры в локальных метрах, K и коэффициенты дисторсии. Локальное начало: [825800, 842100, 0]. `query_*_matches.npz` хранит контрольные/обучающие пары, индексы inliers и ошибки. `inputs.json` и кэш содержат SHA-256 исходных данных и параметров. Статус candidate_for_review означает внутренний допуск к осмотру, а не геодезическую приёмку.
+`poses.json` contains world→camera matrices (X right, Y down, Z forward), centers in local metres, K, and distortion coefficients. The local origin is [825800, 842100, 0]. `query_*_matches.npz` stores control/training pairs, inlier indices, and errors. `inputs.json` and the cache contain input and parameter SHA-256 hashes. The status candidate_for_review means internal acceptance for inspection, not survey approval.
 
 ```sh
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/run_camera_localization.py
 .venv/bin/python scripts/report_camera_localization.py
 ```
 
-Отдельный снимок можно обработать командой ниже. Примерная калибровка относится только к первому контрольному фото; для другого объектива/снимка нужна его калибровка. Выходной файл должен быть новым. Фото из самого опорного индекса отклоняется, чтобы не выдавать поиск самого себя за локализацию.
+The command below processes one image. The example calibration applies only to the first control photo; a different lens/image needs its own calibration. The output file must be new. Images already in the reference index are rejected to avoid presenting self-retrieval as localization.
 
 ```sh
 .venv/bin/python scripts/localize_photo.py --image assets/0929/photos/DJI_20260929091641_0042_V.jpeg --calibration results/camera_localization/example_calibration.json --output results/camera_localization/my_pose.json
 ```
 
-Метод предполагает известные параметры объектива, перекрытие с опорными фото и уже привязанные камеры опорного набора. Данных для такого же опыта на остальных шести датах нет. Перенос на новую площадку, неизвестный объектив и существенно иной ракурс не проверен.
+The method assumes known lens calibration, overlap with reference photos, and already aligned reference cameras. Equivalent data is unavailable for the other six dates. Transfer to a new site, an unknown lens, or a substantially different viewpoint is untested.
 
-Первичные справочники: [COLMAP: текстовый формат](https://colmap.github.io/format.html), [OpenCV: PnP и LM](https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html), [SIFT](https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html).
+Primary references: [COLMAP text format](https://colmap.github.io/format.html), [OpenCV PnP and LM](https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html), [SIFT](https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html).

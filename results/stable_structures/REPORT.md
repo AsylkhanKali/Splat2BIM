@@ -1,52 +1,52 @@
-# Устойчивые конструкции: повторная строгая проверка
+# Persistent structures: repeated strict validation
 
-Текущий автоматический: основной 7/7, строгий 4/7; Прежние метки 3DGS: основной 7/7, строгий 5/7; Устойчивые конструкции: основной 7/7, строгий 7/7.
+Current automatic: primary 7/7, strict 4/7; Previous 3DGS labels: primary 7/7, strict 5/7; Persistent structures: primary 7/7, strict 7/7.
 
-| Дата | Строгий: текущий / прежний / новый | Новых опор | Медиана / P90 нового, м | Изменение медианы к текущему, мм |
+| Date | Strict: current / previous / new | New supports | New median / P90, m | Median change vs current, mm |
 |---|---|---:|---:|---:|
-| 0331 | да / да / да | 5 | 0.272 / 1.148 | +0.0000 |
-| 0504 | да / да / да | 5 | 0.205 / 0.754 | +0.0036 |
-| 0609 | да / да / да | 8 | 0.253 / 0.805 | -0.0000 |
-| 0708 | нет / нет / да | 3 | 0.255 / 1.006 | +0.0000 |
-| 0723 | нет / нет / да | 3 | 0.213 / 0.753 | +0.0000 |
-| 0831 | да / да / да | 5 | 0.234 / 0.752 | -0.0000 |
-| 0929 | нет / да / да | 4 | 0.219 / 0.742 | -0.0000 |
+| 0331 | yes / yes / yes | 5 | 0.272 / 1.148 | +0.0000 |
+| 0504 | yes / yes / yes | 5 | 0.205 / 0.754 | +0.0036 |
+| 0609 | yes / yes / yes | 8 | 0.253 / 0.805 | -0.0000 |
+| 0708 | no / no / yes | 3 | 0.255 / 1.006 | +0.0000 |
+| 0723 | no / no / yes | 3 | 0.213 / 0.753 | +0.0000 |
+| 0831 | yes / yes / yes | 5 | 0.234 / 0.752 | -0.0000 |
+| 0929 | no / yes / yes | 4 | 0.219 / 0.742 | -0.0000 |
 
-![Сравнение](comparison.png)
+![Comparison](comparison.png)
 
-0708: строгий допуск пройден, опор 3. У одной допустимой тройки вторая ось 3DGS / LAS: 13.650 / 12.388 м (минимум 2 м); минимальное расстояние: 25.98 / 26.26 м (минимум 10 м).
+0708: strict acceptance passed, supports 3. One accepted triple has 3DGS / LAS second axis: 13.650 / 12.388 m (minimum 2 m); minimum spacing: 25.98 / 26.26 m (minimum 10 m).
 
-0723: строгий допуск пройден, опор 3. У одной допустимой тройки вторая ось 3DGS / LAS: 13.123 / 11.698 м (минимум 2 м); минимальное расстояние: 32.93 / 28.60 м (минимум 10 м).
+0723: strict acceptance passed, supports 3. One accepted triple has 3DGS / LAS second axis: 13.123 / 11.698 m (minimum 2 m); minimum spacing: 32.93 / 28.60 m (minimum 10 m).
 
-## Что изменилось
+## What changed
 
-Поверхности выделяются независимо в 3DGS и LAS. К прежним белым фрагментам добавлены связные плоские поверхности всех цветов и заполнение пропусков измеренными точками внутри исходных границ. Новые точки не синтезируются; соседние плоскости и уверенные метки растительности, воды и подвижных объектов исключаются из расширения.
+Surfaces are extracted independently in 3DGS and LAS. Connected planar surfaces of all colors and measured infill within the original footprints supplement the earlier white fragments. No points are synthesized; neighboring planes and confident vegetation, water, and moving-object labels are excluded from growth.
 
-Все варианты одной физической поверхности объединены в семейство. Для опор допускается только одно соответствие на семейство в каждой сцене. Сохраняются все пары внутри прежних геометрических ограничений, чтобы ближайший центр не вытеснял правильную пару. Банк идентичностей фиксируется по начальным гипотезам до ICP; после подгонки новые пары не добавляются.
+All extents of one physical surface belong to one family. Only one correspondence per family in each scene can count as support. All pairs within the existing geometric gates are retained so that the nearest center cannot displace the correct match. The identity bank is fixed from initial hypotheses before ICP; no new pairs are added after fitting.
 
-Целевая опора дополнительно должна иметь не менее 80% точек в пределах 1 м от LAS минимум трёх дат, включая собственную. Проверка использует предоставленную общую систему LAS и не использует матрицы 3DGS. Это свидетельство устойчивости, а не гарантированная классификация: неподвижно стоящая техника теоретически может сохраняться между датами.
+A target support must also have at least 80% of its points within 1 m of LAS from at least three dates, including its own. This check uses the supplied shared LAS frame, not the 3DGS transforms. It provides persistence evidence rather than guaranteed classification: stationary equipment could also persist between dates.
 
-Все численные пороги прежние: центр ≤5 м, нормали ≤20°, отношение размеров 0,5–2; не менее трёх опор, расстояние ≥10 м, вторая ось ≥2 м в обеих сценах. Перекрытие в пределах 1 м: прямое ≥80%, обратное ≥50%. Пределы обучающей медианы 0,5 м, цветовой разницы 0,35 и масштаба сохранены.
+All numerical thresholds are unchanged: center distance ≤5 m, normals ≤20°, size ratio 0.5–2; at least three supports, spacing ≥10 m, and second axis ≥2 m in both scenes. Overlap within 1 m must be ≥80% forward and ≥50% reverse. The training-median limit of 0.5 m, color-difference limit of 0.35, and scale limits are preserved.
 
-Для всех семи дат применены одинаковые правила, те же исходные гипотезы и четыре старта. Оценки стартов взяты из проверенного неизменного опыта с метками 3DGS; ICP и окончательная подгонка выполнены заново. Старые окончательные матрицы вводятся только для сравнения после расчёта.
+All seven dates use the same rules, the same initial hypotheses, and four starts. Start scores come from the verified, unchanged Gaussian-label experiment; ICP and final refinement were run again. Previous final matrices enter only the comparison after fitting.
 
-Максимальное P95 смещения позы относительно текущего метода: 2.49318431e-05 м. Улучшилось подтверждение совмещения независимыми поверхностями; заметного прироста геометрической точности эти результаты не показывают.
+Maximum P95 pose displacement relative to the current method: 2.49318431e-05 m. Independent surfaces provide stronger support for the alignment; these results do not show a meaningful geometric accuracy gain.
 
-Отложенные точки и фиксированная область покрытия одинаковы для трёх методов. Крыша и прибрежная конструкция дополнительно проверены в прежних масках без кранов и техники; static_structures.csv содержит обе контрольные выборки и численность. Эти контрольные области не выбирают параметры или позу.
+Held-out points and fixed coverage are identical for all three methods. The roof and riverside structure are also checked in the previous masks excluding cranes and equipment; static_structures.csv includes both control samples and their counts. These control regions do not select parameters or poses.
 
-Это разработка и внутренняя проверка на одной площадке. Строгий допуск не равен независимой геодезической сертификации. BIM и рабочие экспорты просмотрщика не перестраивались: эксперимент проверяет 3DGS → LAS, а существующее преобразование LAS → BIM сохранено.
+This is development and internal evaluation on one site. Strict acceptance is not independent survey certification. BIM and the working viewer exports were not rebuilt: the experiment checks 3DGS → LAS, while the existing LAS → BIM placement is preserved.
 
-Проверены и менее удачные варианты: только расширение поверхностей теряло полезные исходные границы; временное сопоставление только выделенных фрагментов было чувствительно к их обрезке. Эти диагностические опыты сохранены в results/structural_surfaces. Итоговые численные пороги не подбирались по отложенным ошибкам.
+Less successful variants were also tested: surface growth alone lost useful original extents, and temporal matching of extracted fragments alone was sensitive to clipping. These diagnostic experiments are retained in results/structural_surfaces. Final numerical thresholds were not tuned on held-out errors.
 
-## Проверяемые опоры
+## Inspected supports
 
 ![0708](0708_supports.png)
 
 ![0723](0723_supports.png)
 
-Точные пары, числа точек и даты устойчивости: support_pairs.csv. Все альтернативы, исходные банки, перекрытия и тройки: <дата>/audit.json. Пороговые значения и хеши: protocol.json и extraction_protocol.json. Результат повторной численной проверки: validation.json.
+Exact pairs, point counts, and persistence dates: support_pairs.csv. All alternatives, initial banks, overlaps, and triples: <date>/audit.json. Thresholds and hashes: protocol.json and extraction_protocol.json. Numerical re-verification: validation.json.
 
-## Воспроизведение
+## Reproduction
 
 ```sh
 .venv/bin/python scripts/prepare_stable_structures.py

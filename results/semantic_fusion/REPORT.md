@@ -1,48 +1,48 @@
-# Семантика: распознавание конструкций и отказ 0723
+# Semantics: structure recognition and the 0723 rejection
 
-Текущий комбинированный: 7/7; Прежняя семантика: 6/7; Геометрия + банк пар: 5/7; Прежние метки + банк пар: 7/7; Новые метки + банк пар: 7/7.
+Current combined: 7/7; Previous semantics: 6/7; Geometry + pair bank: 5/7; Previous labels + pair bank: 7/7; New labels + pair bank: 7/7.
 
-Принятых улучшений медианы более 1 см к текущему методу: **0**, ухудшений: **0**. Этот порог описывает размер различия, не статистическую значимость. Рабочий комбинированный метод остаётся основным.
+Accepted median improvements above 1 cm relative to the current method: **0**, regressions: **0**. This threshold describes difference magnitude, not statistical significance. The working combined method remains the default.
 
-## Сравнение всех семи дат
+## All seven dates compared
 
-| Дата | Текущий, медиана / P90, м | Прежняя семантика, допуск | Прежние метки + банк пар, допуск | Новая семантика, медиана / P90, м | Новый допуск |
+| Date | Current median / P90, m | Previous semantics: acceptance | Previous labels + pair bank: acceptance | New semantic median / P90, m | New acceptance |
 |---|---:|---|---|---:|---|
-| 0331 | 0.272 / 1.148 | да | да | 0.272 / 1.148 | да |
-| 0504 | 0.205 / 0.754 | да | да | 0.205 / 0.754 | да |
-| 0609 | 0.253 / 0.805 | да | да | 0.253 / 0.805 | да |
-| 0708 | 0.255 / 1.006 | да | да | 0.255 / 1.006 | да |
-| 0723 | 0.213 / 0.753 | отказ | да | 0.213 / 0.753 | да |
-| 0831 | 0.234 / 0.752 | да | да | 0.234 / 0.752 | да |
-| 0929 | 0.219 / 0.742 | да | да | 0.219 / 0.742 | да |
+| 0331 | 0.272 / 1.148 | yes | yes | 0.272 / 1.148 | yes |
+| 0504 | 0.205 / 0.754 | yes | yes | 0.205 / 0.754 | yes |
+| 0609 | 0.253 / 0.805 | yes | yes | 0.253 / 0.805 | yes |
+| 0708 | 0.255 / 1.006 | yes | yes | 0.255 / 1.006 | yes |
+| 0723 | 0.213 / 0.753 | rejected | yes | 0.213 / 0.753 | yes |
+| 0831 | 0.234 / 0.752 | yes | yes | 0.234 / 0.752 | yes |
+| 0929 | 0.219 / 0.742 | yes | yes | 0.219 / 0.742 | yes |
 
-Допуск — прежний внутренний фильтр масштаба, геометрии, RGB и минимум трёх разнесённых подтверждённых пар. Отклонённые матрицы, если получены, остаются в CSV с явным статусом. Числа описывают расстояние центров гауссианов до данного LAS на одинаковых пространственно отложенных точках с прежней фиксированной областью покрытия; это не независимая геодезическая точность.
+Acceptance uses the previous internal scale, geometry, RGB, and minimum-three-spaced-pairs gates. Rejected matrices, where available, remain in the CSV with explicit status. Distances are from Gaussian centers to the supplied LAS on identical spatially held-out points with the previous fixed coverage; this is not independent survey accuracy.
 
-Текущий метод здесь — автоматический выбор из `object_recovery/selection.json`; он отличается от исторических полных экспортов просмотрщика. Ни текущая окончательная матрица, ни RTK, ни ручной старт 0708 не используются для выбора новых стартов.
+The current method here is the automatic selection from `object_recovery/selection.json`; it differs from the historical full viewer exports. Neither the current final matrix, RTK, nor the manual 0708 seed is used to select new starts.
 
-## Что изменено
+## What changed
 
-1. Добавлен специалист по зданиям: [SegFormer-B2, обученный на LoveDA](https://huggingface.co/wu-pr-gw/segformer-b2-finetuned-with-LoveDA), версия `5c74556c08bebb5f45f50b6f78f61a62c5d220c7`. [LoveDA](https://github.com/Junjue-Wang/LoveDA) содержит отдельный класс зданий на видах сверху. Конфигурация автора задаёт восемь выходов, включая Ignore/Background; используется её нормализация. Код из репозитория модели не исполняется; PyTorch читает только веса через `weights_only=True`, SHA-256 весов проверен.
+1. A building specialist is added: [SegFormer-B2 trained on LoveDA](https://huggingface.co/wu-pr-gw/segformer-b2-finetuned-with-LoveDA), revision `5c74556c08bebb5f45f50b6f78f61a62c5d220c7`. [LoveDA](https://github.com/Junjue-Wang/LoveDA) includes a building class in overhead imagery. The upstream configuration has eight outputs, including Ignore/Background, and its normalization is used. No repository code is executed; PyTorch loads weights through `weights_only=True`, and their SHA-256 is verified.
 
-2. Виды строятся по прежним обучающим точкам. Для изображения пробелы заполняются ближайшим наблюдаемым цветом и медианным фильтром 3×3. В источнике радиус связан с размером отложенной плитки 0,4 исходной единицы; в LAS — 24 пикселя. Это приближение контекста, а не восстановленная поверхность: заполненные пиксели никогда не становятся 3D-точками. Возле границ видны искусственные продолжения текстуры.
+2. Views use the previous training points. Image gaps are filled from the nearest observed color and a 3×3 median filter. The source radius follows the 0.4-source-unit holdout tile size; the LAS radius is 24 pixels. This approximates context rather than reconstructing a surface: filled pixels never become 3D points. Artificial texture extensions are visible near boundaries.
 
-3. LoveDA применяется как специалист по зданиям при вероятности ≥0,6. Остальные классы сохраняет прежняя drone-модель. Её уверенные метки растительности, воды и подвижных объектов защищены от замены зданиями. Прежние метки конструкций заменяются новым прогнозом либо неопределённостью. Полная замена всех классов на LoveDA была отброшена из-за отсутствия достаточных общих классов в части пар облаков, до итогового семидатного сравнения. Сырые прогнозы всех дат сохранены в `semantic_structures`; диагностический запуск регистрации 0331 также сохранён.
+3. LoveDA supplies building predictions at probability ≥0.6. The previous drone model supplies other classes. Confident vegetation, water, and moving-object labels are protected from replacement. Previous structure labels become either the new prediction or uncertainty. Replacing all classes with LoveDA was rejected before the final seven-date comparison because some cloud pairs lacked enough shared classes. Raw predictions for every date remain in `semantic_structures`, together with the diagnostic 0331 registration run.
 
-4. Для каждого выбранного старта заранее объединяются пары, предложенные исходными гипотезами в окрестности RMS <2 м по тем же обучающим якорям. Каждая пара хранит номера предложивших её гипотез. После подгонки допускаются только эти исходные идентичности с прежним взаимно однозначным геометрическим назначением, двусторонним перекрытием и пространственным разнесением. Новые пары из окончательной позы не добавляются.
+4. Before fitting each selected start, pairs proposed by initial hypotheses within RMS <2 m on the same training anchors are pooled. Each pair records its proposing hypothesis IDs. After fitting, only these identities can pass the existing one-to-one geometric assignment, bidirectional overlap, and spacing gates. No new pairs are added from the final pose.
 
-Все три новых варианта имеют одинаковый пул и бюджет четырёх стартов, одинаковые этапы ICP и финальной подгонки. Контроль «прежние метки + банк пар» отделяет исправление 0723 от новой нейросети. Отложенные ошибки не задают параметры. Это следующий опыт разработки на уже известной площадке, не новый независимый тест.
+All three new variants use the same pool, four-start budget, ICP stages, and final refinement. The old-labels-plus-pair-bank control separates the 0723 fix from the new network. Held-out errors do not set parameters. This is another development experiment on a known site, not a new independent test.
 
-## Почему отказывал 0723
+## Why 0723 was rejected
 
-У прежних геометрического и семантического результатов максимальная разница элементов матрицы была 8,53×10⁻¹⁴: положение практически одинаково. Однако старт `recovery_366` сохранял пять пар, а соседний `recovery_373` — шесть. Среди прежних подтверждённых пар две находятся близко и не дают отдельных пространственных опор.
+The previous geometric and semantic results differed by at most 8.53×10⁻¹⁴ in their matrix entries: their poses were effectively identical. However, start `recovery_366` retained five pairs while neighboring `recovery_373` retained six. Two previously confirmed pairs are too close to count as separate spatial supports.
 
-Банк соседних стартов 558 и 564 добавляет одну заранее предложенную пару `p8_c16 → p8_c39`. В диагностике старой окончательной позы она даёт третью разнесённую опору. Её доли точек ближе 1 м: 71,2% вперёд и 55,4% назад, расстояние центров 4,895 м при лимите 5 м. Это ограниченный запас, а не подтверждение высокой надёжности. `0723_failure_analysis.json` сохраняет все детали.
+The bank around starts 558 and 564 adds one previously proposed pair, `p8_c16 → p8_c39`. Diagnostics of the old final pose show that it supplies a third spaced support. Its fractions within 1 m are 71.2% forward and 55.4% reverse, with center distance 4.895 m against a 5 m limit. This is a narrow margin, not evidence of high reliability. `0723_failure_analysis.json` preserves the details.
 
-Строгая проверка минимум трёх пар с прямым перекрытием ≥80%: Текущий комбинированный 4/7, Прежняя семантика 5/7, Геометрия + банк пар 3/7, Прежние метки + банк пар 5/7, Новые метки + банк пар 5/7. Новый вариант всё ещё не проходит строгую проверку на 0708 и 0723. Увеличение числа пар при прежней матрице не означает улучшения точности.
+Strict check requiring at least three pairs with forward overlap ≥80%: Current combined 4/7, Previous semantics 5/7, Geometry + pair bank 3/7, Previous labels + pair bank 5/7, New labels + pair bank 5/7. The new variant still fails strict checks on 0708 and 0723. More supporting pairs at the same pose do not imply higher accuracy.
 
-## Проверка распознавания
+## Recognition evaluation
 
-| Дата | Крыша LAS, старый → новый прогноз | Крыша 3DGS, новый прогноз | Ложные конструкции в растительности LAS |
+| Date | LAS roof: old → new prediction | 3DGS roof: new prediction | False structures in LAS vegetation |
 |---|---:|---:|---:|
 | 0331 | 0.0% → 64.4% | 0.0% | 0.0% |
 | 0504 | 0.0% → 90.8% | 0.0% | 0.0% |
@@ -52,17 +52,17 @@
 | 0831 | 0.0% → 99.3% | 0.0% | 0.0% |
 | 0929 | 0.0% → 8.0% | 0.0% | 0.0% |
 
-![Распознавание контрольной крыши](recognition.png)
+![Control-roof recognition](recognition.png)
 
-Это доля видимых точек в фиксированных диагностических объёмах, не IoU и не глобальная точность классификации. Использованы ранее проверенная крыша и отдельно осмотренная по RGB полоса растительности без строений. Числа точек и старые/новые метки для обоих облаков находятся в `recognition.csv`. Предыдущая автоматическая матрица используется только для расположения диагностических объёмов в источнике; эти объёмы не читаются сегментацией или регистрацией.
+These are visible-point fractions inside fixed diagnostic volumes, not IoU or global classification accuracy. The regions are the previously inspected roof and an RGB-reviewed vegetation strip without buildings. `recognition.csv` records counts and old/new labels for both clouds. The previous automatic matrix only locates diagnostic volumes in the source; segmentation and registration do not read these volumes.
 
-**Улучшение распознавания частичное:** крыша LAS распознаётся на пяти датах, но крыша 3DGS остаётся пропущенной на всех семи. Уверенных меток зданий недостаточно для общего класса на датах 0609, 0708, 0723, 0831. Шумные центры гауссианов и отсутствующие плитки сильно отличаются от снимков, на которых обучена модель. Нужна проверенная разметка и адаптация к этим проекциям либо более качественные виды 3DGS; увеличение числа оранжевых точек не доказывает точности распознавания.
+**Recognition improves partially:** the LAS roof is detected on five dates, but the 3DGS roof is still missed on all seven. There are too few confident building labels for a shared class on dates 0609, 0708, 0723, 0831. Noisy Gaussian centers and missing tiles differ strongly from the training imagery. Reviewed labels and adaptation to these projections, or better 3DGS views, are needed; more orange points do not prove recognition accuracy.
 
-[RGB-проверка отрицательной области](negative_region_review.png). На одной крыше и одной полосе растительности нельзя установить полноту и точность распознавания всей стройплощадки. Модели не имеют отдельного класса кранов. Локальная проверка неподвижных конструкций использует прежние маски исключения техники.
+[RGB review of the negative region](negative_region_review.png). One roof and one vegetation strip cannot establish precision and recall for the whole site. The models have no separate crane class. Local stable-structure evaluation uses the previous equipment-exclusion masks.
 
-## Неподвижные конструкции и воспроизведение
+## Stable structures and reproduction
 
-В `static_structures.csv` сохранены крыша и прибрежная конструкция: отдельные неиспользованные записи и строгие пространственные выборки. Первая выборка имеет соседей в обучении, вторая на узких конструкциях часто мала. Пустые метрики не заменены нулями. BIM и рабочие полные PLY не перемещаются.
+`static_structures.csv` records the roof and riverside structure using both unused records and strict spatial samples. The first sample has nearby training points; the second is often small on narrow structures. Empty metrics are not replaced with zeros. BIM and the working full PLYs are not moved.
 
 ```sh
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/prepare_semantic_structures.py
@@ -74,6 +74,6 @@ OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python -m unittest discover -
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/verify_semantic_fusion.py
 ```
 
-Требуются сохранённые геометрические пулы и прежние drone-метки. Новых пакетов не добавлено. Веса, параметры и хеши кода зафиксированы до итогового сравнения. `validation.json` содержит численную перепроверку, `http_checks.json` — проверку локальных страниц. [Предыдущий опыт](../semantic_initial/REPORT.md) сохранён.
+The saved geometric pools and previous drone labels are required. No packages were added. Weights, parameters, and code hashes were fixed before the final comparison. `validation.json` records numerical re-verification; `http_checks.json` records local-page checks. The [previous experiment](../semantic_initial/REPORT.md) is retained.
 
-В файлах `*_labels.npz` поля `labels`, `confidence` и `label_origin` описывают итоговое решение. `probabilities` сохраняет исходные вероятности drone-модели, а `building_expert_probabilities` — прогноз LoveDA; это два отдельных распределения, не единая откалиброванная вероятность нового метода. `label_origin`: 0 — прежний класс, 1 — специалист по зданиям, 2 — прежняя метка здания заменена неопределённостью.
+In `*_labels.npz`, `labels`, `confidence`, and `label_origin` describe the final decision. `probabilities` retains the original drone-model probabilities, while `building_expert_probabilities` holds LoveDA predictions. These are separate distributions, not a single calibrated probability for the fused method. `label_origin`: 0 = previous class, 1 = building specialist, 2 = previous building label replaced with uncertainty.

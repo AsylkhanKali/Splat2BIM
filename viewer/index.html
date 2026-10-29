@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Loop — съёмки, LAS и BIM</title>
+<title>Splat2BIM | The Loop: captures, LAS and BIM</title>
 <style>
   * { box-sizing: border-box; } body { margin:0; background:#151b22; color:#e8edf3; font:14px system-ui,sans-serif; }
   canvas { display:block; } aside { position:fixed; z-index:2; top:65px; left:20px; width:285px; padding:18px; background:#17202aee; border:1px solid #465363; border-radius:9px; max-height:calc(100vh - 125px); overflow:auto; }
@@ -24,39 +24,39 @@
   aside a { color:#9ad9ff; } :focus-visible { outline:2px solid #9ad9ff;outline-offset:3px; }
   @media (max-width:700px) { aside:not(.open) { display:none; } #help { max-width:calc(100vw - 40px); } }
 </style>
-<button id="panel" aria-expanded="true">Слои и виды</button>
-<label id="date-control">Дата <select id="date" aria-label="Дата съёмки" disabled><option value="0929">29.09 · 0929</option></select><span id="loading" role="status" aria-live="polite">…</span></label>
+<button id="panel" aria-expanded="true">Layers & views</button>
+<label id="date-control">Date <select id="date" aria-label="Capture date" disabled><option value="0929">Sep 29 · 0929</option></select><span id="loading" role="status" aria-live="polite">…</span></label>
 <aside>
-  <h1 id="heading">0929 · The Loop</h1><p>3DGS привязана к LAS · общая система метров<br>BIM не подгоняется к отдельным датам</p>
+  <h1 id="heading">0929 · The Loop</h1><p>3DGS aligned to LAS · shared metre coordinates<br>BIM uses the same frame for every date</p>
   <div id="metrics"></div>
   <details class="rule" id="quality-panel">
-    <summary>Проверка совмещения</summary>
-    <label class="quality-region-label">Выборка <select id="quality-source" aria-label="Выборка проверки" disabled><option value="static">Неподвижные конструкции</option><option value="common">Общие ячейки 20 × 20 м</option></select></label>
-    <p id="quality-description">Загрузка методики…</p>
-    <div id="quality-summary">Загрузка проверки…</div>
-    <label><input id="quality" type="checkbox" disabled> Показать расстояния до LAS</label>
-    <label class="quality-region-label">Зоны для проверки <select id="quality-region" aria-label="Зона проверки" disabled><option value="">Все общие участки</option></select></label>
+    <summary>Alignment checks</summary>
+    <label class="quality-region-label">Sample <select id="quality-source" aria-label="Evaluation sample" disabled><option value="static">Stable structures</option><option value="common">Shared 20 × 20 m cells</option></select></label>
+    <p id="quality-description">Loading evaluation method…</p>
+    <div id="quality-summary">Loading checks…</div>
+    <label><input id="quality" type="checkbox" disabled> Show distances to LAS</label>
+    <label class="quality-region-label">Inspection regions <select id="quality-region" aria-label="Inspection region" disabled><option value="">All shared regions</option></select></label>
     <div id="quality-region-info"></div>
-    <p><a id="quality-report" href="/results/static_structures/REPORT.md" target="_blank" rel="noopener">Методика и полный отчёт</a></p>
-    <p><a href="/results/las_vertical/REPORT.md" target="_blank" rel="noopener">LAS между датами: проверка высоты</a></p>
+    <p><a id="quality-report" href="/results/static_structures/REPORT.md" target="_blank" rel="noopener">Method and full report</a></p>
+    <p><a href="/results/las_vertical/REPORT.md" target="_blank" rel="noopener">Cross-date LAS elevation check</a></p>
   </details>
-  <label><input id="gs" type="checkbox" checked> 3DGS · реальная съёмка</label>
-  <label><input id="bim" type="checkbox" checked> BIM <select id="version" aria-label="Версия BIM"><option>v3</option><option>v2</option><option>v1</option></select></label>
-  <label><input id="las" type="checkbox"> LAS · опорное облако</label>
-  <label><input id="xray" type="checkbox" checked> Каркас BIM, включая скрытые части</label>
-  <label>Прозрачность BIM <input id="opacity" aria-label="Прозрачность BIM" type="range" min="0" max="1" step="0.05" value="0.35" style="width:105px"></label>
-  <div class="rule"><button id="overview">Общий вид</button><button id="top">Сверху</button><button id="photo">Ракурс дрона 0929</button></div>
-  <p><a href="/results/camera_localization/inspection.html">Фото → модель: 12 проверок камер 0929</a></p>
-  <p><a href="/results/semantic_fusion/inspection.html">Семантическое сопоставление: конструкции и проверка семи дат</a></p>
-  <p><a href="/results/semantic_3dgs/inspection.html">Распознавание 3DGS и строгие отказы 0708 / 0723</a></p>
-  <p><a href="/results/semantic_3dgs_registration/inspection.html">Совмещение с новыми метками — сравнение семи дат</a></p>
-  <p><a href="/results/stable_structures/inspection.html">Устойчивые конструкции — строгая проверка 7/7 дат</a></p>
-  <p><a href="/results/reviewed_structural_refinement/inspection.html">Новое: точность по крыше и берегу — до / после</a></p>
-  <label>Участок <select id="focus" aria-label="Участок BIM" style="max-width:180px"><option value="">Выбрать конструкцию…</option></select></label>
-  <div id="selection"></div><div id="status">Загрузка 3DGS…</div><div id="error"></div>
+  <label><input id="gs" type="checkbox" checked> 3DGS · captured site</label>
+  <label><input id="bim" type="checkbox" checked> BIM <select id="version" aria-label="BIM revision"><option>v3</option><option>v2</option><option>v1</option></select></label>
+  <label><input id="las" type="checkbox"> LAS · reference cloud</label>
+  <label><input id="xray" type="checkbox" checked> BIM wireframe, including hidden parts</label>
+  <label>BIM opacity <input id="opacity" aria-label="BIM opacity" type="range" min="0" max="1" step="0.05" value="0.35" style="width:105px"></label>
+  <div class="rule"><button id="overview">Overview</button><button id="top">Top view</button><button id="photo">0929 drone view</button></div>
+  <p><a href="/results/camera_localization/inspection.html">Photo to model: 12 camera checks (0929)</a></p>
+  <p><a href="/results/semantic_fusion/inspection.html">Semantic matching across seven dates</a></p>
+  <p><a href="/results/semantic_3dgs/inspection.html">3DGS recognition: earlier strict failures</a></p>
+  <p><a href="/results/semantic_3dgs_registration/inspection.html">New-label registration: seven-date comparison</a></p>
+  <p><a href="/results/stable_structures/inspection.html">Persistent structures: strict checks pass 7/7</a></p>
+  <p><a href="/results/reviewed_structural_refinement/inspection.html">Roof and riverside accuracy: before / after</a></p>
+  <label>Structure <select id="focus" aria-label="BIM structure" style="max-width:180px"><option value="">Select a structure…</option></select></label>
+  <div id="selection"></div><div id="status">Loading 3DGS…</div><div id="error"></div>
 </aside>
-<div id="quality-legend" hidden><strong>Расстояние контрольного центра до LAS</strong><div class="distance-key"><span><i style="background:#2dd4bf"></i>&lt; 0,25 м</span><span><i style="background:#fde047"></i>0,25–0,5 м</span><span><i style="background:#fb923c"></i>0,5–1 м</span><span><i style="background:#f472b6"></i>≥ 1 м</span></div><div>Точки показаны поверх сцены, включая скрытые.</div></div>
-<div id="help">Жёлтый — BIM · бирюзовая рамка — выбранный участок<br>Левая кнопка — вращать · правая — перемещать · колёсико — масштаб</div>
+<div id="quality-legend" hidden><strong>Control-center distance to LAS</strong><div class="distance-key"><span><i style="background:#2dd4bf"></i>&lt; 0.25 m</span><span><i style="background:#fde047"></i>0.25–0.5 m</span><span><i style="background:#fb923c"></i>0.5–1 m</span><span><i style="background:#f472b6"></i>≥ 1 m</span></div><div>Points are drawn over the scene, including hidden points.</div></div>
+<div id="help">Yellow: BIM · cyan outline: selected region<br>Left drag: orbit · right drag: pan · wheel: zoom</div>
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","@sparkjsdev/spark":"./node_modules/@sparkjsdev/spark/dist/spark.module.js"}}</script>
 <script type="module" src="./main.js"></script>
 </html>

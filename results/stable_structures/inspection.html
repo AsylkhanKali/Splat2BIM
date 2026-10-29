@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Persistent structures: seven dates</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:100ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:9px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}h1{font-size:clamp(24px,3vw,36px)}a:focus-visible,summary:focus-visible{outline:2px solid #175794}</style>
+<a href="/viewer/">← 3D viewer</a><h1>Persistent structures: strict validation</h1><p>Current automatic: primary 7/7, strict 4/7; Previous 3DGS labels: primary 7/7, strict 5/7; Persistent structures: primary 7/7, strict 7/7.</p>
+<p>Thresholds are unchanged. New supports are checked for persistence across LAS dates; each physical surface counts once.</p>
+<p><a href="REPORT.md">Method</a> · <a href="summary.csv">Comparison CSV</a> · <a href="support_pairs.csv">Support pairs</a> · <a href="static_structures.csv">Control structures</a> · <a href="validation.json">Numerical verification</a></p>
+<div class="table"><table><thead><tr><th>Date</th><th>Strict: current / previous / new</th><th>New supports</th><th>Median / P90, m</th><th>Median change vs current, mm</th></tr></thead><tbody>
+<tr><td>0331</td><td>yes / yes / yes</td><td>5</td><td>0.272 / 1.148</td><td>+0.0000</td></tr>
+<tr><td>0504</td><td>yes / yes / yes</td><td>5</td><td>0.205 / 0.754</td><td>+0.0036</td></tr>
+<tr><td>0609</td><td>yes / yes / yes</td><td>8</td><td>0.253 / 0.805</td><td>-0.0000</td></tr>
+<tr><td>0708</td><td>no / no / yes</td><td>3</td><td>0.255 / 1.006</td><td>+0.0000</td></tr>
+<tr><td>0723</td><td>no / no / yes</td><td>3</td><td>0.213 / 0.753</td><td>+0.0000</td></tr>
+<tr><td>0831</td><td>yes / yes / yes</td><td>5</td><td>0.234 / 0.752</td><td>-0.0000</td></tr>
+<tr><td>0929</td><td>no / yes / yes</td><td>4</td><td>0.219 / 0.742</td><td>-0.0000</td></tr>
+</tbody></table></div><p>Previous refers to the earlier Gaussian-label experiment. Errors use identical held-out points relative to LAS.</p>
+<img src="comparison.png" alt="Strict supports and errors across all seven dates">
+<h2>0708 and 0723</h2>
+<p>0708: strict acceptance passed, supports 3. One accepted triple has 3DGS / LAS second axis: 13.650 / 12.388 m (minimum 2 m); minimum spacing: 25.98 / 26.26 m (minimum 10 m).</p>
+<p>0723: strict acceptance passed, supports 3. One accepted triple has 3DGS / LAS second axis: 13.123 / 11.698 m (minimum 2 m); minimum spacing: 32.93 / 28.60 m (minimum 10 m).</p>
+<img src="0708_supports.png" alt="Map and aligned surfaces 0708"><img src="0723_supports.png" alt="Map and aligned surfaces 0723">
+<details><summary>Method and limitations</summary>
+<p>Surfaces are extracted independently in 3DGS and LAS. Connected planar surfaces of all colors and measured infill within the original footprints supplement the earlier white fragments. No points are synthesized; neighboring planes and confident vegetation, water, and moving-object labels are excluded from growth.</p>
+<p>All extents of one physical surface belong to one family. Only one correspondence per family in each scene can count as support. All pairs within the existing geometric gates are retained so that the nearest center cannot displace the correct match. The identity bank is fixed from initial hypotheses before ICP; no new pairs are added after fitting.</p>
+<p>A target support must also have at least 80% of its points within 1 m of LAS from at least three dates, including its own. This check uses the supplied shared LAS frame, not the 3DGS transforms. It provides persistence evidence rather than guaranteed classification: stationary equipment could also persist between dates.</p>
+<p>All numerical thresholds are unchanged: center distance ≤5 m, normals ≤20°, size ratio 0.5–2; at least three supports, spacing ≥10 m, and second axis ≥2 m in both scenes. Overlap within 1 m must be ≥80% forward and ≥50% reverse. The training-median limit of 0.5 m, color-difference limit of 0.35, and scale limits are preserved.</p>
+<p>All seven dates use the same rules, the same initial hypotheses, and four starts. Start scores come from the verified, unchanged Gaussian-label experiment; ICP and final refinement were run again. Previous final matrices enter only the comparison after fitting.</p>
+<p>Maximum P95 pose displacement relative to the current method: 2.49318431e-05 m. Independent surfaces provide stronger support for the alignment; these results do not show a meaningful geometric accuracy gain.</p>
+<p>Held-out points and fixed coverage are identical for all three methods. The roof and riverside structure are also checked in the previous masks excluding cranes and equipment; static_structures.csv includes both control samples and their counts. These control regions do not select parameters or poses.</p>
+<p>This is development and internal evaluation on one site. Strict acceptance is not independent survey certification. BIM and the working viewer exports were not rebuilt: the experiment checks 3DGS → LAS, while the existing LAS → BIM placement is preserved.</p>
+<p>Less successful variants were also tested: surface growth alone lost useful original extents, and temporal matching of extracted fragments alone was sensitive to clipping. These diagnostic experiments are retained in results/structural_surfaces. Final numerical thresholds were not tuned on held-out errors.</p>
+</details></html>

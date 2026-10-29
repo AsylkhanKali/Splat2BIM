@@ -15,9 +15,9 @@ Multi-date 3D Gaussian Splatting registration, LAS reference alignment, and BIM 
 
 </div>
 
-![Splat2BIM viewer showing a reconstructed construction site, yellow BIM geometry and colored LAS-distance samples](results/common_areas/viewer_quality.png)
+![Splat2BIM English viewer showing the reconstructed construction site and yellow BIM geometry](docs/images/viewer-english.jpg)
 
-*Actual local viewer: reconstructed site, BIM overlay, date selection, and distance diagnostics. The current interface and several detailed reports are in Russian.*
+*Actual local viewer: reconstructed site, BIM overlay, and date selection. The viewer, principal reports, and plot labels are in English.*
 
 ## What it does
 
@@ -137,12 +137,12 @@ Splat2BIM/
 ├── starter_code/        Supplied preprocessing utilities, preserved unchanged
 ├── docs/DATA.md         Input layout, model downloads, and reproduction commands
 ├── RESEARCH_NOTES.md    Detailed experimental history and method notes
-├── PROJECT_STATUS.md    Detailed project status and deliverables (Russian)
+├── PROJECT_STATUS.md    Project status, deliverables, and research limitations
 ├── requirements.txt     Pinned Python development environment
 └── .gitignore           Raw data, large outputs, environments, and cache exclusions
 ```
 
-The [results guide](results/README.md) distinguishes tracked evidence from generated files. Some archived reports link to local artifacts that must be regenerated. Numerical `verify_*.py` scripts require the original inputs and full experiment outputs; stored validation JSON files are receipts from the completed local runs.
+The [results guide](results/README.md) distinguishes tracked evidence from generated files. The principal reports include their figures; some archived reports link to local artifacts that must be regenerated. Numerical `verify_*.py` scripts require the original inputs and full experiment outputs. Stored validation JSON files are receipts from the completed local runs; [presentation provenance](docs/PRESENTATION.md) separately documents the English edition and its checks.
 
 ## Scope and limitations
 

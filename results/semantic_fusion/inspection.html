@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Structure recognition and the 0723 fix</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:85ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:8px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}details{border-bottom:1px solid #ccd2d8}a:focus-visible,summary:focus-visible{outline:2px solid #175794}h1{font-size:clamp(24px,3vw,36px)}</style>
+<a href="/viewer/">← 3D viewer</a><h1>Structure recognition and the 0723 fix</h1>
+<p>Primary gate: current method 7/7; previous semantics 6/7; previous labels with pair bank 7/7; new variant 7/7.</p>
+<p>On 0723, a distant support was lost when choosing between neighboring starts. Their initial pairs are now retained before fitting and pass the existing checks. This correspondence fix is separate from building recognition.</p>
+<p>New-variant strict acceptance: 5/7. 0708 and 0723 still fail; 7/7 refers to the primary gate.</p>
+<p><a href="REPORT.md">Full report</a> · <a href="summary.csv">All variants CSV</a> · <a href="recognition.csv">Recognition CSV</a> · <a href="static_structures.csv">Stable structures</a> · <a href="../semantic_initial/inspection.html">Earlier experiment (archived)</a></p>
+<div class="table"><table><thead><tr><th>Date</th><th>Current median / P90, m</th><th>New median / P90, m</th><th>New acceptance</th><th>LAS roof: before → after</th></tr></thead><tbody>
+<tr><td>0331</td><td>0.272 / 1.148</td><td>0.272 / 1.148</td><td>yes</td><td>0% → 64.4%</td></tr>
+<tr><td>0504</td><td>0.205 / 0.754</td><td>0.205 / 0.754</td><td>yes</td><td>0% → 90.8%</td></tr>
+<tr><td>0609</td><td>0.253 / 0.805</td><td>0.253 / 0.805</td><td>yes</td><td>0% → 89.3%</td></tr>
+<tr><td>0708</td><td>0.255 / 1.006</td><td>0.255 / 1.006</td><td>yes</td><td>0% → 0.0%</td></tr>
+<tr><td>0723</td><td>0.213 / 0.753</td><td>0.213 / 0.753</td><td>yes</td><td>0% → 0.0%</td></tr>
+<tr><td>0831</td><td>0.234 / 0.752</td><td>0.234 / 0.752</td><td>yes</td><td>0% → 99.3%</td></tr>
+<tr><td>0929</td><td>0.219 / 0.742</td><td>0.219 / 0.742</td><td>yes</td><td>0% → 8.0%</td></tr>
+</tbody></table></div>
+<p>Distances use identical held-out points. The current combined method remains the default; new semantics has not established an overall accuracy gain.</p>
+<img src="recognition.png" alt="LAS roof detected on five dates; 3DGS roof still missed on all seven">
+<p><strong>Recognition improves partially.</strong> LoveDA identifies buildings in LAS; the previous model retains other classes. The 3DGS control roof is still missed. Fractions on one roof do not measure whole-model accuracy.</p>
+<details><summary>0331: images and classes before / after</summary><a href="0331/semantics.png"><img loading="lazy" src="0331/semantics.png" alt="0331: images, previous and new semantic classes"></a></details>
+<details><summary>0504: images and classes before / after</summary><a href="0504/semantics.png"><img loading="lazy" src="0504/semantics.png" alt="0504: images, previous and new semantic classes"></a></details>
+<details><summary>0609: images and classes before / after</summary><a href="0609/semantics.png"><img loading="lazy" src="0609/semantics.png" alt="0609: images, previous and new semantic classes"></a></details>
+<details><summary>0708: images and classes before / after</summary><a href="0708/semantics.png"><img loading="lazy" src="0708/semantics.png" alt="0708: images, previous and new semantic classes"></a></details>
+<details><summary>0723: images and classes before / after</summary><a href="0723/semantics.png"><img loading="lazy" src="0723/semantics.png" alt="0723: images, previous and new semantic classes"></a></details>
+<details><summary>0831: images and classes before / after</summary><a href="0831/semantics.png"><img loading="lazy" src="0831/semantics.png" alt="0831: images, previous and new semantic classes"></a></details>
+<details><summary>0929: images and classes before / after</summary><a href="0929/semantics.png"><img loading="lazy" src="0929/semantics.png" alt="0929: images, previous and new semantic classes"></a></details></html>

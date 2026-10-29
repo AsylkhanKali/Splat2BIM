@@ -1,38 +1,38 @@
-# Можно ли совместить даты одной поправкой высоты?
+# Can a single elevation correction align the dates?
 
-27 октября 2026. Проверены исходные LAS всех семи дат в двух ранее зафиксированных контрольных объёмах: крыша и узкая прибрежная конструкция. Краны и проезды техники находятся вне этих объёмов.
+27 October 2026. The original LAS from all seven dates is checked in two previously fixed control volumes: a roof and a narrow riverside structure. Cranes and equipment access routes lie outside these volumes.
 
-**Поправка, рассчитанная по крыше, ухудшает прибрежный контроль на 0331, 0504, 0831.** Результат сохраняется при всех девяти проверенных сочетаниях радиуса XY и размера блока. Для остальных трёх дат медиана уменьшается, но этого недостаточно, чтобы объявить всю съёмку исправленной. Единая вертикальная поправка для каждого облака по этим двум объектам пока не обоснована.
+**A roof-derived correction worsens the riverside control on 0331, 0504, 0831.** The result holds for all nine tested XY-radius/block-size combinations. The median decreases on the other three dates, but that does not establish correction of an entire capture. A single vertical correction per cloud is not justified by these two objects.
 
-Пробные сдвиги применялись только к временным массивам в памяти. Исходные LAS, матрицы 3DGS → LAS, экспортированные облака и положение BIM не изменялись. 0929 — дата сравнения, **не геодезическая истина**.
+Trial shifts affect temporary arrays in memory only. Original LAS, 3DGS → LAS matrices, exported clouds, and BIM placement are unchanged. 0929 is a comparison date, **not survey ground truth**.
 
-Продолжение: [поворот и сдвиг с проверкой на отдельном южном участке](../las_rigid/REPORT.md).
+Follow-up: [rotation/translation with a separate southern control](../las_rigid/REPORT.md), an archived experiment.
 
-## Что означает проверка
+## What the check means
 
-Если причина расхождения — только одинаковый сдвиг всей съёмки вверх или вниз, поправка по крыше должна помогать и на другой сохраняющейся конструкции. Поэтому мы вычислили поправку на одном объекте, а проверили на втором, затем поменяли их ролями. Это проверка переноса между объектами, а не независимая геодезическая валидация.
+If a uniform vertical shift were the only discrepancy, a roof-derived correction should also help another persistent structure. We therefore estimate on one object and test on the other, then swap roles. This tests transfer between objects, not independent survey accuracy.
 
-Положительное число в колонке «поправка» означает, что исходные точки надо было бы поднять к LAS 0929. Остаток — медиана абсолютных разностей высоты по пространственным блокам; меньше означает лучше.
+A positive correction means the source points would be raised toward LAS 0929. The residual is the median absolute height difference across spatial blocks; lower is better.
 
-| Дата | Поправка по крыше, м | Поправка по берегу, м | Остаток на берегу до → после поправки по крыше, м | Результат на берегу |
+| Date | Roof correction, m | Riverside correction, m | Riverside residual before → after roof correction, m | Riverside result |
 |---|---:|---:|---:|---|
-| 0331 | +0.677 | +0.300 | 0.324 → 0.377 | **стало хуже** |
-| 0504 | +0.871 | +0.024 | 0.257 → 0.848 | **стало хуже** |
-| 0609 | +0.704 | +0.405 | 0.450 → 0.299 | медиана уменьшилась |
-| 0708 | +0.557 | +0.742 | 0.742 → 0.386 | медиана уменьшилась |
-| 0723 | +0.805 | +0.678 | 0.678 → 0.224 | медиана уменьшилась |
-| 0831 | +0.714 | +0.135 | 0.327 → 0.579 | **стало хуже** |
-| 0929 | — | — | — | Дата сравнения; сама с собой не оценивается |
+| 0331 | +0.677 | +0.300 | 0.324 → 0.377 | **worse** |
+| 0504 | +0.871 | +0.024 | 0.257 → 0.848 | **worse** |
+| 0609 | +0.704 | +0.405 | 0.450 → 0.299 | median decreased |
+| 0708 | +0.557 | +0.742 | 0.742 → 0.386 | median decreased |
+| 0723 | +0.805 | +0.678 | 0.678 → 0.224 | median decreased |
+| 0831 | +0.714 | +0.135 | 0.327 → 0.579 | **worse** |
+| 0929 | — | — | — | Comparison date; not evaluated against itself |
 
-Особенно показателен 0504: крыша предлагает +0,87 м, берег — около +0,02 м. Перенос поправки с крыши увеличивает остаток на берегу с 0,26 до 0,85 м. Для 0609 медиана немного улучшается, но хвост расстояний ухудшается: P90 высотных остатков растёт с 0,82 до 0,87 м. Улучшение одной медианы не означает улучшения всей геометрии.
+0504 is particularly informative: the roof suggests +0.87 m and the riverside structure about +0.02 m. Applying the roof correction increases the riverside residual from 0.26 to 0.85 m. On 0609 the median improves slightly, but the height-residual P90 increases from 0.82 to 0.87 m. Improving one median does not imply better overall geometry.
 
-![Оценки сдвига и проверка на втором объекте](cross_validation.png)
+![Shift estimates and validation on the second object](cross_validation.png)
 
-Усы на первом графике — межквартильный размах значений по блокам, **не доверительный интервал**. Крыша даёт относительно узкий разброс, прибрежный участок — заметно более широкий.
+Whiskers on the first plot show the interquartile range across blocks, **not a confidence interval**. The roof has a relatively narrow spread; the riverside structure has a much wider spread.
 
-## Обратная проверка и расстояния в 3D
+## Reverse check and 3D distances
 
-| Дата | Поправка по берегу: остаток на крыше до → после, м | Поправка по крыше: симметричная 3D-медиана на берегу до → после, м |
+| Date | Riverside correction: roof residual before → after, m | Roof correction: symmetric riverside 3D median before → after, m |
 |---|---:|---:|
 | 0331 | 0.700 → 0.407 | 0.352 → 0.493 |
 | 0504 | 0.886 → 0.865 | 0.301 → 0.827 |
@@ -41,15 +41,15 @@
 | 0723 | 0.810 → 0.133 | 0.670 → 0.307 |
 | 0831 | 0.718 → 0.585 | 0.352 → 0.615 |
 
-Сдвиг по берегу уменьшает медиану крыши на всех шести датах, однако для 0504 улучшение всего около 2 см, а остаток остаётся около 86 см. Это не подтверждает универсальность такой поправки.
+The riverside-derived shift reduces the roof median on all six dates, but the improvement on 0504 is only about 2 cm and the residual remains about 86 cm. This does not establish a universal correction.
 
-Для дополнительной проверки взяты первые исходные точки в вокселях 0,25 м. Выборки зафиксированы до пробного сдвига. «Симметричная 3D-медиана» здесь — среднее двух медиан расстояний до ближайшего соседа: источник → 0929 и 0929 → источник. Направление изменения согласуется с высотной проверкой на всех шести датах. Это согласие двух метрик на тех же объектах, не новый независимый набор наблюдений. P90 каждого направления сохранён отдельно в [cross_validation.csv](cross_validation.csv).
+The additional check uses the first original point in each 0.25 m voxel. Samples are fixed before trial shifts. Symmetric 3D median means the average of two nearest-neighbor medians: source → 0929 and 0929 → source. Its direction of change agrees with the height check on all six dates. This is agreement between metrics on the same objects, not a new independent observation set. Directional P90 values are retained separately in [cross_validation.csv](cross_validation.csv).
 
-## Устойчивость к параметрам
+## Parameter sensitivity
 
-Проверены все сочетания XY-радиуса 0,20 / 0,35 / 0,50 м и размера блока 1 / 2 / 4 м. Все варианты сохранены; лучший результат не выбирался. В таблице — диапазон изменения медианы на берегу после поправки по крыше: плюс означает ухудшение.
+All combinations of XY radius 0.20 / 0.35 / 0.50 m and block size 1 / 2 / 4 m were tested. All variants are retained; none was selected as best. The table gives the range of riverside median changes after the roof correction; positive means worse.
 
-| Дата | Изменение остатка, м: минимум … максимум | Ухудшение, вариантов из 9 |
+| Date | Residual change, m: minimum … maximum | Worse, variants out of 9 |
 |---|---:|---:|
 | 0331 | +0.052 … +0.196 | 9 / 9 |
 | 0504 | +0.591 … +0.696 | 9 / 9 |
@@ -58,41 +58,41 @@
 | 0723 | -0.526 … -0.455 | 0 / 9 |
 | 0831 | +0.134 … +0.355 | 9 / 9 |
 
-[Полные результаты чувствительности](sensitivity.csv). Такая проверка показывает устойчивость к этим параметрам, но не устраняет неопределённость выбора физических поверхностей.
+[Full sensitivity results](sensitivity.csv). This establishes robustness to these parameters but does not resolve uncertainty about physical-surface selection.
 
-## Все пары семи дат
+## All pairs of seven dates
 
-Проверена 21 уникальная пара дат на каждом из двух объектов, всего 42 оценки. Строка — исходная дата, столбец — дата сравнения; обратная половина матриц получена сменой знака. Диагональные нули заданы по определению, не являются проверкой точности.
+All 21 unique date pairs were checked on both objects, giving 42 estimates. Rows are source dates and columns are comparison dates; the reverse half of each matrix is obtained by changing the sign. Diagonal zeros are defined identities, not accuracy tests.
 
-![Сдвиги крыши, берега и разница оценок по всем парам дат](pairwise_offsets.png)
+![Roof/riverside shifts and estimate differences for every date pair](pairwise_offsets.png)
 
-Разница двух оценок бывает существенной и в парах без 0929: например, для 0504 → 0708 крыша даёт около +0,31 м, берег — около −0,73 м. Поэтому наблюдаемое несогласие не сводится только к выбору 0929 в качестве опоры. [Числа и объём поддержки для каждой пары](pairwise_offsets.csv).
+The two estimates also differ substantially in pairs without 0929: for 0504 → 0708 the roof gives about +0.31 m and the riverside structure about −0.73 m. The disagreement is therefore not solely due to choosing 0929 as reference. See [values and support for each pair](pairwise_offsets.csv).
 
-## Воспроизводимый протокол
+## Reproducible protocol
 
-1. Прочитаны исходные LAS. Координаты получены как целое XYZ × scale + offset, затем вычтен прежний локальный origin [825800, 842100, 0]. Результат ручного декодирования проверен на 1000 записях каждой даты относительно laspy.
-2. Применены ровно те же полигоны и диапазоны высоты из [regions.json](../static_structures/regions.json), одинаковые для всех дат. Маски после пробных сдвигов не пересчитывались. Ограничение Z относится к выбору объекта; отбора по величине ошибки нет.
-3. Точки сопоставлены по взаимному ближайшему соседству только в XY, на расстоянии до 0,35 м. Порог по Z или по 3D-ошибке не используется.
-4. Для каждой пары вычислено Z опорной даты − Z исходной даты. По серединам пар заданы блоки 2 × 2 м. В каждом блоке минимум три пары; оценка сдвига — медиана медиан блоков, с одинаковым весом каждого блока. Нужно минимум пять блоков; все 42 оценки прошли этот порог.
-5. Для шести дат относительно 0929 поправка по одному объекту проверена на блоках второго без повторной подгонки. Контрольные пары и 3D-выборки до и после сдвига одинаковые.
+1. Read the original LAS. Decode coordinates as integer XYZ × scale + offset, then subtract the previous local origin [825800, 842100, 0]. Manual decoding is checked against laspy on 1000 records per date.
+2. Apply the identical polygons and height ranges in [regions.json](../static_structures/regions.json) to every date. Masks are not recomputed after trial shifts. Z bounds select the object; there is no error-magnitude filtering.
+3. Match mutual nearest neighbors in XY only, within 0.35 m. There is no threshold on Z difference or 3D error.
+4. Compute reference Z minus source Z for each pair. Define 2 × 2 m blocks using pair midpoints. Each block needs at least three pairs; the shift is the median of block medians with equal block weights. At least five blocks are required; all 42 estimates meet this threshold.
+5. For six dates relative to 0929, test the correction estimated on one object on blocks of the other, without refitting. Control pairs and 3D samples are identical before and after the shift.
 
-В базовом протоколе на крыше 90–100 пригодных блоков на пару дат, на берегу — 19–22. Количество всех XY-пар, доли взаимных совпадений и число пригодных блоков сохранены отдельно: не каждая пара попадает в блок с тремя соседями. NPZ содержит все взаимные пары; `matched_blocks.csv` — только пригодные блоки.
+The baseline protocol has 90–100 eligible roof blocks and 19–22 riverside blocks per date pair. Total XY-pair counts, mutual-match fractions, and eligible-block counts are saved separately: not every pair falls in a block with three neighbors. NPZ contains all mutual pairs; `matched_blocks.csv` contains only eligible blocks.
 
-## Что показали заголовки LAS
+## LAS header findings
 
-Во всех семи файлах LAS 1.2 указан генератор `CaptureReality`; два геопривязочных VLR совпадают побайтно по SHA-256. Различающиеся scale/offset корректно применяются при декодировании координат. Шаг записи Z составляет примерно 1,3–1,9 × 10⁻⁸ м, поэтому округлением записи нельзя объяснить наблюдаемое расхождение в десятки сантиметров.
+All seven LAS 1.2 files identify `CaptureReality` as generator; both georeferencing VLRs are byte-identical by SHA-256. Different scale/offset values are correctly decoded. Z quantization is approximately 1.3–1.9 × 10⁻⁸ m, so storage rounding cannot explain discrepancies of tens of centimeters.
 
-Одинаковые метаданные не доказывают общую фактическую геопривязку или правильность высот. По этим заголовкам общая вертикальная система не подтверждена. Формат LAS также не делает данные независимой лазерной или геодезической съёмкой. В [audit.json](audit.json) сохранены поля заголовков, GeoKey, хеши VLR и исходных файлов. SHA-256 всех семи LAS совпали с прежними входными манифестами; 21 файл регистрации сохранил прежнее содержимое в течение проверки.
+Identical metadata does not prove shared actual georeferencing or correct elevations. The headers do not confirm a common vertical datum. LAS format does not make these independent laser or survey measurements. [audit.json](audit.json) preserves header fields, GeoKeys, VLR hashes, and input hashes. All seven LAS hashes match the earlier manifests; 21 registration files remained unchanged during this check.
 
-## Ограничения и следующий обоснованный шаг
+## Limitations and justified next steps
 
-Взаимная близость XY не гарантирует, что точки лежат на одной и той же физической поверхности. На узком береговом объекте могут различаться видимые стороны, покрытие и примеси растительности; в объёме крыши 0929 есть более низкие точки. Постоянство внешнего контура не доказывает неподвижность объекта. Горизонтальный сдвиг, наклон, масштаб и пространственная деформация этой проверкой не определены.
+XY proximity does not guarantee the same physical surface. Visible sides, coverage, and vegetation may differ on the narrow riverside object; the 0929 roof volume includes lower points. A persistent outline does not prove immobility. This check does not determine horizontal shift, tilt, scale, or spatial deformation.
 
-Вывод ограничен проверенной гипотезой: нельзя уверенно устранить междатовые различия одной поправкой высоты, выведенной по крыше. Это не доказательство конкретной причины расхождения и не оценка абсолютной точности BIM. Для физической коррекции нужны дополнительные распределённые опорные поверхности или идентифицированные контрольные точки, с проверкой геопривязки и системы высот. BIM не следует подгонять отдельно к каждой дате ради визуального совпадения.
+The conclusion is limited to the tested hypothesis: a single roof-derived height correction cannot confidently remove inter-date discrepancies. This neither proves a specific cause nor measures absolute BIM accuracy. Physical correction needs additional distributed support surfaces or identified control points, with georeferencing and vertical-datum checks. BIM should not be fitted separately to each date merely to improve visual overlap.
 
-Предыдущая проверка [3DGS → LAS по неподвижным конструкциям](../static_structures/REPORT.md) остаётся отдельным результатом: согласие со своим LAS и согласие LAS между датами — разные задачи.
+The previous [3DGS → LAS stable-structure evaluation](../static_structures/REPORT.md) remains separate: agreement with same-date LAS and agreement between LAS dates are different questions.
 
-## Повторить расчёт
+## Repeat the calculation
 
 ```sh
 OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python scripts/check_las_vertical.py
@@ -100,4 +100,4 @@ OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python scripts/check_las_vert
 OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python -m unittest discover -s scripts -p "test_*.py" -v
 ```
 
-Численные тесты проверяют знак известного вертикального сдвига и обратной пары, провал переноса неверной поправки на другой объект, отсутствие ложного нуля при нехватке перекрытия и отсутствие фильтра по Z-ошибке. Полный набор проекта: 16 тестов.
+Numerical tests check the sign of a known vertical shift and its reverse pair, failure to transfer an incorrect correction to another object, absence of false zero errors with insufficient overlap, and absence of Z-error filtering. The full suite at this experiment stage contained 16 tests.

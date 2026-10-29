@@ -1,266 +1,145 @@
-# Outdoor registration: состояние проекта
+# Splat2BIM: project status and deliverables
 
-27 октября 2026 года. Рабочая папка: `Personal_project`.
+**Ready as a research prototype and portfolio demonstration.** Seven outdoor
+captures are registered to their supplied LAS references, inspected against three
+BIM revisions, and compared using geometric, semantic, and structural methods.
+This is not a survey-certified construction-monitoring product.
 
-**Демонстрационный исследовательский прототип готов:** семь сцен 3DGS переведены
-в систему LAS/BIM, есть просмотрщик с переключением дат, сравнение по неподвижным
-конструкциям, эксперименты автоматической и семантической инициализации и оценка камеры по фото.
-Полностью подтверждённой автоматической системой проект пока не является:
-предобученная семантическая модель пока не улучшает точность текущего метода,
-внешней геодезической проверки нет, актуальность ревизии BIM для каждой даты неизвестна.
+The viewer, principal reports, and their presentation generators use English.
+Earlier development reports remain in their original language as an archive.
+The [README](README.md) is the portfolio entry point; [data setup](docs/DATA.md)
+explains how to restore the excluded scene files.
 
-## Что было задано и что получено
+## Delivered
 
-| Пункт исходного задания | Результат | Граница результата |
-|---|---|---|
-| Совместить существующую 3DGS с общей опорой LAS + BIM | Полные преобразованные PLY для всех семи дат, матрицы и воспроизводимые расчёты | LAS и BIM приняты как предоставленная общая опора; BIM не подгоняется отдельно |
-| Осмотреть результат в общей системе | Локальный 3D-просмотрщик, даты, три ревизии BIM, LAS, контрольные зоны | Полные сцены велики; первая загрузка требует времени и WebGL |
-| Уменьшить ручной выбор соответствий | Автоматический поиск геометрических/цветовых фрагментов и проверка их пространственного согласия | Основной фильтр: 7/7 дат; строгий: 4/7. Правила разработаны на этой площадке |
-| Исследовать семантическое понимание общей планировки | Drone SegFormer-B0 + LoveDA B2; улучшенные проекции, выделение устойчивых поверхностей и сопоставление их вариантов | Новый опыт по устойчивым конструкциям: основной и строгий фильтры 7/7 при прежних порогах; конечная точность практически прежняя. Предыдущие метки без нового выделения давали строгий допуск 5/7 |
-| Исследовать одно фото → модель через позу камеры | 12/12 снимков 0929 прошли внутренний фильтр; сохранены матрицы и наложения LAS/BIM | Известны параметры объектива; опорные фото и камеры уже привязаны |
-| Исключить краны и технику из сравнения семи дат | Две фиксированные маски сохраняющихся поверхностей: крыша и прибрежная конструкция | Техника исключена из этой локальной оценки, не автоматически из всей сцены |
-
-Полная система анализа строительного прогресса показана в задании как следующий
-этап после ALIGN. Она не входит в реализованный модуль регистрации.
-
-## Основные результаты
-
-### Рабочие сцены, отображаемые в просмотрщике
-
-Расстояния от отложенных центров 3DGS до своего LAS в области покрытия облака:
-
-| Дата | Медиана, м | P90, м |
-|---|---:|---:|
-| 0331 | 0,266 | 1,151 |
-| 0504 | 0,196 | 0,758 |
-| 0609 | 0,248 | 0,807 |
-| 0708 | 0,249 | 1,018 |
-| 0723 | 0,209 | 0,759 |
-| 0831 | 0,230 | 0,772 |
-| 0929 | 0,219 | 0,745 |
-
-Это согласованность с данным облаком, а не независимая геодезическая точность.
-Центр гауссиана не обязан лежать на физической поверхности. В рабочем варианте
-0929 использованы RTK/COLMAP, а для 0708 документирован приблизительный визуальный
-старт. Отдельный автоматический эксперимент не использует эти начальные позы;
-его матрицы сохранены отдельно и не заменяют рабочие полные экспорты.
-
-На контрольной крыше сами LAS разных дат отличаются от 0929 по высоте примерно
-на 0,54–0,86 м. Проверки общей вертикальной и жёсткой поправки не подтвердили
-улучшение всех контрольных конструкций. Поэтому такие поправки не применены.
-
-### Семантическое сопоставление на семи датах
-
-Предобученные SegFormer-B0 и B2 получают цветные проекции 3DGS и LAS. При выборе
-начального совмещения добавляется расстояние между точками одного распознанного
-класса. Для 3DGS используются только обучающие точки; контрольные точки и ранее
-проверенные крыша/берег не выбирают преобразование. Дообучения на площадке нет.
-
-- Прежний семантический выбор до ICP проходил 6/7 дат. На 0723 два соседних
-  старта сходились к одной матрице, но семантический старт терял удалённую пару.
-- Теперь исходные пары соседних гипотез объединяются до ICP и проверяются при
-  прежних порогах. Старые метки с этим исправлением дают 7/7; новые метки — тоже
-  7/7. Геометрический контроль с тем же банком пар — 5/7, текущий метод — 7/7.
-- Строгий фильтр прежних семантических вариантов — 5/7. Последующий опыт
-  с устойчивыми поверхностями, описанный ниже, устранил отказы 0708 и 0723.
-- Улучшений и ухудшений медианы более 1 см относительно текущего алгоритма нет.
-  На неподвижных конструкциях результат также практически тот же.
-
-**Текущий комбинированный метод остаётся рекомендуемым.** Семантический выбор
-помогает некоторым начальным гипотезам, но не даёт выигрыша в конечной точности.
-LoveDA улучшила выделение контрольной крыши в LAS на пяти датах: от 8% до 99%
-видимых точек вместо нуля. На 0708 и 0723 крыша LAS по-прежнему пропущена.
-Новый опыт [распознавания 3DGS](results/semantic_3dgs/REPORT.md) заменяет разреженные
-центры проекцией гауссианов с формой, прозрачностью и SH-цветом в 2048×2048.
-При той же модели и пороге 0,6 доли распознанных точек крыши стали 86,2%, 99,7%,
-99,0%, 59,8%, 91,9%, 85,5%, 80,6% по порядку дат вместо нуля. В фиксированной
-полосе растительности 3DGS и LAS ложных меток зданий нет. Настройки разрабатывались
-на этой площадке; два локальных объёма не заменяют независимую полную разметку.
-Затем [совмещение с новыми метками повторено](results/semantic_3dgs_registration/REPORT.md)
-на всех семи датах при прежнем пуле гипотез, четырёх стартах и неизменных порогах.
-Выбранный старт изменился на 0331, 0504, 0723 и 0831. Основной допуск — 7/7,
-строгий — 5/7, как у предыдущей семантики; текущий комбинированный метод даёт
-7/7 и 4/7. Улучшений или ухудшений медианы более 1 см нет. Максимальное P95
-смещения новой позы относительно текущей — около 0,025 мм, то есть положения
-практически совпадают. На неподвижных конструкциях результат также прежний.
-Новые метки влияют на выбор старта; окончательная подгонка и геометрические
-фрагменты строгой проверки не меняются.
-
-Причины строгих отказов в опыте с заменой только меток:
-на 0708 три подходящие пары почти лежат на одной линии (метрика второго
-пространственного направления 1,962274 м при минимуме 2 м); на 0723 только две
-пары дают прямое перекрытие ≥80%, третья — 71,15%. Перебор всех троек не нашёл
-пропущенной допустимой комбинации среди этих исходных фрагментов.
-Экспериментальные матрицы сохранены
-отдельно; полные рабочие сцены и BIM не заменены.
-
-### Устойчивые конструкции: устранение строгих отказов
-
-[Новый опыт](results/stable_structures/REPORT.md) заново выполнил совмещение
-всех семи дат. Основной и строгий допуски — **7/7**. Число независимых строгих
-опор по порядку дат: **5, 5, 8, 3, 3, 5, 4**. Пороговые значения не изменены.
-
-Пропуски белых фрагментов заполняются существующими точками всех цветов внутри
-исходных границ; отдельно рассматриваются связные плоские поверхности.
-Варианты одной поверхности объединены в семейство и не могут учитываться
-дважды. Вместо выбора только ближайшего центра сохраняются все соответствия
-в прежних геометрических пределах. Их банк фиксируется до ICP.
-Целевая поверхность дополнительно должна подтверждаться минимум на трёх
-LAS; все выбранные опоры 0708 и 0723 подтверждаются на семи датах.
-
-На 0708 восстановлена удалённая опора, которая устраняет почти линейное
-расположение. На 0723 восстановлены границы третьей поверхности с достаточным
-перекрытием. Увеличилась надёжность подтверждения положения; прирост конечной
-геометрической точности не обнаружен. Это внутренняя проверка на той же площадке,
-а не независимое доказательство абсолютной точности или полной классификации
-техники. Рабочие полные экспорты и BIM сохранены.
-
-### Уточнение точности по размеченным областям
-
-[Следующий опыт](results/reviewed_structural_refinement/REPORT.md) уточняет позу
-по обучающим точкам существующих областей крыши и берега. Он использует ручную
-разметку областей, но исключает прежние контрольные записи и пространственные
-ячейки из подгонки. Масштаб и все строгие пороги сохранены; допуск — **7/7**.
-
-Среднее двух контрольных медиан по семи датам снизилось с **0,214 до 0,205 м**
-(**3,9%**). Улучшение больше 1 мм есть на 0331, 0504, 0708, 0723 и 0831;
-на 0609 изменение меньше 1 мм, для 0929 сохранена прежняя поза. На 0708 средняя
-медиана снизилась с 0,279 до 0,266 м; на 0723 — с 0,221 до 0,201 м.
-
-Есть компромисс: медиана всей сцены выросла примерно на 1–10 мм на изменённых
-датах, а P90 на 0331/0504 вырос более чем на 1 см. Медиана берега на 0331 и
-0609 также немного выросла (3,5 и 2,2 мм). Поэтому новые матрицы лежат отдельно
-и не заменяют рабочие полные сцены. Это локальное улучшение на известных
-областях, не доказательство более точного полностью автоматического совмещения.
-Проверка по другим записям тех же областей слабее независимой новой конструкции;
-на берегу пространственно отложенных точек пока недостаточно для сильного вывода.
-
-Сохранены и два автоматических опыта: первый давал ухудшения на берегу,
-второй с контекстом сцены и строгим запретом роста обучающих медианы/P90
-сохранил прежние позы всех семи дат. Все три варианта приведены в отчёте.
-
-### Фотография → положение камеры
-
-Взяты 12 контрольных фото и 112 опорных фото 0929. Контрольный снимок и ±10
-ближайших по порядку кадров исключены из опорного индекса. Алгоритм получает
-изображение и калибровку объектива, ищет похожие опорные изображения, строит
-соответствия через глубины LAS и рассчитывает камеру методом PnP-RANSAC.
-Положение контрольной камеры COLMAP не используется в поиске или подгонке.
-
-- 12/12 кандидатов прошли заранее заданный внутренний фильтр.
-- Расхождение центра с исходной камерой COLMAP: медиана **0,167 м**, максимум **0,486 м**.
-- Расхождение поворота: медиана **0,055°**, максимум **0,212°**.
-- Доля отложенных соответствий ближе 3 пикселей: **68–94%**, медиана **89%**
-  при размере изображения 1200 × 900.
-
-COLMAP и LAS могли быть построены с использованием этих же фотографий. Поэтому
-эти числа показывают согласованность внутри проекта. Эксперимент не доказывает
-локализацию произвольного нового фото с неизвестным объективом или независимую
-точность 17 см. Наложение BIM иллюстрирует ракурс; оно не удостоверяет наличие
-проектных конструкций в натуре.
-
-## Где лежат deliverables
-
-| Что открыть | Путь |
+| Deliverable | Entry point |
 |---|---|
-| 3D-просмотрщик семи дат | [viewer/](http://127.0.0.1:8765/viewer/) |
-| Уточнение точности по крыше и берегу | [До / после](http://127.0.0.1:8765/results/reviewed_structural_refinement/inspection.html), [методика](results/reviewed_structural_refinement/REPORT.md), [CSV](results/reviewed_structural_refinement/summary.csv) |
-| Устойчивые поверхности и строгий допуск 7/7 | [Сравнение](http://127.0.0.1:8765/results/stable_structures/inspection.html), [методика](results/stable_structures/REPORT.md) |
-| Семантический метод против текущего, все семь дат | [Новое сравнение](http://127.0.0.1:8765/results/semantic_fusion/inspection.html), [методика](results/semantic_fusion/REPORT.md), [CSV](results/semantic_fusion/summary.csv) |
-| Повторное совмещение с новыми метками 3DGS | [Итоговое сравнение](http://127.0.0.1:8765/results/semantic_3dgs_registration/inspection.html), [методика](results/semantic_3dgs_registration/REPORT.md), [CSV](results/semantic_3dgs_registration/summary.csv) |
-| Распознавание 3DGS и строгие отказы 0708 / 0723 | [Новая галерея](http://127.0.0.1:8765/results/semantic_3dgs/inspection.html), [методика](results/semantic_3dgs/REPORT.md), [диагностика пар](results/strict_diagnostics/summary.csv) |
-| Конструкции и причина отказа 0723 | [Распознавание](results/semantic_fusion/recognition.csv), [разбор пар](results/semantic_fusion/0723_failure_analysis.json) |
-| Прогнозы классов и первый опыт | [Карты классов](results/semantic_matching/inspection.html), [покрытие](results/semantic_matching/semantic_coverage.csv) |
-| Перепроверка семантических опытов | [Совмещение с новыми метками](results/semantic_3dgs_registration/validation.json), [гауссиановые виды](results/semantic_3dgs/validation.json), [прежнее сопоставление](results/semantic_fusion/validation.json), [первый опыт](results/semantic_matching/validation.json) |
-| Все фото с проекциями LAS/BIM | [Галерея камер](http://127.0.0.1:8765/results/camera_localization/inspection.html) |
-| Методика, таблица камер и команды | [camera_localization/REPORT.md](results/camera_localization/REPORT.md) |
-| Полная сцена 0929 | [0929_aligned_local.ply](results/0929_baseline/0929_aligned_local.ply) |
-| Полные сцены остальных дат | `results/multidate/<дата>/<дата>_aligned_local.ply` |
-| Матрицы локальных/исходных координат | `T_3dgs_to_las_local.txt` и `T_3dgs_to_las_global.txt` рядом с экспортами |
-| Все даты и сравнение с BIM | [multidate/REPORT.md](results/multidate/REPORT.md) |
-| Неподвижные конструкции без техники в масках | [static_structures/REPORT.md](results/static_structures/REPORT.md) |
-| Почему не применена общая поправка LAS | [las_vertical/REPORT.md](results/las_vertical/REPORT.md), [las_rigid/REPORT.md](results/las_rigid/REPORT.md) |
-| Итог автоматического поиска соответствий | [object_recovery/REPORT.md](results/object_recovery/REPORT.md) |
-| Выбранные экспериментальные матрицы | [selection_summary.json](results/object_recovery/selection_summary.json) |
-| Камеры, K и дисторсия | [poses.json](results/camera_localization/poses.json) |
-| Проверки камер и сохранности данных | [validation.json](results/camera_localization/validation.json) |
-| Зависимости и подробное воспроизведение | [requirements.txt](requirements.txt), [README.md](README.md) |
+| Seven-date 3D viewer with LAS and BIM layers | [Local viewer](http://127.0.0.1:8765/viewer/) |
+| Baseline registration and BIM comparison | [Seven-date report](results/multidate/REPORT.md) |
+| BIM revision/geometry inspection | [0929 BIM report](results/0929_bim/BIM_CHECK.md) |
+| Common-area diagnostics | [Shared-cell report](results/common_areas/REPORT.md) |
+| Roof/riverside controls excluding work-site equipment | [Stable-region evaluation](results/static_structures/REPORT.md) |
+| Cross-date LAS elevation analysis | [Elevation-correction test](results/las_vertical/REPORT.md) |
+| Building specialist and correspondence-bank comparison | [Semantic fusion](results/semantic_fusion/REPORT.md) |
+| Recognition using Gaussian-rendered views | [3DGS recognition](results/semantic_3dgs/REPORT.md) |
+| Registration repeated with the new labels | [Seven-date label comparison](results/semantic_3dgs_registration/REPORT.md) |
+| Persistent structures passing the unchanged strict gates | [Structural support](results/stable_structures/REPORT.md) |
+| Optional local accuracy refinement | [Refinement report](results/reviewed_structural_refinement/REPORT.md) |
+| Camera localization from a photograph | [Camera report](results/camera_localization/REPORT.md) |
+| Detailed experimental history | [Research notes](RESEARCH_NOTES.md) |
 
-Локальные координаты заданы в метрах относительно `[825800, 842100, 0]`.
-Этот вектор прибавляется только при переходе от локальных координат к исходным
-значениям LAS. Матрица `*_global.txt` уже содержит сдвиг. При трансформации полной
-3DGS учтены позиции, ориентации, масштабы и сферические гармоники.
+Capture IDs are **0331, 0504, 0609, 0708, 0723, 0831, 0929**. The working full
+Gaussian exports remain in `results/0929_baseline/` and `results/multidate/<date>/`.
+Those multi-gigabyte files are local-only. The repository includes code, selected
+figures, reports, tables, region definitions, and local/global transforms.
 
-## Как показать результат
+## What the results establish
 
-Из папки проекта запустить существующее окружение:
+### Registration and BIM
+
+Every capture is aligned to its own LAS. The 0929 baseline uses RTK metadata and
+COLMAP camera poses; the six other dates use geometry, with a documented visual
+seed in the original 0708 baseline. Full Gaussian export preserves positions,
+orientations, scales, opacity, and directional color consistently.
+
+The local origin is **[825800, 842100, 0]**, in metres. BIM uses the same origin
+without an additional date-specific fit. A global transformation already includes
+that offset; do not add it twice. The authoritative BIM-revision/date mapping and
+independent horizontal/vertical control remain unconfirmed.
+
+### Recognition and strict structural support
+
+The LoveDA building specialist initially improved recognition in LAS but missed
+the 3DGS control roof. Gaussian rendering with covariance, opacity, and degree-3
+spherical harmonics improved control-roof recognition to **59.8–99.7% across seven
+dates**. This is a local diagnostic fraction, not whole-scene segmentation IoU.
+
+Registration with the new labels passed primary checks on **7/7** dates and strict
+checks on **5/7**. 0708 lacked sufficient transverse support spread; 0723 lacked
+sufficient overlap on a third independent fragment. Those results are retained
+as an earlier experiment, not presented as the current strict outcome.
+
+Independent surface growth, measured infill, and alternative extents subsequently
+recovered support on **7/7 dates without lowering thresholds**. Each physical
+surface counts once and must persist in at least three LAS dates. The selected
+0708/0723 supports persist in all seven. This strengthens support for the fit;
+final geometric poses remain effectively unchanged from the previous method.
+
+### Optional reviewed-region accuracy refinement
+
+Using the existing manual roof/riverside region definitions, the mean of the two
+control-region medians across seven dates decreases from **0.214 to 0.205 m
+(3.9%)**. Strict acceptance remains **7/7**. Five dates improve by more than 1 mm;
+0609 changes by less than 1 mm and 0929 retains its pose.
+
+This is a local tradeoff. Whole-scene medians increase by **1.7–8.8 mm** on changed
+dates, with P90 increases above 1 cm on 0331 and 0504. On the stronger spatial roof
+holdout, four of five adequately sampled dates improve and 0609 worsens by 3.3 mm.
+Spatial riverside samples are insufficient on every date. New matrices remain
+separate; the working scene exports and BIM were not replaced.
+
+Training and reported control records are disjoint, but the same region
+definitions provide supervision. This is weaker than evaluation on new structures
+or a new site. Two earlier automatic refinement variants are retained, including
+the context-guarded variant that kept all seven parent poses.
+
+### Image-to-model camera localization
+
+The 0929 experiment uses **12 query images and 112 reference images**. Each query
+and its ±10 neighboring frames are excluded from the reference index. Retrieval,
+feature matching, LAS depths, and PnP-RANSAC estimate the camera using known lens
+calibration, without the query COLMAP pose as an input.
+
+All **12/12** candidates pass the predefined internal gate. Relative to COLMAP,
+median camera-center difference is **0.167 m** (maximum **0.486 m**) and median
+rotation difference is **0.055°** (maximum **0.212°**). Held-out matches within
+3 pixels range from **68–94%**, with median **89%**, at 1200 × 900 resolution.
+These are internal-consistency measurements: source photos may also have
+contributed to LAS/COLMAP reconstruction.
+
+## Verification and presentation provenance
+
+The numerical suite contains **79 tests**, covering known-transform recovery,
+Gaussian covariance/color preservation, spatial sampling, correspondence gates,
+camera localization, rendering, and guarded refinement. Full data-dependent
+verifiers previously recomputed the experiment fits, sample identities, strict
+checks, and errors; the final refinement verification preserved 91 historical
+file hashes.
+
+The English presentation update changes prose, labels, figures, and report-source
+hash metadata. It does not change numeric table values, fit matrices, region
+masks, or threshold parameters. Original validation and delivery receipts describe
+the original runs; the pre-translation research snapshot remains available at
+commit `7bed2a70dff8cb857de15a8ced653b8f59b3e6ff`. See
+[presentation verification](docs/PRESENTATION.md) for the distinction between
+historical numerical verification and the current English publication checks.
+
+## Run the demonstration
+
+Restore or generate the large outputs as described in [DATA.md](docs/DATA.md),
+then start the loopback-only server from the repository root:
 
 ```sh
 .venv/bin/python scripts/serve_viewer.py
 ```
 
-Если просмотрщик уже открыт и работает, повторный сервер не нужен. Открыть
-http://127.0.0.1:8765/viewer/, выбрать дату и включать 3DGS, LAS и BIM по очереди.
-В разделе проверки выбрать неподвижные конструкции. Ссылка «Фото → модель»
-открывает все 12 примеров и численные результаты. Ссылка «Семантическое сопоставление»
-открывает сравнение семи дат и карты классов. Сервер доступен только
-на этом компьютере. Для просмотра подготовленных результатов не нужно повторять
-долгие расчёты или скачивать дополнительные данные.
+Open the [viewer](http://127.0.0.1:8765/viewer/), choose a capture date, and toggle
+3DGS, LAS, or BIM. Under Alignment checks, select Stable structures or Shared
+20 × 20 m cells. Report links open the semantic, structural, accuracy, and camera
+inspection pages. Only one full Gaussian scene is loaded at a time.
 
-Модуль камер использует OpenCV из проектного `.venv`; версия закреплена в
-`requirements.txt`. Системная установка Python не менялась. Для нового снимка
-есть `scripts/localize_photo.py`; формат калибровки и пример команды приведены
-в отчёте камер. Без перекрытия с этой площадкой метод может отказать.
+## What remains for stronger claims
 
-## Проверено
+- Independent surveyed control, confirmed vertical datum, and authoritative BIM
+  revisions are needed for absolute accuracy or construction-tolerance claims.
+- Reviewed semantic ground truth and evaluation on a separate site are needed to
+  establish segmentation quality and generalization.
+- The local refinement has a whole-scene tradeoff and manual supervision; it is
+  not established as a globally better automatic registration method.
+- Cross-date LAS differences cannot be corrected confidently with one roof-derived
+  height offset. Agreement with same-date LAS and agreement between dates are
+  separate questions.
 
-Пройдены **79 численных тестов**, включая порядок альфа-композитинга, ковариации,
-SH-цвет, сохранение границ изображения и исключение контрольных записей.
-Новые тесты проверяют восстановление известного жёсткого сдвига, сохранение
-масштаба, отсутствие выдуманной горизонтальной поправки по параллельным плоскостям,
-ограничение движения и отказ при ухудшении контрольного P90 обучающей сцены.
-Для трёх новых опытов уточнения повторно вычислены подгонки, выбор кандидатов,
-идентификаторы исходных записей, разбиение обучающих точек, строгие соответствия
-и все контрольные ошибки на семи датах. Совпали 91 сохранённая контрольная сумма.
-Результат — [validation.json](results/reviewed_structural_refinement/validation.json).
-В опыте по устойчивым конструкциям повторно вычислены заполнение поверхностей,
-покрытие каждой целевой альтернативы во всех семи LAS, исходные банки пар,
-строгие тройки и контрольные ошибки. Проверены отсутствие двойного учёта
-семейства, неизменность порога второй оси 2 м и запрет добавлять пары после ICP.
-Все семь дат прошли численную перепроверку; совпали 91 сохранённая контрольная
-сумма и хеши моделей/меток. Полный результат —
-[validation.json](results/stable_structures/validation.json).
-Для нового опыта 3DGS повторный рендер семи дат точно совпал с сохранёнными
-изображениями; пересчитаны слияние меток, доли в диагностических объёмах,
-перекрытие фрагментов и все тройки строгих опор. Проверены хеши модели и 91
-сохранённого файла, ссылка просмотрщика и 17 HTTP-ресурсов отчёта.
-Для семантических опытов перепроверены баллы
-исходных гипотез, выбор стартов, фильтры соответствий, отложенные расстояния и
-неподвижные конструкции; сверены хеши модели, кода и 91 сохранённого файла.
-Для повторного совмещения с гауссиановыми метками пересчитаны все 36 670
-исходных гипотез, банки соответствий, строгие тройки и контрольные ошибки
-трёх сравниваемых методов. Все семь дат прошли численную перепроверку;
-ссылка просмотрщика и семь HTTP-ресурсов нового отчёта доступны.
-Повторно вычислены ошибки проекции всех 12
-камер, проверено отсутствие пересечения inliers с отложенными блоками,
-ортонормальность поворотов и решения фильтра. Совпали 128 контрольных сумм
-входов опыта камер и 91 ранее сохранённая контрольная сумма данных/регистрации.
-Отдельная команда обработки фото проверена на реальном снимке; отказы на фото
-из опорного индекса, неверных пропорциях калибровки и существующем выходном файле
-проверены отдельно в `cli_checks.json`.
-
-## Что остаётся для более сильного исследовательского утверждения
-
-1. **Качество семантики.** Сопоставление с предобученной моделью реализовано и
-   сравнено на всех семи датах. Чтобы ожидать устойчивого выигрыша, нужны проверенные
-   метки зданий/дорог на проекциях этих данных или адаптация модели с отдельной
-   размеченной проверкой. Сейчас улучшение конечной точности не подтверждено.
-2. **Независимая проверка.** Нужны подтверждённые координаты устойчивых ориентиров,
-   система высот и соответствующая дате ревизия BIM. Имеющиеся файлы не позволяют
-   достоверно установить причину всех расхождений между LAS разных дат.
-3. **Проверка переноса.** Новая площадка или фотографии, не участвовавшие в исходной
-   реконструкции, позволят проверить обобщение без разработки на контрольных данных.
-
-Для демонстрации выполненной работы доступны оба направления исходного задания,
-числа, ограничения и воспроизводимые файлы. Для заявления о полностью автоматической
-семантической регистрации с подтверждённой абсолютной точностью этих данных недостаточно.
+The current scope is complete for demonstrating the implemented methods, measured
+results, and limitations. Production readiness and independent survey accuracy
+have not been established.

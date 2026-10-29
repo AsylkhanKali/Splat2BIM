@@ -81,7 +81,7 @@ def main():
     ranked=sorted(common,key=lambda k:max(cells[d][k]['p90_m'] for d in DATES),reverse=True)
     for i,key in enumerate(ranked[:8]):
         ix,iy=map(int,key.split(','));worst=max(DATES,key=lambda d:cells[d][key]['p90_m'])
-        regions.append({'id':key,'label':f'Зона {i+1} · {ix*CELL:.0f}, {iy*CELL:.0f} м',
+        regions.append({'id':key,'label':f'Zone {i+1} · {ix*CELL:.0f}, {iy*CELL:.0f} m',
             'worst_date':worst,'worst_p90_m':cells[worst][key]['p90_m'],
             'bounds_xy':[ix*CELL,iy*CELL,(ix+1)*CELL,(iy+1)*CELL],
             'dates':{d:cells[d][key] for d in DATES}})
@@ -140,24 +140,24 @@ def main():
             for key in common:writer.writerow({'date':date,'cell_id':key,**cells[date][key]})
     (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     (OUT/'validation.json').write_text(json.dumps({'previous_metrics':checks,'common_cell_count':len(common),'minimum_count_observed':min(cells[d][k]['count'] for d in DATES for k in common),'alignment_inputs':inputs,'colored_exports_reread':7},indent=2)+'\n')
-    lines=['# Проверка одних и тех же участков во всех датах','',
-        f'Общие ячейки: {len(common)}; размер каждой — 20 × 20 м. В каждой ячейке и каждой дате есть не меньше 50 отложенных центров 3DGS в XY-покрытии своего LAS. Сетка закреплена в общей локальной системе координат. Все семь матриц совмещения оставлены без изменений.','',
-        'Это сравнение общих участков в плане, а не одних и тех же физических поверхностей. Стройка и видимость объектов внутри ячейки меняются со временем.','',
-        '| Дата | Контрольных центров | Медиана медиан ячеек, м | Медиана P90 ячеек, м | Средняя по ячейкам доля < 1 м | Сохранено от прежней проверки |',
+    lines=['# Shared-region checks across all dates','',
+        f'Shared cells: {len(common)}, each 20 × 20 m. Every date/cell has at least 50 held-out 3DGS centers inside its LAS XY coverage. The grid is fixed in the common local frame. All seven registration matrices remain unchanged.','',
+        'This compares shared plan-view regions, not necessarily the same physical surfaces. Construction and visibility inside a cell change over time.','',
+        '| Date | Control centers | Median of cell medians, m | Median cell P90, m | Mean cell fraction < 1 m | Retained from previous evaluation |',
         '|---|---:|---:|---:|---:|---:|']
     for r in rows:lines.append(f"| {r['date']} | {r['samples']:,} | {r['median_of_cell_medians_m']:.3f} | {r['median_of_cell_p90_m']:.3f} | {r['mean_cell_fraction_within_1m']:.1%} | {r['retained_fraction_of_previous_holdout']:.1%} |")
-    lines+=['','Каждая ячейка имеет одинаковый вес. Медиана медиан и медиана P90 ячеек не равны общей медиане или P90 всех точек. Обычные показатели с весом по числу точек также сохранены в comparison.csv.','',
-        '## Участки для осмотра','',
-        'Ниже перечислены восемь ячеек с наибольшим P90 хотя бы в одной дате. Это выборка проблемных зон для осмотра, а не репрезентативная оценка всей площадки. Общая таблица выше использует все общие ячейки.','',
-        '| Зона | Локальные XY нижнего угла, м | Дата наибольшего P90 | P90, м |','|---|---|---|---:|']
+    lines+=['','Every cell has equal weight. The median of cell medians and the median of cell P90 values are not the pooled median/P90 of all points. Conventional point-weighted metrics are also retained in comparison.csv.','',
+        '## Inspection regions','',
+        'The eight cells below have the largest P90 on at least one date. They are a shortlist for inspecting problematic areas, not a representative site-wide sample. The aggregate table above uses all shared cells.','',
+        '| Zone | Local XY of lower corner, m | Date with highest P90 | P90, m |','|---|---|---|---:|']
     for i,r in enumerate(regions):lines.append(f"| {i+1} | {r['bounds_xy'][0]:.0f}, {r['bounds_xy'][1]:.0f} | {r['worst_date']} | {r['worst_p90_m']:.3f} |")
-    lines+=['','## Что именно проверено','',
-        'Заново вычислены расстояния от отложенных центров до полного LAS. Количество точек и четыре исходных показателя каждой даты воспроизведены с допуском 1e-8. Для контроля используются прежние пространственные исключения из подгонки; их физический размер различается между датами. Ячейки включаются по наличию минимум 50 точек, без отбора по величине расстояния.','',
-        'Большое расстояние может означать локальное несовпадение, шум, центр гауссиана вне поверхности или недостаточную видимость поверхности в LAS. Эта проверка сама по себе не устанавливает причину, не измеряет перемещение конструкции и не подтверждает геодезическую точность. Небольшое расстояние на плоском участке также не исключает сдвиг вдоль плоскости.','',
-        '## Файлы и просмотр','',
-        'Осмотр крана в зонах 1–2, сравнение высот с полным LAS и снимки просмотрщика сохранены в [заметках проверки от 27 октября](INSPECTION.md).','',
-        'В просмотрщике раскройте «Проверка совмещения», выберите «Общие ячейки 20 × 20 м», включите цветные контрольные точки и выберите зону. Цвет отдельных точек показывает их расстояние до LAS; карта common_area_map.png показывает P90 каждой ячейки. Точки в 3D намеренно рисуются поверх сцены для диагностики, включая скрытые точки.','',
-        'comparison.csv содержит итоговые числа, cells.csv содержит все общие ячейки, *_samples.npz хранит координаты и точные расстояния, *_distances.ply содержит цветные контрольные центры. Исходные сцены и результаты регистрации не перезаписываются.','',
+    lines+=['','## What was checked','',
+        'Distances from held-out centers to the full LAS were recomputed. Counts and four original metrics were reproduced for each date within 1e-8. The previous spatial fit exclusions are retained; their physical size differs by date. Cells qualify by having at least 50 points, without selection by distance magnitude.','',
+        'A large distance may reflect local mismatch, noise, a Gaussian center off the physical surface, or incomplete LAS visibility. This check alone does not identify the cause, measure structural movement, or establish survey accuracy. A small distance on a plane also does not rule out along-plane sliding.','',
+        '## Files and viewing','',
+        'Crane inspection in zones 1–2, height comparisons with the full LAS, and viewer screenshots are retained in the [27 October inspection notes](INSPECTION.md).','',
+        'In the viewer, expand Alignment checks, select Shared 20 × 20 m cells, enable colored control points, and choose a zone. Point colors show distance to LAS; common_area_map.png shows each cell P90. Points are deliberately drawn over scene geometry for diagnosis, including hidden points.','',
+        'comparison.csv contains aggregate metrics; cells.csv contains all shared cells; *_samples.npz stores coordinates and exact distances; *_distances.ply stores colored control centers. Original scenes and registration results are not overwritten.','',
         '```sh','OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 .venv/bin/python scripts/check_common_areas.py','```']
     (OUT/'REPORT.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps(rows,indent=2),flush=True)

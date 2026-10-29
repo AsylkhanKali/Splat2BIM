@@ -1,25 +1,25 @@
-# Проверка совмещения по неподвижным конструкциям
+# Alignment checks on stable structures
 
-27 октября 2026. Сопоставлены все семь дат в двух одинаковых контрольных объёмах. Матрицы 3DGS → LAS и положение BIM сохранены. Краны и строительная техника исключены из этой оценки выбором поверхностей вне рабочих зон и ограничением высоты. Это локальная диагностика по вручную проверенным маскам, а не автоматическая семантическая очистка всей сцены.
+27 October 2026. All seven dates are compared in two identical control volumes. The 3DGS → LAS transforms and BIM placement are unchanged. Cranes and construction equipment are excluded by choosing surfaces outside work areas and restricting height. This is local diagnosis using manually reviewed masks, not automatic semantic cleaning of the whole scene.
 
-## Что оставлено в оценке
+## Evaluation regions
 
-1. Внутренняя часть белой крыши существующего блока помещений на востоке площадки. Контур узнаваем во всех семи LAS. Взята поверхность внутри края крыши, без окружающих дорог, стоянок и соседних навесов; высотный диапазон 8–16 м.
-2. Узкая серая прибрежная линейная конструкция в средней части площадки. Полоса длиной около 31 м и шириной 1,2 м, высота 2–7,5 м. Она проходит отдельно от проезда и рабочей площадки. Высокая растительность и детали над ней вне выбранного диапазона.
+1. The inner white roof of an existing block on the east side of the site. Its outline is recognizable in all seven LAS clouds. The mask stays inside the roof edge and excludes roads, parking areas, and neighboring canopies; its height range is 8–16 m.
+2. A narrow gray riverside structure near the middle of the site: approximately 31 m long, 1.2 m wide, and 2–7.5 m in elevation. It is separate from the access road and work area. Tall vegetation and objects above it lie outside the selected height range.
 
-Границы в `regions.json` одинаковы для всех дат и заданы по цветным LAS до расчёта ошибок 3DGS. Подбор масок уточнялся по видимым границам конструкции, не по величине ошибки совмещения. Широкие прибрежные зоны с деревьями, северная граница с изменяющимся покрытием, краны, транспорт, котлованы и строящиеся мостовые конструкции в эту оценку не включены.
+Boundaries in `regions.json` are identical across dates and were defined from colored LAS before calculating 3DGS errors. Masks were refined against visible structural boundaries, not alignment error. Broad tree-covered riverside areas, the changing northern edge, cranes, vehicles, excavations, and bridges under construction are excluded.
 
-![Маска крыши во всех датах](roof_selection_review.png)
+![Roof mask across all dates](roof_selection_review.png)
 
-![Маска прибрежной конструкции во всех датах](bank_mid_selection_review.png)
+![Riverside mask across all dates](bank_mid_selection_review.png)
 
-Красный контур показывает XY-маску; высотное ограничение применяется дополнительно. Цветные фоновые точки на этих рисунках включают окружение и служат для проверки выбора. Не каждая фоновая точка попадает в оценку.
+The red outline shows the XY mask; a height restriction is applied separately. Colored background points include surroundings to help review the selection. Not every displayed background point enters evaluation.
 
-## 3DGS → LAS той же даты
+## 3DGS → same-date LAS
 
-Расстояние от центра гауссиана до ближайшей точки LAS **внутри маски той же конструкции**. Остальная площадка не участвует даже в поиске ближайшего соседа. Большие расстояния внутри маски не обрезаются.
+Distance is measured from each Gaussian center to the nearest LAS point **inside the mask of the same structure**. The rest of the site is excluded even from nearest-neighbor searches. Large distances inside the mask are not trimmed.
 
-| Дата | Центров: крыша / берег | Крыша: медиана / P90, м | Берег: медиана / P90, м | Среднее двух медиан, м | Δ к 0929, м |
+| Date | Centers: roof / riverside | Roof median / P90, m | Riverside median / P90, m | Mean of two medians, m | Change vs 0929, m |
 |---|---:|---:|---:|---:|---:|
 | 0331 | 370 / 109 | 0.143 / 0.217 | 0.217 / 0.562 | 0.180 | -0.073 |
 | 0504 | 478 / 87 | 0.102 / 0.195 | 0.186 / 0.454 | 0.144 | -0.108 |
@@ -29,15 +29,15 @@
 | 0831 | 228 / 35 | 0.242 / 0.415 | 0.184 / 0.402 | 0.213 | -0.039 |
 | 0929 | 118 / 56 | 0.216 / 1.234 | 0.289 / 1.222 | 0.252 | +0.000 |
 
-Каждому из двух участков дан одинаковый вес. Последний сводный показатель — среднее их медиан, не общая медиана всех центров. P90 означает расстояние, ближе которого находятся 90% центров данного участка.
+Both regions receive equal weight. The aggregate is the mean of their medians, not the median of all centers pooled together. P90 is the distance containing 90% of centers in that region.
 
-На этой локальной выборке наименьшее среднее медиан у 0504, наибольшее у 0708. У 0929 заметный хвост расстояний: P90 около 1,23 м на обеих поверхностях. Это не рейтинг качества всей съёмки. На прибрежном участке у 0831 лишь 35 контрольных центров, поэтому небольшие различия между датами не следует переоценивать.
+On this local sample, 0504 has the lowest and 0708 the highest mean of medians. 0929 has a substantial tail, with P90 around 1.23 m on both surfaces. This is not a whole-capture quality ranking. The 0831 riverside region has only 35 control centers, so small date differences should not be overinterpreted.
 
-## Сами LAS между датами тоже не совпадают
+## LAS clouds also differ between dates
 
-На крыше отдельно оценена доминирующая плоскость LAS: робастная линейная модель высоты, привязанная к одному XY-центру маски. Эта модель служит дополнительной диагностикой и **не изменяет** ни облака, ни основной расчёт расстояний. Веса робастного fit применяются только при оценке плоскости LAS.
+The dominant LAS roof plane is estimated separately using a robust linear height model at a common XY anchor. This is an additional diagnostic and **does not change** either the clouds or the main distance calculation. Robust-fit weights are used only for the LAS plane estimate.
 
-| Дата | Высота плоскости LAS в центре, м | Разница с 0929, м | Доля LAS ближе 0,15 м к плоскости | P90 отклонения LAS от плоскости, м |
+| Date | LAS plane height at anchor, m | Difference from 0929, m | LAS fraction within 0.15 m of plane | P90 LAS deviation from plane, m |
 |---|---:|---:|---:|---:|
 | 0331 | 10.377 | -0.677 | 100.0% | 0.068 |
 | 0504 | 10.192 | -0.863 | 98.0% | 0.096 |
@@ -47,42 +47,42 @@
 | 0831 | 10.357 | -0.698 | 96.8% | 0.050 |
 | 0929 | 11.055 | +0.000 | 82.4% | 2.672 |
 
-Доминирующая поверхность крыши в LAS 0929 находится примерно на 0,54–0,86 м выше, чем в других датах. Это различие уже есть в исходных LAS и не возникает из-за преобразования 3DGS. При этом LAS 0929 в данном объёме содержит заметную примесь более низких точек: около 82% лежат в пределах 15 см от плоскости, а P90 отклонения составляет 2,67 м. У остальных дат доля составляет примерно 97–100%. Поэтому оценку доминирующей поверхности нельзя выдавать за точное смещение всего облака.
+The dominant roof surface in LAS 0929 is approximately 0.54–0.86 m above other dates. This difference already exists in the original LAS and is not caused by the 3DGS transform. LAS 0929 also contains many lower points in this volume: about 82% lie within 15 cm of the plane and deviation P90 is 2.67 m, versus roughly 97–100% near-plane points on other dates. The dominant-plane estimate is not an exact whole-cloud offset.
 
-По двум участкам нельзя установить, вызвано ли расхождение системой высот, геопривязкой/деформацией реконструкции, различием видимых поверхностей или физическим изменением объекта. Внешне сохраняющийся контур крыши — основание для контрольной гипотезы, а не геодезическое доказательство её неподвижности. Единую вертикальную поправку по этой крыше применять пока нельзя.
+Two regions cannot establish whether discrepancies arise from vertical datum, georeferencing/reconstruction deformation, visible-surface differences, or physical change. A persistent-looking roof outline supports a control hypothesis but is not survey proof of immobility. A single vertical correction from this roof is not justified.
 
-Дополнительные прямые расстояния LAS каждой даты до LAS 0929 сохранены в `las_to_0929.csv` (одна точка исходного LAS на воксель 0,25 м). Расстояния 3DGS каждой даты до неизменного LAS 0929 — в `regions_comparison.csv`. Они помогают отделить согласованность со своим LAS от согласованности дат между собой.
+Additional direct LAS-to-0929 distances are in `las_to_0929.csv` (one source LAS point per 0.25 m voxel). Distances from each 3DGS to unchanged LAS 0929 are in `regions_comparison.csv`. They distinguish agreement with same-date LAS from agreement across dates.
 
-![Сравнение по двум конструкциям и высота опорной поверхности](comparison.png)
+![Two-structure comparison and reference-surface elevation](comparison.png)
 
-Продолжение: [проверка единой поправки высоты LAS между датами](../las_vertical/REPORT.md). Поправка по крыше проверена на отдельной прибрежной конструкции; исходные матрицы не изменены.
+Follow-up: [testing a shared LAS elevation correction across dates](../las_vertical/REPORT.md). A roof-derived correction is checked on a separate riverside structure; original transforms remain unchanged.
 
-## Почему изменена контрольная выборка
+## Why the control sample changed
 
-Прежняя проверка использовала исходные пространственные плитки размером 0,4 единицы. На узких выбранных конструкциях часть дат почти не имеет центров в таких плитках: например, в прежней прореженной выборке 0708 оба участка пусты, у 0929 пуст прибрежный участок. Подставлять ноль вместо отсутствующих данных было бы неверно.
+The previous evaluation used source-space tiles of 0.4 units. Some dates have almost no sampled centers in those tiles on these narrow structures: both 0708 regions are empty in the earlier subsampled holdout, and the 0929 riverside region is empty. Missing data must not be replaced with zero.
 
-Для сопоставления всех семи дат взята каждая десятая запись исходного PLY, начиная с индекса 5: 5, 15, 25 и далее. Подгонка использовала другой набор — индексы 0, 10, 20 и далее. Сохранены только конечные XYZ и opacity logit > 0, затем применены фиксированные контрольные объёмы. Квантильного удаления хвостов, XY-фильтра близости к LAS и удаления по ошибке здесь нет. Индексы сохранены в NPZ и проверены.
+For the seven-date comparison, every tenth original PLY record starting at index 5 is used: 5, 15, 25, and so on. Fitting used indices 0, 10, 20, and so on. Only finite XYZ and opacity logit > 0 are required before applying fixed control volumes. There is no quantile tail trimming, LAS-XY proximity filter, or error-based removal. Indices are saved in NPZ and verified.
 
-Новые записи не участвовали непосредственно в численной подгонке, но соседствуют с обучающими записями и могут иметь те же исходные фотографии. Это **не независимая пространственная контрольная выборка**. Количество записей, которые дополнительно попадают в прежние отложенные плитки, сохранено в столбце `old_spatial_holdout_count`; сводная оценка не маскирует эту разницу протоколов.
+These records did not directly enter numerical fitting but have neighboring training records and may share original photographs. This is **not an independent spatial holdout**. `old_spatial_holdout_count` records how many also fall in the earlier holdout tiles; the aggregate does not conceal the protocol change.
 
-Старые глобальные и общие-ячеечные показатели используют другие участки и другой отбор. Снижение чисел относительно них нельзя называть улучшением матриц совмещения: матрицы здесь не менялись.
+Earlier global and shared-cell metrics use different regions and sampling rules. Lower values here cannot be described as improved registration matrices: the matrices did not change.
 
-## Что эта проверка позволяет утверждать
+## What this check establishes
 
-В выбранных объёмах можно сравнивать остаточное несовпадение реконструкции с собственным LAS без кранов и транспорта рабочей площадки. Небольшие расстояния не гарантируют точность всех шести степеней свободы: плоская крыша слабо выявляет сдвиг вдоль её поверхности, а длинная узкая конструкция — вдоль своей оси. Маска берега может отсеять центры с большим поперечным смещением; её результат условен принадлежностью этому узкому объёму. Возможны отдельные шумовые точки или примесь низкой растительности, поскольку семантических классов в LAS нет.
+These volumes allow comparison of reconstruction mismatch against same-date LAS without work-site cranes and vehicles. Small distances do not constrain all six degrees of freedom: a flat roof poorly detects along-plane sliding, and a long narrow structure poorly detects along-axis motion. The riverside mask may exclude centers with large transverse offsets, so results are conditional on that narrow volume. Some noise or low vegetation may remain because LAS has no semantic classes.
 
-Это два небольших участка, а не проверка всей площадки. Они не сопоставлены с конкретными IFC-элементами; подтверждение абсолютного положения BIM из этих чисел не следует. BIM остаётся в прежней общей системе координат. Для независимого контроля нужны подтверждённо неподвижные ориентиры с известными координатами, включая различимые углы и непараллельные поверхности.
+These are two small regions, not a site-wide evaluation. They are not assigned to specific IFC elements, and their metrics do not establish absolute BIM position. BIM remains in the previous shared frame. Independent control requires confirmed stable landmarks with known coordinates, including identifiable corners and nonparallel surfaces.
 
-## Просмотр, файлы и повторение
+## Viewing, files and reproduction
 
-В [просмотрщике](http://127.0.0.1:8765/viewer/) откройте «Слои и виды → Проверка совмещения → Неподвижные конструкции», включите расстояния и выберите участок. Бирюзовый контур показывает точный объём маски. Дата меняет сцену, контрольные центры и показатели, сохраняя ракурс. Общая сцена продолжает показывать технику; в численную оценку входят только цветные центры из контрольных объёмов.
+In the [viewer](http://127.0.0.1:8765/viewer/), open Layers & views → Alignment checks → Stable structures, enable distances, and select a region. The cyan outline shows the exact mask volume. Changing dates updates the scene, control centers, and metrics while preserving the viewpoint. Equipment remains visible in the full scene; numerical evaluation uses only colored centers inside the control volumes.
 
-- `regions.json` — неизменные маски и высотные границы.
-- `comparison.csv`, `regions_comparison.csv` — сводка и результаты по каждой конструкции.
-- `roof_plane.csv`, `las_to_0929.csv` — отдельная проверка опорных LAS.
-- `*_samples.npz` — координаты, точные расстояния, исходные индексы и принадлежность участку.
-- `*_distances.ply` — цветной слой для просмотрщика; `*_las.npz` — LAS выбранных конструкций.
-- `validation.json` — контрольные суммы матриц/масок и повторное чтение экспортов.
+- `regions.json` — unchanged masks and height bounds.
+- `comparison.csv`, `regions_comparison.csv` — summary and per-structure results.
+- `roof_plane.csv`, `las_to_0929.csv` — separate reference-LAS checks.
+- `*_samples.npz` — coordinates, exact distances, original indices, and region membership.
+- `*_distances.ply` — colored viewer layer; `*_las.npz` — LAS of selected structures.
+- `validation.json` — matrix/mask checksums and reopened-export checks.
 
 ```sh
 OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python scripts/check_static_structures.py
@@ -90,8 +90,8 @@ OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python scripts/check_static_s
 OPENBLAS_NUM_THREADS=3 OMP_NUM_THREADS=3 .venv/bin/python -m unittest discover -s scripts -p 'test_*.py' -v
 ```
 
-Проверены все семь экспортов, отсутствие пересечения исходных индексов с подгонкой и неизменность файлов совмещения. Численные тесты проверяют исключение наземной/высотной техники из заданного объёма, сохранение больших ошибок внутри него и восстановление известной разницы высот плоскости.
+All seven exports were checked, including disjoint fit/control record indices and unchanged registration files. Numerical tests check exclusion of ground-level and overhead equipment from a defined volume, retention of large in-volume errors, and recovery of a known plane-height difference.
 
-![0929: контрольная крыша в просмотрщике](0929_roof_viewer.png)
+![0929: control roof in the viewer](0929_roof_viewer.jpg)
 
-![0331: прибрежная контрольная конструкция](0331_bank_viewer.png)
+![0331: riverside control structure](0331_bank_viewer.jpg)

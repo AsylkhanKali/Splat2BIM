@@ -1,10 +1,10 @@
-# Все семь съёмок: 3DGS → LAS → BIM
+# All seven captures: 3DGS → LAS → BIM
 
-Все даты приведены в одну систему метров: LAS/BIM world = local + `[825800,842100,0]`. Исходные файлы сохранены. BIM не подгонялся к отдельным съёмкам; для сравнения используется неизменная v3. Официальное соответствие ревизий BIM датам пока не установлено.
+All dates share one metre coordinate frame: LAS/BIM world = local + `[825800,842100,0]`. Original files are preserved. BIM is not fitted to individual captures; the unchanged v3 is used for comparison. Official BIM-revision assignments to dates remain unconfirmed.
 
-## Согласованность 3DGS со своим LAS
+## 3DGS agreement with same-date LAS
 
-| Дата | Гауссиан | Медиана, м | P90, м | Ближе 1 м | XY покрытие | Δ медианы к 0929, м |
+| Date | Gaussians | Median, m | P90, m | Within 1 m | XY coverage | Median change vs 0929, m |
 |---|---:|---:|---:|---:|---:|---:|
 | 0331 | 3,000,000 | 0.266 | 1.151 | 88.3% | 98.7% | +0.047 |
 | 0504 | 2,929,187 | 0.196 | 0.758 | 93.1% | 99.3% | -0.023 |
@@ -14,31 +14,31 @@
 | 0831 | 2,882,481 | 0.230 | 0.772 | 94.4% | 100.0% | +0.011 |
 | 0929 | 2,874,168 | 0.219 | 0.745 | 93.3% | 99.1% | +0.000 |
 
-Каждый десятый гауссиан; opacity logit > 0; удалены крайние 0.5% по каждой исходной координате. Пространственные плитки размером 0.4 исходной единицы, примерно 25%, исключены из подгонки. Медиана/P90 и доля ближе 1 м рассчитаны на отложенных центрах внутри XY-покрытия LAS (ближайшая XY-точка < 1 м). Размер исходной единицы и форма плиток различаются между датами. Это диагностическое сравнение с собственным LAS, а не независимая геодезическая точность и не измерение строительных изменений.
-Для 0929 сохранён предыдущий результат с инициализацией через RTK-камеры/COLMAP. Для шести других дат камер нет: проверяются четыре геометрические ориентации, затем уточняются масштаб, поворот и перенос. Для 0708 этого оказалось недостаточно из-за различия покрытия: использована приблизительная начальная привязка по узнаваемым объектам на виде сверху, после чего выполнена та же подгонка по обучающим плиткам. Начальная матрица включена в align_dates.py; ориентиры и отвергнутые геометрические варианты сохранены в 0708/landmark_candidate.json и 0708/geometric_rejected.json. Ориентиры не являются геодезическим контролем. Цветовые и визуальные проверки помогают отличить ложные локальные минимумы.
+Every tenth Gaussian is sampled, with opacity logit > 0 and the outer 0.5% removed on each source axis. About 25% of spatial tiles, each 0.4 source units wide, is excluded from fitting. Median/P90 and fraction within 1 m use held-out centers inside LAS XY coverage (nearest XY point < 1 m). Source-unit size and tile shape differ between dates. This diagnoses agreement with each date-specific LAS; it is neither independent survey accuracy nor a measurement of construction change.
+0929 retains the RTK-camera/COLMAP initialization. The other six dates lack camera exports: four geometric orientations are tested, then scale, rotation, and translation are refined. Coverage differences made this insufficient for 0708, so a rough top-view seed from recognizable objects was followed by the same training-tile fit. align_dates.py contains the seed; 0708/landmark_candidate.json and 0708/geometric_rejected.json retain landmarks and rejected hypotheses. These landmarks are not survey control. Color and visual checks help distinguish false local minima.
 
-Экспорт преобразует координаты, кватернионы, логарифмические размеры и сферические гармоники цвета. Сохранены все исходные гауссианы, включая исключённые из подгонки. Для каждой даты сохранены матрицы local/global, SHA-256 исходников и проверки экспортированного файла.
+Export transforms coordinates, quaternions, log scales, and color spherical harmonics. All original Gaussians are retained, including those excluded from fitting. Local/global matrices, input SHA-256 hashes, and reopened-export checks are saved for every date.
 
-В пайплайне есть диагностический запрет экспорта явно неудачных кандидатов: обучающая медиана > 0.5 м или медианное расхождение RGB > 0.35 помечает результат rejected. Это внутренний фильтр грубых ошибок на данном наборе, а не согласованный допуск точности.
+A diagnostic guard prevents export of clearly poor candidates: training median > 0.5 m or median RGB difference > 0.35 produces rejected status. This is an internal gross-error filter for this dataset, not an agreed accuracy tolerance.
 
-## Один BIM v3 против LAS каждой даты
+## One BIM v3 compared with LAS from every date
 
-Медиана медиан расстояний поверхности элементов до LAS, м. На каждом элементе одинаковые 500 проб поверхности для всех дат; каждой конструкции дан одинаковый вес.
+Median of element-wise median surface distances to LAS, in metres. Each element uses the same 500 surface samples across dates, and each element has equal weight.
 
-| Группа | 0331 | 0504 | 0609 | 0708 | 0723 | 0831 | 0929 |
+| Group | 0331 | 0504 | 0609 | 0708 | 0723 | 0831 | 0929 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Настилы | 5.03 | 4.40 | 4.60 | 0.82 | 0.51 | 0.73 | 0.72 |
-| Навесы | 8.41 | 6.83 | 7.37 | 3.85 | 2.44 | 0.54 | 0.37 |
-| Опоры | 1.92 | 1.53 | 0.93 | 0.92 | 0.94 | 0.76 | 0.71 |
-| Ростверки | 2.22 | 0.99 | 2.26 | 3.23 | 3.07 | 3.44 | 3.79 |
-| Киоски | 1.34 | 1.40 | 1.59 | 1.83 | 2.32 | 0.93 | 0.90 |
-| Подземные сваи | 20.50 | 18.44 | 19.99 | 20.13 | 18.95 | 17.48 | 18.85 |
+| Decks | 5.03 | 4.40 | 4.60 | 0.82 | 0.51 | 0.73 | 0.72 |
+| Canopies | 8.41 | 6.83 | 7.37 | 3.85 | 2.44 | 0.54 | 0.37 |
+| Piers | 1.92 | 1.53 | 0.93 | 0.92 | 0.94 | 0.76 | 0.71 |
+| Pile caps | 2.22 | 0.99 | 2.26 | 3.23 | 3.07 | 3.44 | 3.79 |
+| Kiosks | 1.34 | 1.40 | 1.59 | 1.83 | 2.32 | 0.93 | 0.90 |
+| Underground piles | 20.50 | 18.44 | 19.99 | 20.13 | 18.95 | 17.48 | 18.85 |
 
-В выборку входят нижние, закрытые и подземные поверхности. Съёмки также различаются покрытием и стадией работ. Большие расстояния не доказывают отсутствие конструкции или ошибку регистрации. По этой таблице нельзя считать процент готовности; изменения нужно измерять отдельно на общих наблюдаемых участках. BIM-статистика использует исходные LAS и поэтому отдельно от ошибок регистрации 3DGS.
+Samples include underside, hidden, and underground surfaces. Captures also differ in coverage and construction stage. Large distances do not prove that a structure is missing or registration is wrong. This table cannot yield a completion percentage; changes must be measured separately on commonly observed regions. BIM statistics use the original LAS and are separate from 3DGS registration errors.
 
-## Просмотр и повторение
+## Viewing and reproduction
 
-http://127.0.0.1:8765/viewer/ — выбор даты меняет 3DGS и её LAS, сохраняет ракурс и выбранную ревизию BIM. Полные облака загружаются по одному; LAS в просмотрщике прорежен в 10 раз, численные проверки используют полный LAS.
+http://127.0.0.1:8765/viewer/ changes 3DGS and its LAS together while preserving the viewpoint and BIM revision. Full clouds load one at a time; the viewer subsamples LAS by 10, while numerical checks use the full LAS.
 
 ```sh
 OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 .venv/bin/python scripts/align_dates.py
@@ -48,6 +48,6 @@ OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 .venv/bin/python scripts/align_dates.py
 .venv/bin/python scripts/serve_viewer.py
 ```
 
-## Проверки готового результата
+## Completed-result checks
 
-26.10.2026: пройдены 7 численных тестов; проверены все 6 экспортированных PLY и 14 локальных адресов файлов. Все 7 дат загружены и осмотрены в Spark-просмотрщике. Проверены сохранение ракурса, замена LAS вместе с датой и обновление чисел для выбранного BIM-элемента; ошибок или предупреждений в консоли финальной проверки не было. Максимальное округление проверенных координат после экспорта — 0.000030 м; это погрешность записи файла, а не точность привязки. Подробности — validation.json.
+26 October 2026: 7 numerical tests passed; all 6 exported PLYs and 14 local resource URLs were checked. All 7 dates loaded and were inspected in Spark. View preservation, paired LAS switching, and selected BIM-element metrics were checked; the final console had no errors or warnings. Maximum inspected export-coordinate rounding was 0.000030 m; this is file-writing precision, not registration accuracy. See validation.json.

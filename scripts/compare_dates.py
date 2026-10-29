@@ -13,7 +13,7 @@ from scipy.spatial import cKDTree
 from align_dates import ROOT,OUT,ORIGIN,DATES
 
 BIM=ROOT/'results/0929_bim'
-GROUPS={'Deck':'Настилы','Canopy':'Навесы','Pier':'Опоры','Pile Cap':'Ростверки','Kiosk':'Киоски','Underground piles':'Подземные сваи'}
+GROUPS={'Deck':'Decks','Canopy':'Canopies','Pier':'Piers','Pile Cap':'Pile caps','Kiosk':'Kiosks','Underground piles':'Underground piles'}
 
 
 def bim_samples():
@@ -78,22 +78,22 @@ def main():
     (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
     with (OUT/'comparison.csv').open('w',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=[k for k in rows[0] if k!='bim_groups'],extrasaction='ignore');writer.writeheader();writer.writerows(rows)
-    lines=['# Все семь съёмок: 3DGS → LAS → BIM','',
-           'Все даты приведены в одну систему метров: LAS/BIM world = local + `[825800,842100,0]`. Исходные файлы сохранены. BIM не подгонялся к отдельным съёмкам; для сравнения используется неизменная v3. Официальное соответствие ревизий BIM датам пока не установлено.','',
-           '## Согласованность 3DGS со своим LAS','',
-           '| Дата | Гауссиан | Медиана, м | P90, м | Ближе 1 м | XY покрытие | Δ медианы к 0929, м |','|---|---:|---:|---:|---:|---:|---:|']
+    lines=['# All seven captures: 3DGS → LAS → BIM','',
+           'All dates share one metre coordinate frame: LAS/BIM world = local + `[825800,842100,0]`. Original files are preserved. BIM is not fitted to individual captures; the unchanged v3 is used for comparison. Official BIM-revision assignments to dates remain unconfirmed.','',
+           '## 3DGS agreement with same-date LAS','',
+           '| Date | Gaussians | Median, m | P90, m | Within 1 m | XY coverage | Median change vs 0929, m |','|---|---:|---:|---:|---:|---:|---:|']
     for r in rows:lines.append(f"| {r['date']} | {r['gaussians']:,} | {r['median_m']:.3f} | {r['p90_m']:.3f} | {r['within_1m']:.1%} | {r['xy_overlap']:.1%} | {r['delta_median_vs_0929_m']:+.3f} |")
-    lines+=['','Каждый десятый гауссиан; opacity logit > 0; удалены крайние 0.5% по каждой исходной координате. Пространственные плитки размером 0.4 исходной единицы, примерно 25%, исключены из подгонки. Медиана/P90 и доля ближе 1 м рассчитаны на отложенных центрах внутри XY-покрытия LAS (ближайшая XY-точка < 1 м). Размер исходной единицы и форма плиток различаются между датами. Это диагностическое сравнение с собственным LAS, а не независимая геодезическая точность и не измерение строительных изменений.',
-            'Для 0929 сохранён предыдущий результат с инициализацией через RTK-камеры/COLMAP. Для шести других дат камер нет: проверяются четыре геометрические ориентации, затем уточняются масштаб, поворот и перенос. Для 0708 этого оказалось недостаточно из-за различия покрытия: использована приблизительная начальная привязка по узнаваемым объектам на виде сверху, после чего выполнена та же подгонка по обучающим плиткам. Начальная матрица включена в align_dates.py; ориентиры и отвергнутые геометрические варианты сохранены в 0708/landmark_candidate.json и 0708/geometric_rejected.json. Ориентиры не являются геодезическим контролем. Цветовые и визуальные проверки помогают отличить ложные локальные минимумы.','',
-            'Экспорт преобразует координаты, кватернионы, логарифмические размеры и сферические гармоники цвета. Сохранены все исходные гауссианы, включая исключённые из подгонки. Для каждой даты сохранены матрицы local/global, SHA-256 исходников и проверки экспортированного файла.','',
-            'В пайплайне есть диагностический запрет экспорта явно неудачных кандидатов: обучающая медиана > 0.5 м или медианное расхождение RGB > 0.35 помечает результат rejected. Это внутренний фильтр грубых ошибок на данном наборе, а не согласованный допуск точности.','',
-            '## Один BIM v3 против LAS каждой даты','',
-            'Медиана медиан расстояний поверхности элементов до LAS, м. На каждом элементе одинаковые 500 проб поверхности для всех дат; каждой конструкции дан одинаковый вес.','',
-            '| Группа | '+' | '.join(DATES)+' |','|---|'+'---:|'*7]
+    lines+=['','Every tenth Gaussian is sampled, with opacity logit > 0 and the outer 0.5% removed on each source axis. About 25% of spatial tiles, each 0.4 source units wide, is excluded from fitting. Median/P90 and fraction within 1 m use held-out centers inside LAS XY coverage (nearest XY point < 1 m). Source-unit size and tile shape differ between dates. This diagnoses agreement with each date-specific LAS; it is neither independent survey accuracy nor a measurement of construction change.',
+            '0929 retains the RTK-camera/COLMAP initialization. The other six dates lack camera exports: four geometric orientations are tested, then scale, rotation, and translation are refined. Coverage differences made this insufficient for 0708, so a rough top-view seed from recognizable objects was followed by the same training-tile fit. align_dates.py contains the seed; 0708/landmark_candidate.json and 0708/geometric_rejected.json retain landmarks and rejected hypotheses. These landmarks are not survey control. Color and visual checks help distinguish false local minima.','',
+            'Export transforms coordinates, quaternions, log scales, and color spherical harmonics. All original Gaussians are retained, including those excluded from fitting. Local/global matrices, input SHA-256 hashes, and reopened-export checks are saved for every date.','',
+            'A diagnostic guard prevents export of clearly poor candidates: training median > 0.5 m or median RGB difference > 0.35 produces rejected status. This is an internal gross-error filter for this dataset, not an agreed accuracy tolerance.','',
+            '## One BIM v3 compared with LAS from every date','',
+            'Median of element-wise median surface distances to LAS, in metres. Each element uses the same 500 surface samples across dates, and each element has equal weight.','',
+            '| Group | '+' | '.join(DATES)+' |','|---|'+'---:|'*7]
     for g,label in GROUPS.items():lines.append('| '+label+' | '+' | '.join(f"{r['bim_groups'][g]['median_of_element_medians_m']:.2f}" for r in rows)+' |')
-    lines+=['','В выборку входят нижние, закрытые и подземные поверхности. Съёмки также различаются покрытием и стадией работ. Большие расстояния не доказывают отсутствие конструкции или ошибку регистрации. По этой таблице нельзя считать процент готовности; изменения нужно измерять отдельно на общих наблюдаемых участках. BIM-статистика использует исходные LAS и поэтому отдельно от ошибок регистрации 3DGS.','',
-            '## Просмотр и повторение','',
-            'http://127.0.0.1:8765/viewer/ — выбор даты меняет 3DGS и её LAS, сохраняет ракурс и выбранную ревизию BIM. Полные облака загружаются по одному; LAS в просмотрщике прорежен в 10 раз, численные проверки используют полный LAS.','',
+    lines+=['','Samples include underside, hidden, and underground surfaces. Captures also differ in coverage and construction stage. Large distances do not prove that a structure is missing or registration is wrong. This table cannot yield a completion percentage; changes must be measured separately on commonly observed regions. BIM statistics use the original LAS and are separate from 3DGS registration errors.','',
+            '## Viewing and reproduction','',
+            'http://127.0.0.1:8765/viewer/ changes 3DGS and its LAS together while preserving the viewpoint and BIM revision. Full clouds load one at a time; the viewer subsamples LAS by 10, while numerical checks use the full LAS.','',
             '```sh','OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 .venv/bin/python scripts/align_dates.py',
             '.venv/bin/python scripts/export_dates.py','.venv/bin/python scripts/compare_dates.py','.venv/bin/python scripts/preview_dates.py','.venv/bin/python scripts/serve_viewer.py','```']
     (OUT/'REPORT.md').write_text('\n'.join(lines)+'\n')

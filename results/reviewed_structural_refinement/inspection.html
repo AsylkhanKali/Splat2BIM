@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stable-structure alignment accuracy</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:105ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:9px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}h1{font-size:clamp(24px,3vw,36px)}a:focus-visible,summary:focus-visible{outline:2px solid #175794}</style>
+<a href="/viewer/">← 3D viewer</a><h1>Stable-structure alignment accuracy</h1>
+<p><strong>Mean across seven dates and two regions: 0.214 → 0.205 m (3.9% reduction).</strong> Strict thresholds are unchanged; acceptance 7/7.</p>
+<p>Refinement uses predefined roof and riverside regions. No control record participates in fitting or correction selection.</p>
+<p><a href="REPORT.md">Method</a> · <a href="summary.csv">Seven-date comparison</a> · <a href="static_structures.csv">Control samples</a> · <a href="experiments.csv">All three experiments</a> · <a href="validation.json">Numerical verification</a></p>
+<div class="table"><table><thead><tr><th>Date</th><th>Roof, m</th><th>Riverside, m</th><th>Mean median, m</th><th>Result</th><th>Strict supports</th></tr></thead><tbody>
+<tr><td>0331</td><td>0.165 → 0.132</td><td>0.230 → 0.233</td><td>0.197 → 0.183</td><td>+7.4% reduction</td><td>5</td></tr>
+<tr><td>0504</td><td>0.107 → 0.108</td><td>0.189 → 0.184</td><td>0.148 → 0.146</td><td>+1.2% reduction</td><td>5</td></tr>
+<tr><td>0609</td><td>0.123 → 0.120</td><td>0.245 → 0.247</td><td>0.184 → 0.184</td><td>+0.2% reduction</td><td>7</td></tr>
+<tr><td>0708</td><td>0.193 → 0.187</td><td>0.364 → 0.346</td><td>0.279 → 0.266</td><td>+4.5% reduction</td><td>4</td></tr>
+<tr><td>0723</td><td>0.179 → 0.169</td><td>0.262 → 0.232</td><td>0.221 → 0.201</td><td>+8.9% reduction</td><td>3</td></tr>
+<tr><td>0831</td><td>0.247 → 0.238</td><td>0.190 → 0.179</td><td>0.218 → 0.209</td><td>+4.5% reduction</td><td>5</td></tr>
+<tr><td>0929</td><td>0.216 → 0.216</td><td>0.279 → 0.279</td><td>0.247 → 0.247</td><td>Previous pose retained</td><td>4</td></tr>
+</tbody></table></div><p>Before → after. Equal weight for both regions and every date; errors use the unchanged unused records.</p>
+<p>Whole-scene median increased on changed dates by 1.7–8.8 mm. Dates with a whole-scene P90 increase above 1 cm: 0331, 0504. New matrices are therefore saved separately and do not automatically replace the working exports. Regions with a median increase above 1 mm: 0331 bank_mid: +3.5 mm; 0609 bank_mid: +2.2 mm.</p><p>On the stronger spatial roof holdout, the median decreased on 0331, 0504, 0723, and 0831; it increased by 3.3 mm on 0609. The sample is insufficient on 0708 and 0929. Spatial riverside control samples are insufficient on every date.</p><img src="comparison.png" alt="Changes in roof, riverside, and whole-scene errors across seven dates">
+<details><summary>Inputs and evaluation independence</summary>
+<p>This refinement uses the existing manual definitions of two fixed regions: the roof and riverside structure. It is not a new fully automatic structure detector.</p>
+<p>Fitting uses only even original 3DGS records outside the previous spatial holdout tiles. A separate block-based calibration sample within the training data selects the correction. The headline errors use the unchanged records 5, 15, 25…; these participate in neither fitting nor selection.</p>
+<p>Region definitions now provide training supervision. Evaluation on different records within the same regions is therefore weaker than evaluation on entirely new structures. Reconstructed Gaussian centers are also not independent survey measurements.</p>
+<p>The stronger spatial holdout is retained separately. Roof samples are sufficient only on 0331, 0504, 0609, 0723, and 0831; riverside samples contain fewer than 30 points on every date. Insufficient samples do not count as evidence of improvement.</p>
+<p>Scale is fixed. Plane, point, and hybrid fits are tested, followed by the same correction fractions. Selection uses only training and internal block-calibration samples. Whole-scene motion is limited to 0.5 m at fixed bounding-volume anchors.</p>
+<p>The previous strict conditions are preserved: ≥3 distinct supports; ≥80% forward and ≥50% reverse overlap within 1 m; support spacing ≥10 m, second axis ≥2 m; center distance ≤5 m, normals ≤20°, size ratio 0.5–2. The pair bank is fixed before refinement; no identities are added after fitting.</p>
+<p>The first automatic experiment improved selected supports but worsened the riverside region, by about 9 cm on 0504. The scene-context variant with a no-regression guard on training median/P90 retained the previous poses for all seven dates. Both experiments are preserved; experiments.csv compares them with reviewed-region refinement.</p>
+<p>The method was developed on this site with knowledge of earlier control results. This is an experimental comparison, not an independent transfer test. The complete working scenes and BIM in the viewer were not overwritten; new local and global matrices are stored in the date folders.</p>
+</details></html>

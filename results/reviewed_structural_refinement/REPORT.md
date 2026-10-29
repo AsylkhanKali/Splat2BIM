@@ -1,48 +1,48 @@
-# Уточнение точности по размеченным неподвижным конструкциям
+# Accuracy refinement with reviewed stable regions
 
-Среднее по семи датам и двум областям: 0.214 → 0.205 м (3.9% снижения).
+Mean across seven dates and two regions: 0.214 → 0.205 m (3.9% reduction).
 
-Строгий допуск: 7/7. Приняты поправки: 0331, 0504, 0609, 0708, 0723, 0831. Прежняя поза: 0929.
+Strict acceptance: 7/7. Accepted corrections: 0331, 0504, 0609, 0708, 0723, 0831. Previous pose: 0929.
 
-| Дата | Крыша: до → после, м | Берег: до → после, м | Средняя медиана: до → после, м | Изменение | Строгих опор |
+| Date | Roof: before → after, m | Riverside: before → after, m | Mean median: before → after, m | Change | Strict supports |
 |---|---:|---:|---:|---|---:|
-| 0331 | 0.165 → 0.132 | 0.230 → 0.233 | 0.197 → 0.183 | +7.4% снижения | 5 |
-| 0504 | 0.107 → 0.108 | 0.189 → 0.184 | 0.148 → 0.146 | +1.2% снижения | 5 |
-| 0609 | 0.123 → 0.120 | 0.245 → 0.247 | 0.184 → 0.184 | +0.2% снижения | 7 |
-| 0708 | 0.193 → 0.187 | 0.364 → 0.346 | 0.279 → 0.266 | +4.5% снижения | 4 |
-| 0723 | 0.179 → 0.169 | 0.262 → 0.232 | 0.221 → 0.201 | +8.9% снижения | 3 |
-| 0831 | 0.247 → 0.238 | 0.190 → 0.179 | 0.218 → 0.209 | +4.5% снижения | 5 |
-| 0929 | 0.216 → 0.216 | 0.279 → 0.279 | 0.247 → 0.247 | Прежняя поза | 4 |
+| 0331 | 0.165 → 0.132 | 0.230 → 0.233 | 0.197 → 0.183 | +7.4% reduction | 5 |
+| 0504 | 0.107 → 0.108 | 0.189 → 0.184 | 0.148 → 0.146 | +1.2% reduction | 5 |
+| 0609 | 0.123 → 0.120 | 0.245 → 0.247 | 0.184 → 0.184 | +0.2% reduction | 7 |
+| 0708 | 0.193 → 0.187 | 0.364 → 0.346 | 0.279 → 0.266 | +4.5% reduction | 4 |
+| 0723 | 0.179 → 0.169 | 0.262 → 0.232 | 0.221 → 0.201 | +8.9% reduction | 3 |
+| 0831 | 0.247 → 0.238 | 0.190 → 0.179 | 0.218 → 0.209 | +4.5% reduction | 5 |
+| 0929 | 0.216 → 0.216 | 0.279 → 0.279 | 0.247 → 0.247 | Previous pose retained | 4 |
 
-Медиана всей сцены на изменённых датах выросла на 1.7–8.8 мм. Даты с ростом P90 всей сцены более 1 см: 0331, 0504. Поэтому новые матрицы сохранены отдельно и не заменяют рабочие экспорты автоматически.
+Whole-scene median increased on changed dates by 1.7–8.8 mm. Dates with a whole-scene P90 increase above 1 cm: 0331, 0504. New matrices are therefore saved separately and do not automatically replace the working exports.
 
-Области с ростом медианы более 1 мм: 0331 bank_mid: +3.5 мм; 0609 bank_mid: +2.2 мм.
+Regions with a median increase above 1 mm: 0331 bank_mid: +3.5 mm; 0609 bank_mid: +2.2 mm.
 
-![Сравнение](comparison.png)
+![Comparison](comparison.png)
 
-На более строгом пространственном контроле крыши медиана снизилась на 0331, 0504, 0723 и 0831; на 0609 выросла на 3,3 мм. На 0708 и 0929 эта выборка недостаточна. На берегу пространственных контрольных точек недостаточно во всех датах.
+On the stronger spatial roof holdout, the median decreased on 0331, 0504, 0723, and 0831; it increased by 3.3 mm on 0609. The sample is insufficient on 0708 and 0929. Spatial riverside control samples are insufficient on every date.
 
-## Условия и ограничения
+## Conditions and limitations
 
-Это уточнение использует существующую ручную разметку двух неподвижных областей — крыши и берега. Оно не является новым полностью автоматическим детектором конструкций.
+This refinement uses the existing manual definitions of two fixed regions: the roof and riverside structure. It is not a new fully automatic structure detector.
 
-В подгонке участвуют только чётные исходные записи 3DGS вне прежних отложенных пространственных ячеек. Внутри обучающих данных выделена отдельная блочная выборка для выбора поправки. Показанные основные ошибки вычислены на прежних записях 5, 15, 25…; они не участвуют в подгонке или выборе.
+Fitting uses only even original 3DGS records outside the previous spatial holdout tiles. A separate block-based calibration sample within the training data selects the correction. The headline errors use the unchanged records 5, 15, 25…; these participate in neither fitting nor selection.
 
-Разметка областей теперь служит обучающей подсказкой. Поэтому проверка на других записях этих же областей слабее проверки на совершенно новых конструкциях. Восстановленные центры гауссианов также не являются независимыми геодезическими измерениями.
+Region definitions now provide training supervision. Evaluation on different records within the same regions is therefore weaker than evaluation on entirely new structures. Reconstructed Gaussian centers are also not independent survey measurements.
 
-Сильный пространственный контроль сохранён отдельно. В контрольной крыше достаточно точек только на 0331, 0504, 0609, 0723 и 0831; на берегу во всех датах их меньше 30. Недостаточные выборки не засчитываются как доказательство улучшения.
+The stronger spatial holdout is retained separately. Roof samples are sufficient only on 0331, 0504, 0609, 0723, and 0831; riverside samples contain fewer than 30 points on every date. Insufficient samples do not count as evidence of improvement.
 
-Масштаб зафиксирован. Проверены подгонки по плоскостям, точкам и их комбинации, затем одинаковые доли поправки. Выбор использует только обучающую и внутреннюю блочную выборки. Сдвиг всей сцены ограничен 0,5 м на фиксированных контрольных вершинах её объёма.
+Scale is fixed. Plane, point, and hybrid fits are tested, followed by the same correction fractions. Selection uses only training and internal block-calibration samples. Whole-scene motion is limited to 0.5 m at fixed bounding-volume anchors.
 
-Прежние строгие условия сохранены: ≥3 разных опор; прямое перекрытие ≥80%, обратное ≥50% в пределах 1 м; расстояние между опорами ≥10 м, вторая ось ≥2 м; центр ≤5 м, нормали ≤20°, размеры 0,5–2. Банк пар фиксирован до уточнения, новые идентичности после подгонки не добавляются.
+The previous strict conditions are preserved: ≥3 distinct supports; ≥80% forward and ≥50% reverse overlap within 1 m; support spacing ≥10 m, second axis ≥2 m; center distance ≤5 m, normals ≤20°, size ratio 0.5–2. The pair bank is fixed before refinement; no identities are added after fitting.
 
-Первый автоматический опыт улучшал выбранные опоры, но ухудшал берег, например на 0504 примерно на 9 см. Вариант с контекстом сцены и запретом роста обучающих медианы/P90 сохранил прежние позы всех семи дат. Оба опыта сохранены; experiments.csv позволяет сравнить их с уточнением по размеченным областям.
+The first automatic experiment improved selected supports but worsened the riverside region, by about 9 cm on 0504. The scene-context variant with a no-regression guard on training median/P90 retained the previous poses for all seven dates. Both experiments are preserved; experiments.csv compares them with reviewed-region refinement.
 
-Метод разрабатывался на этой площадке с учётом предыдущих контрольных результатов. Это экспериментальное сравнение, а не независимый тест переноса. Полные рабочие сцены и BIM в просмотрщике не перезаписаны; новые локальные и глобальные матрицы сохранены в папках дат.
+The method was developed on this site with knowledge of earlier control results. This is an experimental comparison, not an independent transfer test. The complete working scenes and BIM in the viewer were not overwritten; new local and global matrices are stored in the date folders.
 
-## Проверка всей сцены
+## Whole-scene evaluation
 
-| Дата | Медиана до → после, м | P90 до → после, м |
+| Date | Median before → after, m | P90 before → after, m |
 |---|---:|---:|
 | 0331 | 0.272 → 0.280 | 1.148 → 1.162 |
 | 0504 | 0.205 → 0.214 | 0.754 → 0.769 |
@@ -52,9 +52,9 @@
 | 0831 | 0.234 → 0.241 | 0.752 → 0.739 |
 | 0929 | 0.219 → 0.219 | 0.742 → 0.742 |
 
-Сравнение с исходным автоматическим методом и последним вариантом устойчивых поверхностей находится в summary.csv. Сырые ошибки двух видов контрольных выборок — static_structures.csv; дополнительные автоматические поверхности — automatic_structural_controls.csv. Все кандидаты, включая непринятые, сохранены в <дата>/fit.json и candidate_comparison.csv.
+summary.csv compares the original automatic method and the latest persistent-surface method. static_structures.csv contains errors for both control-sample types; automatic_structural_controls.csv covers additional automatic surfaces. All candidates, including rejected ones, are stored in <date>/fit.json and candidate_comparison.csv.
 
-## Воспроизведение
+## Reproduction
 
 ```sh
 .venv/bin/python scripts/fit_structural_refinement.py
@@ -65,4 +65,4 @@
 .venv/bin/python scripts/report_structural_refinement.py
 ```
 
-Численная перепроверка сохранена в validation.json. Первые два опыта имеют собственные каталоги results/structural_refinement и results/guarded_structural_refinement. Все исходные данные и предыдущие матрицы сохранены.
+Numerical re-verification is recorded in validation.json. The first two experiments have separate results/structural_refinement and results/guarded_structural_refinement directories. All original inputs and previous matrices are preserved.

@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3DGS: structures and strict checks</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:90ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:9px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}details{border-bottom:1px solid #ccd2d8}a:focus-visible,summary:focus-visible{outline:2px solid #175794}h1{font-size:clamp(24px,3vw,36px)}</style>
+<a href="/viewer/">← 3D viewer</a><h1>3DGS: structures and strict checks</h1>
+<p>The control roof is detected on <strong>7/7 dates</strong> instead of 0/7. The new projection accounts for Gaussian shape and opacity. The model and confidence threshold are unchanged.</p>
+<p>This experiment improves structure recognition in 3DGS. Strict statuses refer to the previous semantic registration: its transforms and geometric supports are preserved. Improved recognition alone does not prove better alignment.</p>
+<p><a href="REPORT.md">Method and limitations</a> · <a href="summary.csv">Comparison CSV</a> · <a href="recognition.csv">Point counts</a> · <a href="../semantic_fusion/inspection.html">Previous registration comparison</a></p>
+<div class="table"><table><thead><tr><th>Date</th><th>Roof points</th><th>Detected: before → after</th><th>False buildings in vegetation</th><th>Strict check of previous pose</th></tr></thead><tbody>
+<tr><td>0331</td><td>666</td><td>0.0% → 86.2%</td><td>0.0%</td><td>Passed</td></tr>
+<tr><td>0504</td><td>1269</td><td>0.0% → 99.7%</td><td>0.0%</td><td>Passed</td></tr>
+<tr><td>0609</td><td>1143</td><td>0.0% → 99.0%</td><td>0.0%</td><td>Passed</td></tr>
+<tr><td>0708</td><td>888</td><td>0.0% → 59.8%</td><td>0.0%</td><td>Failed</td></tr>
+<tr><td>0723</td><td>1319</td><td>0.0% → 91.9%</td><td>0.0%</td><td>Failed</td></tr>
+<tr><td>0831</td><td>317</td><td>0.0% → 85.5%</td><td>0.0%</td><td>Passed</td></tr>
+<tr><td>0929</td><td>284</td><td>0.0% → 80.6%</td><td>0.0%</td><td>Passed</td></tr>
+</tbody></table></div><p>Fractions refer to one roof and one vegetation strip. Settings were developed on this site; this is not an independent whole-scene evaluation.</p>
+<img src="recognition.png" alt="Control-roof recognition and false structures in vegetation across seven dates">
+<h2>Reasons for strict failures</h2><p>0708: three pairs meet the overlap gates, but their centers are almost collinear. The second singular value of centered source coordinates is 1.962274 m against a 2 m minimum; LAS gives 4.353667 m. Minimum spacing is about 59 m, so the issue is transverse spread. The 3.77 cm gap is in this support metric, not object-position error. The threshold is unchanged.</p><p>0723: only two pairs meet ≥80% forward and ≥50% reverse overlap within 1 m. The third spaced pair p8_c16 → p8_c39 gives 71.15% / 55.38%: 37 of 52 source points are within 1 m of the assigned fragment, while at least 42 are needed. Five confirmed points are missing; this does not justify adding artificial points.</p>
+<p>All triples were checked; none qualifies. Thresholds are unchanged. Previous-method primary acceptance remains 7/7 and strict acceptance 5/7.</p>
+<details><summary>0708: supports, overlap, and full LAS</summary><img loading="lazy" src="../strict_diagnostics/0708_diagnostic.png" alt="0708: strict-failure diagnostics"></details>
+<details><summary>0723: supports, overlap, and full LAS</summary><img loading="lazy" src="../strict_diagnostics/0723_diagnostic.png" alt="0723: strict-failure diagnostics"></details>
+<h2>Images across all seven dates</h2><p>Top: full scene. Bottom: control roof. Orange points show final structure labels.</p>
+<details><summary>0331: previous projection → Gaussians → detected structures</summary><a href="0331/comparison.png"><img loading="lazy" src="0331/comparison.png" alt="0331: projection and structure-label comparison"></a></details>
+<details><summary>0504: previous projection → Gaussians → detected structures</summary><a href="0504/comparison.png"><img loading="lazy" src="0504/comparison.png" alt="0504: projection and structure-label comparison"></a></details>
+<details><summary>0609: previous projection → Gaussians → detected structures</summary><a href="0609/comparison.png"><img loading="lazy" src="0609/comparison.png" alt="0609: projection and structure-label comparison"></a></details>
+<details><summary>0708: previous projection → Gaussians → detected structures</summary><a href="0708/comparison.png"><img loading="lazy" src="0708/comparison.png" alt="0708: projection and structure-label comparison"></a></details>
+<details><summary>0723: previous projection → Gaussians → detected structures</summary><a href="0723/comparison.png"><img loading="lazy" src="0723/comparison.png" alt="0723: projection and structure-label comparison"></a></details>
+<details><summary>0831: previous projection → Gaussians → detected structures</summary><a href="0831/comparison.png"><img loading="lazy" src="0831/comparison.png" alt="0831: projection and structure-label comparison"></a></details>
+<details><summary>0929: previous projection → Gaussians → detected structures</summary><a href="0929/comparison.png"><img loading="lazy" src="0929/comparison.png" alt="0929: projection and structure-label comparison"></a></details>
+<details><summary>Negative vegetation-region check</summary><img loading="lazy" src="negative_region_review.png" alt="Fixed vegetation strip in 3DGS across seven dates"></details></html>

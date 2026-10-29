@@ -27,12 +27,12 @@ def main():
         changes[v]={'common':len(common),'same_geometry':sum(current[k]['geometry_sha256']==previous[k]['geometry_sha256'] for k in common),
                     'removed':len(previous.keys()-current.keys()),
                     'added':[current[k] for k in sorted(current.keys()-previous.keys())]}
-    choices=[('9525','Настил у FP4/FP5'),('49665','Навес, северный участок'),('11021','Опора FP1'),
-             ('10912','Ростверк — проверить видимость'),('5828','Киоск, западный участок')]
+    choices=[('9525','Deck near FP4/FP5'),('49665','Canopy, north section'),('11021','FP1 support'),
+             ('10912','Pile cap: check visibility'),('5828','Kiosk, west section')]
     by_id={e['id']:e for e in elements}
     manifest['landmarks']=[{'id':key,'label':label,'center':by_id[key]['center'],
          'bounds_min':by_id[key]['bounds_min'],'bounds_max':by_id[key]['bounds_max'],
-         'note':f"BIM v3 #{key}; медиана до LAS {by_id[key]['median_surface_to_las_m']:.2f} м (500 проб поверхности)"}
+         'note':f"BIM v3 #{key}; median distance to LAS {by_id[key]['median_surface_to_las_m']:.2f} m (500 surface samples)"}
          for key,label in choices]
     (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
     result={'coordinate_adjustment':'Only subtract [825800,842100,0]; no rotation, scale, ICP or fitted translation applied to BIM.',
@@ -47,32 +47,32 @@ def main():
     with (OUT/'v3_element_distances.csv').open('w',newline='') as stream:
         fields=['id','guid','type','name','median_surface_to_las_m','fraction_within_1m']
         writer=csv.DictWriter(stream,fieldnames=fields,extrasaction='ignore');writer.writeheader();writer.writerows(elements)
-    lines=['# Проверка 0929 ↔ BIM','',
-           '3DGS и все три версии BIM помещены в одну локальную систему метров. К BIM применён только тот же сдвиг начала координат `[825800, 842100, 0]`; дополнительной подгонки BIM не было. Общая привязка выглядит согласованной, но это предварительная проверка, а не геодезическая приёмка.','',
-           '## Версии и полнота','',
-           '| Версия | Преобразовано элементов | Не представлено сеткой |','|---|---:|---:|']
+    lines=['# 0929 ↔ BIM inspection','',
+           '3DGS and all three BIM revisions share one local metre frame. BIM receives only the same origin shift `[825800, 842100, 0]`; no additional BIM fit is applied. The common placement appears consistent, but this is preliminary inspection, not survey acceptance.','',
+           '## Revisions and completeness','',
+           '| Revision | Elements converted | Not represented by a mesh |','|---|---:|---:|']
     for v,info in versions.items():lines.append(f"| {v} | {info['converted']} | {len(info['unconverted'])} |")
-    lines+=['','Во всех трёх файлах исключён только `IFC Project Base Point` — аннотация, а не строительная поверхность.',
-            'В v3 сохранена геометрия всех 5579 элементов v2 и добавлены 7 элементов: четыре киоска и три элемента без имени. Поэтому v3 используется для просмотра как наиболее полная из этих двух версий; её официальный статус нужно подтвердить.',
-            'В v1 и v3 совпадают 5479 элементов с теми же GUID и геометрией; 200 элементов v1 отсутствуют в v3, а 107 добавлены. Версии не следует смешивать в одну модель.','',
-            '## Расстояния BIM → LAS','',
-            'На каждом элементе взято 500 проб с вероятностью, пропорциональной площади треугольников. В таблице ниже — медиана индивидуальных медиан, а не глобальная точность регистрации.','',
-            '| Группа | Элементов | Медиана медиан, м | 90-й процентиль медиан, м |','|---|---:|---:|---:|']
+    lines+=['','Only `IFC Project Base Point`, an annotation rather than a construction surface, is excluded in all three files.',
+            'v3 retains geometry for all 5579 v2 elements and adds 7: four kiosks and three unnamed elements. It is used for inspection as the more complete of these two revisions; its official status requires confirmation.',
+            'v1 and v3 share 5479 elements with identical GUIDs and geometry; 200 v1 elements are absent from v3 and 107 are added. Revisions should not be merged into one model.','',
+            '## BIM → LAS distances','',
+            'Each element has 500 surface samples drawn with probability proportional to triangle area. The table reports the median of individual element medians, not global registration accuracy.','',
+            '| Group | Elements | Median of medians, m | 90th percentile of medians, m |','|---|---:|---:|---:|']
     for name,row in summary.items():lines.append(f"| {name} | {row['elements']} | {row['median_of_element_medians_m']:.3f} | {row['p90_of_element_medians_m']:.3f} |")
-    lines+=['','## Участки для визуального осмотра','',
-            '| Элемент v3 | Медиана расстояния до LAS, м | Доля проб ближе 1 м |','|---|---:|---:|']
+    lines+=['','## Visual inspection areas','',
+            '| v3 element | Median distance to LAS, m | Fraction of samples within 1 m |','|---|---:|---:|']
     for key,label in choices:
         e=by_id[key];lines.append(f"| {label} · #{key} | {e['median_surface_to_las_m']:.3f} | {e['fraction_within_1m']:.1%} |")
-    lines+=['','Эти участки выбраны для осмотра, а не как независимая контрольная выборка. Полные поэлементные результаты сохранены в `v3_element_distances.csv`.',
-            'Ростверки и сваи включают скрытые и подземные поверхности. Их большие расстояния до воздушной съёмки нельзя автоматически интерпретировать как смещение модели или отсутствие конструкции. Настилы также содержат нижние и боковые поверхности, которые видны не со всех ракурсов.','',
-            '## Как открыть','',
-            'В уже запущенном просмотрщике: http://127.0.0.1:8765/viewer/',
-            'Переключатели показывают 3DGS, LAS, версии BIM; список участков приближает выбранные конструкции и отмечает их бирюзовой рамкой. Каркас намеренно включает скрытые части: это средство наложения, а не физически точная проверка видимости сквозь полупрозрачные гауссианы. Для чистого вида съёмки отключите слой BIM.','',
-            'Для повторного запуска из корня проекта:','',
+    lines+=['','These areas were selected for inspection, not as independent control samples. Full element-level results are in `v3_element_distances.csv`.',
+            'Pile caps and piles include hidden and underground surfaces. Their large distances to aerial observations do not automatically indicate model displacement or missing structures. Decks also include underside and side surfaces that are not visible from every viewpoint.','',
+            '## How to open','',
+            'Open the running viewer: http://127.0.0.1:8765/viewer/',
+            'Toggle 3DGS, LAS, and BIM revisions; the structure list focuses selected elements and outlines them in cyan. The wireframe intentionally includes hidden parts: it is an overlay aid, not physically exact visibility through translucent Gaussians. Disable BIM for an unobstructed capture view.','',
+            'To restart from the project root:','',
             '```sh','npm install --prefix viewer --ignore-scripts --no-audit --no-fund',
             '.venv/bin/python scripts/prepare_bim.py','.venv/bin/python scripts/report_bim.py',
             '.venv/bin/python scripts/serve_viewer.py','```','',
-            'Просмотрщик использует локально установленные Spark 2.4.0 и Three.js 0.180.0. Сервер слушает только 127.0.0.1 и отдаёт только `viewer/` и `results/`; исходные данные не публикуются.']
+            'The viewer uses locally installed Spark 2.4.0 and Three.js 0.180.0. The server binds only to 127.0.0.1 and serves only `viewer/` and `results/`; raw input directories are not served.']
     (OUT/'BIM_CHECK.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps(summary,indent=2))
 

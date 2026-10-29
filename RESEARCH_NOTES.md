@@ -211,14 +211,14 @@ OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 .venv/bin/python scripts/preview_dates.
 .venv/bin/python scripts/serve_viewer.py
 ```
 
-At http://127.0.0.1:8765/viewer/, **Дата** changes both the Gaussian scene and its
+At http://127.0.0.1:8765/viewer/, **Date** changes both the Gaussian scene and its
 LAS while preserving the camera and BIM revision. Only one Gaussian scene is kept
 at a time. The LAS display uses every tenth point; evaluation uses the full LAS.
 The default v3 is an inspection reference, not an authoritative revision/date match.
 
 ## Common-area quality check: 27 October 2026
 
-The viewer offers **Проверка совмещения → Общие ячейки 20 × 20 м**: a colored distance layer and
+The viewer offers **Alignment checks → Shared 20 × 20 m cells**: a colored distance layer and
 eight inspection zones. Changing dates preserves the view and updates the points
 and statistics. Colors show individual held-out Gaussian-center distances to the
 date's full LAS; points intentionally remain visible through other geometry.
@@ -245,7 +245,7 @@ and the distinction between equal-cell and point-density weighting.
 
 ## Fixed-structure check: 27 October 2026
 
-The quality panel now offers **Неподвижные конструкции** as well as the common
+The quality panel now offers **Stable structures** as well as the common
 grid. Two fixed positive volumes isolate an existing roof and a narrow riverside
 structure from the working areas and overhead cranes. Both Gaussian centers and
 their LAS reference neighbors are restricted to the same structure. No distance

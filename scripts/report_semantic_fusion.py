@@ -15,7 +15,7 @@ from semantic_projection import COLORS
 from align_semantic_fusion import OUT
 
 METHODS=['current_automatic','previous_semantic','geometry_bank','old_semantic_bank','semantic_fusion']
-NAMES=['Текущий комбинированный','Прежняя семантика','Геометрия + банк пар','Прежние метки + банк пар','Новые метки + банк пар']
+NAMES=['Current combined','Previous semantics','Geometry + pair bank','Previous labels + pair bank','New labels + pair bank']
 
 
 def main():
@@ -50,78 +50,78 @@ def main():
         with (OUT/d/'static_structures.csv').open() as f:statics.extend(csv.DictReader(f))
     write_csv(OUT/'static_structures.csv',statics)
     fig,axes=plt.subplots(1,2,figsize=(12,4),constrained_layout=True);x=np.arange(7)
-    axes[0].bar(x-.17,[float(rec(d,'target','roof','previous')['built_fraction'])*100 for d in DATES],.34,label='Прежняя модель',color='#697b92')
-    axes[0].bar(x+.17,np.array(roof)*100,.34,label='Новая модель зданий',color='#2c8a72')
-    axes[0].set(xticks=x,xticklabels=DATES,ylabel='% видимых точек крыши',ylim=(0,105),title='Контрольная крыша в LAS');axes[0].legend(fontsize=8)
+    axes[0].bar(x-.17,[float(rec(d,'target','roof','previous')['built_fraction'])*100 for d in DATES],.34,label='Previous model',color='#697b92')
+    axes[0].bar(x+.17,np.array(roof)*100,.34,label='New building model',color='#2c8a72')
+    axes[0].set(xticks=x,xticklabels=DATES,ylabel='% of visible roof points',ylim=(0,105),title='Control roof in LAS');axes[0].legend(fontsize=8)
     axes[1].bar(x,[float(rec(d,'source','roof','fusion')['built_fraction'])*100 for d in DATES],color='#2c8a72')
-    axes[1].set(xticks=x,xticklabels=DATES,ylabel='% видимых точек крыши',ylim=(0,105),title='Та же крыша в 3DGS: пока 0% на всех датах')
+    axes[1].set(xticks=x,xticklabels=DATES,ylabel='% of visible roof points',ylim=(0,105),title='Same roof in 3DGS: still 0% on every date')
     for ax in axes:ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True)
     fig.savefig(OUT/'recognition.png',dpi=150);plt.close(fig)
     for d in DATES:
         fig,axes=plt.subplots(2,3,figsize=(14,9.5),constrained_layout=True)
         for row,side in enumerate(['source','target']):
-            for col,(folder,suffix,title) in enumerate([(OUT,'rgb','Изображение'),(ROOT/'results/semantic_matching','semantic','Прежние классы'),(OUT,'semantic','Новые классы')]):
+            for col,(folder,suffix,title) in enumerate([(OUT,'rgb','Image'),(ROOT/'results/semantic_matching','semantic','Previous classes'),(OUT,'semantic','New classes')]):
                 image=cv2.cvtColor(cv2.imread(str(folder/d/f'{side}_{suffix}.png')),cv2.COLOR_BGR2RGB)
                 axes[row,col].imshow(image);axes[row,col].set_title(('3DGS' if side=='source' else 'LAS')+' · '+title);axes[row,col].axis('off')
-        fig.suptitle(d+': прогнозы на видимых точках; белое — отсутствие точки, серое — неопределённость')
-        fig.legend(handles=[Patch(color=color/255,label=name) for color,name in zip(COLORS,['Неуверенно','Конструкции','Покрытие','Грунт','Растительность','Вода','Подвижное'])],loc='lower center',ncol=7,fontsize=9)
+        fig.suptitle(d+': predictions on visible points; white = no point, gray = uncertain')
+        fig.legend(handles=[Patch(color=color/255,label=name) for color,name in zip(COLORS,['Uncertain','Structures','Paved surface','Ground','Vegetation','Water','Moving objects'])],loc='lower center',ncol=7,fontsize=9)
         fig.savefig(OUT/d/'semantics.png',dpi=120);plt.close(fig)
     counts='; '.join(f'{name}: {len(accepted[m])}/7' for m,name in zip(METHODS,NAMES))
-    lines=['# Семантика: распознавание конструкций и отказ 0723','',counts+'.','',
-        f"Принятых улучшений медианы более 1 см к текущему методу: **{summary['new_accepted_median_improvements_over_1cm']}**, ухудшений: **{summary['new_accepted_median_regressions_over_1cm']}**. Этот порог описывает размер различия, не статистическую значимость. Рабочий комбинированный метод остаётся основным.",'',
-        '## Сравнение всех семи дат','',
-        '| Дата | Текущий, медиана / P90, м | Прежняя семантика, допуск | Прежние метки + банк пар, допуск | Новая семантика, медиана / P90, м | Новый допуск |',
+    lines=['# Semantics: structure recognition and the 0723 rejection','',counts+'.','',
+        f"Accepted median improvements above 1 cm relative to the current method: **{summary['new_accepted_median_improvements_over_1cm']}**, regressions: **{summary['new_accepted_median_regressions_over_1cm']}**. This threshold describes difference magnitude, not statistical significance. The working combined method remains the default.",'',
+        '## All seven dates compared','',
+        '| Date | Current median / P90, m | Previous semantics: acceptance | Previous labels + pair bank: acceptance | New semantic median / P90, m | New acceptance |',
         '|---|---:|---|---|---:|---|']
     for d in DATES:
-        ok=lambda m:'да' if d in accepted[m] else 'отказ'
+        ok=lambda m:'yes' if d in accepted[m] else 'rejected'
         lines.append(f"| {d} | {value(d,'current_automatic')} / {value(d,'current_automatic','p90')} | {ok('previous_semantic')} | {ok('old_semantic_bank')} | {value(d,'semantic_fusion')} / {value(d,'semantic_fusion','p90')} | {ok('semantic_fusion')} |")
-    lines+=['','Допуск — прежний внутренний фильтр масштаба, геометрии, RGB и минимум трёх разнесённых подтверждённых пар. Отклонённые матрицы, если получены, остаются в CSV с явным статусом. Числа описывают расстояние центров гауссианов до данного LAS на одинаковых пространственно отложенных точках с прежней фиксированной областью покрытия; это не независимая геодезическая точность.','',
-        'Текущий метод здесь — автоматический выбор из `object_recovery/selection.json`; он отличается от исторических полных экспортов просмотрщика. Ни текущая окончательная матрица, ни RTK, ни ручной старт 0708 не используются для выбора новых стартов.','',
-        '## Что изменено','',
-        '1. Добавлен специалист по зданиям: [SegFormer-B2, обученный на LoveDA](https://huggingface.co/wu-pr-gw/segformer-b2-finetuned-with-LoveDA), версия `5c74556c08bebb5f45f50b6f78f61a62c5d220c7`. [LoveDA](https://github.com/Junjue-Wang/LoveDA) содержит отдельный класс зданий на видах сверху. Конфигурация автора задаёт восемь выходов, включая Ignore/Background; используется её нормализация. Код из репозитория модели не исполняется; PyTorch читает только веса через `weights_only=True`, SHA-256 весов проверен.','',
-        '2. Виды строятся по прежним обучающим точкам. Для изображения пробелы заполняются ближайшим наблюдаемым цветом и медианным фильтром 3×3. В источнике радиус связан с размером отложенной плитки 0,4 исходной единицы; в LAS — 24 пикселя. Это приближение контекста, а не восстановленная поверхность: заполненные пиксели никогда не становятся 3D-точками. Возле границ видны искусственные продолжения текстуры.','',
-        '3. LoveDA применяется как специалист по зданиям при вероятности ≥0,6. Остальные классы сохраняет прежняя drone-модель. Её уверенные метки растительности, воды и подвижных объектов защищены от замены зданиями. Прежние метки конструкций заменяются новым прогнозом либо неопределённостью. Полная замена всех классов на LoveDA была отброшена из-за отсутствия достаточных общих классов в части пар облаков, до итогового семидатного сравнения. Сырые прогнозы всех дат сохранены в `semantic_structures`; диагностический запуск регистрации 0331 также сохранён.','',
-        '4. Для каждого выбранного старта заранее объединяются пары, предложенные исходными гипотезами в окрестности RMS <2 м по тем же обучающим якорям. Каждая пара хранит номера предложивших её гипотез. После подгонки допускаются только эти исходные идентичности с прежним взаимно однозначным геометрическим назначением, двусторонним перекрытием и пространственным разнесением. Новые пары из окончательной позы не добавляются.','',
-        'Все три новых варианта имеют одинаковый пул и бюджет четырёх стартов, одинаковые этапы ICP и финальной подгонки. Контроль «прежние метки + банк пар» отделяет исправление 0723 от новой нейросети. Отложенные ошибки не задают параметры. Это следующий опыт разработки на уже известной площадке, не новый независимый тест.','',
-        '## Почему отказывал 0723','',
-        'У прежних геометрического и семантического результатов максимальная разница элементов матрицы была 8,53×10⁻¹⁴: положение практически одинаково. Однако старт `recovery_366` сохранял пять пар, а соседний `recovery_373` — шесть. Среди прежних подтверждённых пар две находятся близко и не дают отдельных пространственных опор.','',
-        'Банк соседних стартов 558 и 564 добавляет одну заранее предложенную пару `p8_c16 → p8_c39`. В диагностике старой окончательной позы она даёт третью разнесённую опору. Её доли точек ближе 1 м: 71,2% вперёд и 55,4% назад, расстояние центров 4,895 м при лимите 5 м. Это ограниченный запас, а не подтверждение высокой надёжности. `0723_failure_analysis.json` сохраняет все детали.','',
-        'Строгая проверка минимум трёх пар с прямым перекрытием ≥80%: '+', '.join(f'{name} {len(summary["strict_dates"][m])}/7' for m,name in zip(METHODS,NAMES))+'. Новый вариант всё ещё не проходит строгую проверку на 0708 и 0723. Увеличение числа пар при прежней матрице не означает улучшения точности.','',
-        '## Проверка распознавания','',
-        '| Дата | Крыша LAS, старый → новый прогноз | Крыша 3DGS, новый прогноз | Ложные конструкции в растительности LAS |',
+    lines+=['','Acceptance uses the previous internal scale, geometry, RGB, and minimum-three-spaced-pairs gates. Rejected matrices, where available, remain in the CSV with explicit status. Distances are from Gaussian centers to the supplied LAS on identical spatially held-out points with the previous fixed coverage; this is not independent survey accuracy.','',
+        'The current method here is the automatic selection from `object_recovery/selection.json`; it differs from the historical full viewer exports. Neither the current final matrix, RTK, nor the manual 0708 seed is used to select new starts.','',
+        '## What changed','',
+        '1. A building specialist is added: [SegFormer-B2 trained on LoveDA](https://huggingface.co/wu-pr-gw/segformer-b2-finetuned-with-LoveDA), revision `5c74556c08bebb5f45f50b6f78f61a62c5d220c7`. [LoveDA](https://github.com/Junjue-Wang/LoveDA) includes a building class in overhead imagery. The upstream configuration has eight outputs, including Ignore/Background, and its normalization is used. No repository code is executed; PyTorch loads weights through `weights_only=True`, and their SHA-256 is verified.','',
+        '2. Views use the previous training points. Image gaps are filled from the nearest observed color and a 3×3 median filter. The source radius follows the 0.4-source-unit holdout tile size; the LAS radius is 24 pixels. This approximates context rather than reconstructing a surface: filled pixels never become 3D points. Artificial texture extensions are visible near boundaries.','',
+        '3. LoveDA supplies building predictions at probability ≥0.6. The previous drone model supplies other classes. Confident vegetation, water, and moving-object labels are protected from replacement. Previous structure labels become either the new prediction or uncertainty. Replacing all classes with LoveDA was rejected before the final seven-date comparison because some cloud pairs lacked enough shared classes. Raw predictions for every date remain in `semantic_structures`, together with the diagnostic 0331 registration run.','',
+        '4. Before fitting each selected start, pairs proposed by initial hypotheses within RMS <2 m on the same training anchors are pooled. Each pair records its proposing hypothesis IDs. After fitting, only these identities can pass the existing one-to-one geometric assignment, bidirectional overlap, and spacing gates. No new pairs are added from the final pose.','',
+        'All three new variants use the same pool, four-start budget, ICP stages, and final refinement. The old-labels-plus-pair-bank control separates the 0723 fix from the new network. Held-out errors do not set parameters. This is another development experiment on a known site, not a new independent test.','',
+        '## Why 0723 was rejected','',
+        'The previous geometric and semantic results differed by at most 8.53×10⁻¹⁴ in their matrix entries: their poses were effectively identical. However, start `recovery_366` retained five pairs while neighboring `recovery_373` retained six. Two previously confirmed pairs are too close to count as separate spatial supports.','',
+        'The bank around starts 558 and 564 adds one previously proposed pair, `p8_c16 → p8_c39`. Diagnostics of the old final pose show that it supplies a third spaced support. Its fractions within 1 m are 71.2% forward and 55.4% reverse, with center distance 4.895 m against a 5 m limit. This is a narrow margin, not evidence of high reliability. `0723_failure_analysis.json` preserves the details.','',
+        'Strict check requiring at least three pairs with forward overlap ≥80%: '+', '.join(f'{name} {len(summary["strict_dates"][m])}/7' for m,name in zip(METHODS,NAMES))+'. The new variant still fails strict checks on 0708 and 0723. More supporting pairs at the same pose do not imply higher accuracy.','',
+        '## Recognition evaluation','',
+        '| Date | LAS roof: old → new prediction | 3DGS roof: new prediction | False structures in LAS vegetation |',
         '|---|---:|---:|---:|']
     for d in DATES:
         pct=lambda side,region,method:f"{float(rec(d,side,region,method)['built_fraction'])*100:.1f}%"
         lines.append(f"| {d} | {pct('target','roof','previous')} → {pct('target','roof','fusion')} | {pct('source','roof','fusion')} | {pct('target','vegetation','fusion')} |")
-    lines+=['','![Распознавание контрольной крыши](recognition.png)','',
-        'Это доля видимых точек в фиксированных диагностических объёмах, не IoU и не глобальная точность классификации. Использованы ранее проверенная крыша и отдельно осмотренная по RGB полоса растительности без строений. Числа точек и старые/новые метки для обоих облаков находятся в `recognition.csv`. Предыдущая автоматическая матрица используется только для расположения диагностических объёмов в источнике; эти объёмы не читаются сегментацией или регистрацией.','',
-        '**Улучшение распознавания частичное:** крыша LAS распознаётся на пяти датах, но крыша 3DGS остаётся пропущенной на всех семи. Уверенных меток зданий недостаточно для общего класса на датах '+', '.join(d for d in DATES if d not in summary['shared_built_class_dates'])+'. Шумные центры гауссианов и отсутствующие плитки сильно отличаются от снимков, на которых обучена модель. Нужна проверенная разметка и адаптация к этим проекциям либо более качественные виды 3DGS; увеличение числа оранжевых точек не доказывает точности распознавания.','',
-        '[RGB-проверка отрицательной области](negative_region_review.png). На одной крыше и одной полосе растительности нельзя установить полноту и точность распознавания всей стройплощадки. Модели не имеют отдельного класса кранов. Локальная проверка неподвижных конструкций использует прежние маски исключения техники.','',
-        '## Неподвижные конструкции и воспроизведение','',
-        'В `static_structures.csv` сохранены крыша и прибрежная конструкция: отдельные неиспользованные записи и строгие пространственные выборки. Первая выборка имеет соседей в обучении, вторая на узких конструкциях часто мала. Пустые метрики не заменены нулями. BIM и рабочие полные PLY не перемещаются.','',
+    lines+=['','![Control-roof recognition](recognition.png)','',
+        'These are visible-point fractions inside fixed diagnostic volumes, not IoU or global classification accuracy. The regions are the previously inspected roof and an RGB-reviewed vegetation strip without buildings. `recognition.csv` records counts and old/new labels for both clouds. The previous automatic matrix only locates diagnostic volumes in the source; segmentation and registration do not read these volumes.','',
+        '**Recognition improves partially:** the LAS roof is detected on five dates, but the 3DGS roof is still missed on all seven. There are too few confident building labels for a shared class on dates '+', '.join(d for d in DATES if d not in summary['shared_built_class_dates'])+'. Noisy Gaussian centers and missing tiles differ strongly from the training imagery. Reviewed labels and adaptation to these projections, or better 3DGS views, are needed; more orange points do not prove recognition accuracy.','',
+        '[RGB review of the negative region](negative_region_review.png). One roof and one vegetation strip cannot establish precision and recall for the whole site. The models have no separate crane class. Local stable-structure evaluation uses the previous equipment-exclusion masks.','',
+        '## Stable structures and reproduction','',
+        '`static_structures.csv` records the roof and riverside structure using both unused records and strict spatial samples. The first sample has nearby training points; the second is often small on narrow structures. Empty metrics are not replaced with zeros. BIM and the working full PLYs are not moved.','',
         '```sh','OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/prepare_semantic_structures.py',
         'OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/prepare_semantic_fusion.py',
         'OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/align_semantic_fusion.py',
         '.venv/bin/python scripts/check_semantic_recognition.py','.venv/bin/python scripts/report_semantic_fusion.py',
         "OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python -m unittest discover -s scripts -p 'test_*.py' -v > results/semantic_fusion/tests.log 2>&1",
         'OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/verify_semantic_fusion.py','```','',
-        'Требуются сохранённые геометрические пулы и прежние drone-метки. Новых пакетов не добавлено. Веса, параметры и хеши кода зафиксированы до итогового сравнения. `validation.json` содержит численную перепроверку, `http_checks.json` — проверку локальных страниц. [Предыдущий опыт](../semantic_initial/REPORT.md) сохранён.','',
-        'В файлах `*_labels.npz` поля `labels`, `confidence` и `label_origin` описывают итоговое решение. `probabilities` сохраняет исходные вероятности drone-модели, а `building_expert_probabilities` — прогноз LoveDA; это два отдельных распределения, не единая откалиброванная вероятность нового метода. `label_origin`: 0 — прежний класс, 1 — специалист по зданиям, 2 — прежняя метка здания заменена неопределённостью.','']
+        'The saved geometric pools and previous drone labels are required. No packages were added. Weights, parameters, and code hashes were fixed before the final comparison. `validation.json` records numerical re-verification; `http_checks.json` records local-page checks. The [previous experiment](../semantic_initial/REPORT.md) is retained.','',
+        'In `*_labels.npz`, `labels`, `confidence`, and `label_origin` describe the final decision. `probabilities` retains the original drone-model probabilities, while `building_expert_probabilities` holds LoveDA predictions. These are separate distributions, not a single calibrated probability for the fused method. `label_origin`: 0 = previous class, 1 = building specialist, 2 = previous building label replaced with uncertainty.','']
     (OUT/'REPORT.md').write_text('\n'.join(lines))
-    page=['<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Конструкции и исправление 0723</title>',
+    page=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Structure recognition and the 0723 fix</title>',
         '<style>body{font:16px/1.6 system-ui,sans-serif;color:#17202a;max-width:1300px;margin:24px auto;padding:0 20px}p{max-width:85ch}img{width:100%;height:auto}a{color:#175794}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:8px;text-align:left;border-bottom:1px solid #ccd2d8}.table{overflow:auto}summary{cursor:pointer;font-weight:650;padding:14px 0}details{border-bottom:1px solid #ccd2d8}a:focus-visible,summary:focus-visible{outline:2px solid #175794}h1{font-size:clamp(24px,3vw,36px)}</style>',
-        '<a href="/viewer/">← 3D-просмотрщик</a><h1>Конструкции и исправление 0723</h1>',
-        f'<p>Основной фильтр: текущий метод {len(accepted["current_automatic"])}/7; прежняя семантика {len(accepted["previous_semantic"])}/7; прежние метки с банком пар {len(accepted["old_semantic_bank"])}/7; новый вариант {len(accepted["semantic_fusion"])}/7.</p>',
-        '<p>На 0723 терялась одна удалённая опора при выборе между соседними стартами. Теперь их исходные пары сохраняются до подгонки и проходят прежние проверки. Это исправление соответствий отдельно от распознавания зданий.</p>',
-        '<p>Строгий фильтр нового варианта: 5/7. На 0708 и 0723 он пока не пройден; результат 7/7 относится к основному фильтру.</p>',
-        '<p><a href="REPORT.md">Полный отчёт</a> · <a href="summary.csv">Все варианты CSV</a> · <a href="recognition.csv">Распознавание CSV</a> · <a href="static_structures.csv">Неподвижные конструкции</a> · <a href="../semantic_initial/inspection.html">Предыдущий опыт</a></p>',
-        '<div class="table"><table><thead><tr><th>Дата</th><th>Текущий: медиана / P90, м</th><th>Новый: медиана / P90, м</th><th>Новый допуск</th><th>Крыша LAS: было → стало</th></tr></thead><tbody>']
-    for d in DATES:page.append(f'<tr><td>{d}</td><td>{value(d,"current_automatic")} / {value(d,"current_automatic","p90")}</td><td>{value(d,"semantic_fusion")} / {value(d,"semantic_fusion","p90")}</td><td>{"да" if d in accepted["semantic_fusion"] else "отказ"}</td><td>0% → {roof[DATES.index(d)]*100:.1f}%</td></tr>')
+        '<a href="/viewer/">← 3D viewer</a><h1>Structure recognition and the 0723 fix</h1>',
+        f'<p>Primary gate: current method {len(accepted["current_automatic"])}/7; previous semantics {len(accepted["previous_semantic"])}/7; previous labels with pair bank {len(accepted["old_semantic_bank"])}/7; new variant {len(accepted["semantic_fusion"])}/7.</p>',
+        '<p>On 0723, a distant support was lost when choosing between neighboring starts. Their initial pairs are now retained before fitting and pass the existing checks. This correspondence fix is separate from building recognition.</p>',
+        '<p>New-variant strict acceptance: 5/7. 0708 and 0723 still fail; 7/7 refers to the primary gate.</p>',
+        '<p><a href="REPORT.md">Full report</a> · <a href="summary.csv">All variants CSV</a> · <a href="recognition.csv">Recognition CSV</a> · <a href="static_structures.csv">Stable structures</a> · <a href="../semantic_initial/inspection.html">Earlier experiment (archived)</a></p>',
+        '<div class="table"><table><thead><tr><th>Date</th><th>Current median / P90, m</th><th>New median / P90, m</th><th>New acceptance</th><th>LAS roof: before → after</th></tr></thead><tbody>']
+    for d in DATES:page.append(f'<tr><td>{d}</td><td>{value(d,"current_automatic")} / {value(d,"current_automatic","p90")}</td><td>{value(d,"semantic_fusion")} / {value(d,"semantic_fusion","p90")}</td><td>{"yes" if d in accepted["semantic_fusion"] else "rejected"}</td><td>0% → {roof[DATES.index(d)]*100:.1f}%</td></tr>')
     page+=['</tbody></table></div>',
-        '<p>Расстояния рассчитаны на одинаковых отложенных точках. Текущий комбинированный метод остаётся основным; общего улучшения точности новая семантика пока не подтверждает.</p>',
-        '<img src="recognition.png" alt="Крыша LAS распознаётся на пяти датах, крыша 3DGS остаётся пропущенной на семи">',
-        '<p><strong>Распознавание улучшено частично.</strong> LoveDA выделяет здания в LAS, прежняя модель сохраняет другие классы. Контрольная крыша 3DGS пока не распознаётся. Доли на одной крыше не являются точностью всей модели.</p>']
-    for d in DATES:page.append(f'<details><summary>{d}: изображения и классы до / после</summary><a href="{d}/semantics.png"><img loading="lazy" src="{d}/semantics.png" alt="{d}: изображения, прежние и новые семантические классы"></a></details>')
+        '<p>Distances use identical held-out points. The current combined method remains the default; new semantics has not established an overall accuracy gain.</p>',
+        '<img src="recognition.png" alt="LAS roof detected on five dates; 3DGS roof still missed on all seven">',
+        '<p><strong>Recognition improves partially.</strong> LoveDA identifies buildings in LAS; the previous model retains other classes. The 3DGS control roof is still missed. Fractions on one roof do not measure whole-model accuracy.</p>']
+    for d in DATES:page.append(f'<details><summary>{d}: images and classes before / after</summary><a href="{d}/semantics.png"><img loading="lazy" src="{d}/semantics.png" alt="{d}: images, previous and new semantic classes"></a></details>')
     (OUT/'inspection.html').write_text('\n'.join(page)+'</html>\n');print(json.dumps(summary,indent=2))
 
 

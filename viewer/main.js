@@ -4,6 +4,13 @@ import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
 
 const $ = id => document.getElementById(id);
+// Display labels are separate from the frozen scientific manifests.
+const structureLabels = {
+  '9525':'Deck near FP4/FP5', '49665':'Canopy, north section', '11021':'FP1 support',
+  '10912':'Pile cap: check visibility', '5828':'Kiosk, west section',
+  roof:'Fixed-block roof', bank_mid:'Riverside structure, middle section',
+};
+const structureLabel = item => structureLabels[item.id] ?? item.label;
 const panel=document.querySelector('aside');
 $('panel').setAttribute('aria-expanded',String(innerWidth>700));
 $('panel').onclick=()=>{
@@ -23,14 +30,14 @@ const controls = new OrbitControls(camera,renderer.domElement);
 controls.enableDamping = true;
 const spark = new SparkRenderer({renderer});
 scene.add(spark);
-const state = { gs:'Загрузка 3DGS…',bim:'Загрузка BIM…',las:false };
+const state = { gs:'Loading 3DGS…',bim:'Loading BIM…',las:false };
 let bimGroup, lasPoints, manifest, selectionBox, splats, dateData, dates, generation=0, lasLoading;
 let qualityManifest, qualityManifests, qualityPoints, qualityLoading, qualityBox;
 const loadedBim = new Map();
 const reportError = error => { $('error').textContent = String(error.message || error); console.error(error); };
 window.addEventListener('unhandledrejection',event => reportError(event.reason));
 window.addEventListener('error',event => reportError(event.error || event.message));
-function status(){ $('status').textContent = `${state.gs}\n${state.bim}\n${state.las ? `LAS ${dateData.date}: каждый 10-й пункт` : ''}`; }
+function status(){ $('status').textContent = `${state.gs}\n${state.bim}\n${state.las ? `LAS ${dateData.date}: every 10th point` : ''}`; }
 function view(position,target){ camera.up.set(0,0,1);camera.position.fromArray(position);controls.target.fromArray(target);controls.update(); }
 function overview(){
   const target=new THREE.Vector3(-25,90,5);
@@ -47,10 +54,10 @@ async function loadDate(date){
   $('loading').textContent='…';
   dateData=dates.find(item=>item.date===date);
   $('heading').textContent=`${date} · The Loop`;
-  $('metrics').textContent=`3DGS → свой LAS: медиана ${dateData.median_m.toFixed(2)} м · P90 ${dateData.p90_m.toFixed(2)} м\nБлиже 1 м: ${(dateData.within_1m*100).toFixed(1)}% отложенных проб\nДиагностическая проверка, не геодезическая точность`;
+  $('metrics').textContent=`3DGS → same-date LAS: median ${dateData.median_m.toFixed(2)} m · P90 ${dateData.p90_m.toFixed(2)} m\nWithin 1 m: ${(dateData.within_1m*100).toFixed(1)}% of held-out samples\nDiagnostic agreement, not survey accuracy`;
   selectionText();
   updateQualitySummary();qualitySelection(false);
-  state.gs=`Загрузка 3DGS ${date}…`;state.las=false;status();
+  state.gs=`Loading 3DGS ${date}…`;state.las=false;status();
   if(splats){scene.remove(splats);splats.dispose();splats=null;}
   if(lasPoints){scene.remove(lasPoints);lasPoints.geometry.dispose();lasPoints.material.dispose();lasPoints=null;}
   lasLoading=null;
@@ -58,15 +65,15 @@ async function loadDate(date){
   qualityLoading=null;updateQualityVisibility();
   try{
     const mesh=new SplatMesh({url:dateData.gs_url,onProgress:event=>{
-      if(token===generation && event.total){const percent=Math.round(event.loaded/event.total*100);$('loading').textContent=percent<100?`${percent}%`:'…';state.gs=`Загрузка 3DGS ${date}: ${percent}%`;status();}
+      if(token===generation && event.total){const percent=Math.round(event.loaded/event.total*100);$('loading').textContent=percent<100?`${percent}%`:'…';state.gs=`Loading 3DGS ${date}: ${percent}%`;status();}
     }});
     splats=mesh;mesh.visible=$('gs').checked;scene.add(mesh);
     await mesh.initialized;
     $('loading').textContent='';
-    state.gs=`3DGS ${date}: ${dateData.gaussians.toLocaleString('ru-RU')} гауссиан`;status();
+    state.gs=`3DGS ${date}: ${dateData.gaussians.toLocaleString('en-US')} Gaussians`;status();
     if($('las').checked)await loadLas().catch(reportError);
     if($('quality').checked)await loadQuality().catch(reportError);
-  }catch(error){$('loading').textContent='Ошибка';state.gs=`Не удалось загрузить 3DGS ${date}`;status();reportError(error);}
+  }catch(error){$('loading').textContent='Error';state.gs=`Could not load 3DGS ${date}`;status();reportError(error);}
   finally{$('date').disabled=false;}
 }
 $('date').onchange=()=>loadDate($('date').value);
@@ -80,7 +87,7 @@ function updateBim(){
 }
 for(const id of ['bim','xray','opacity']) $(id).oninput=updateBim;
 async function loadBim(version){
-  state.bim=`Загрузка BIM ${version}…`;status();
+  state.bim=`Loading BIM ${version}…`;status();
   if(!loadedBim.has(version)){
     const geometry=await new PLYLoader().loadAsync(`/results/0929_bim/${version}_local.ply`);
     geometry.computeVertexNormals();
@@ -93,7 +100,7 @@ async function loadBim(version){
   if(bimGroup)bimGroup.visible=false;
   bimGroup=loadedBim.get(version);updateBim();
   const count=manifest?.versions?.[version]?.converted;
-  state.bim=`BIM ${version}: ${count ?? ''} элементов · общий сдвиг координат`;
+  state.bim=`BIM ${version}: ${count ?? ''} elements · shared coordinate origin`;
   status();
 }
 $('version').onchange=()=>loadBim($('version').value).catch(reportError);
@@ -121,20 +128,23 @@ function updateQualityVisibility(){
 function updateQualitySummary(){
   const data=qualityManifest?.dates?.[dateData?.date];if(!data)return;
   $('quality-summary').textContent=qualityManifest.kind==='static'
-    ? `Участков: ${qualityManifest.region_count} · центров: ${data.samples.toLocaleString('ru-RU')}\nСреднее медиан участков: ${data.mean_of_region_medians_m.toFixed(2)} м. Каждый участок имеет одинаковый вес.`
-    : `Общих ячеек: ${qualityManifest.common_cell_count} · центров: ${data.samples.toLocaleString('ru-RU')}\nМедиана медиан ячеек: ${data.median_of_cell_medians_m.toFixed(2)} м. Каждая ячейка имеет одинаковый вес.`;
+    ? `Regions: ${qualityManifest.region_count} · centers: ${data.samples.toLocaleString('en-US')}\nMean of region medians: ${data.mean_of_region_medians_m.toFixed(2)} m. Each region has equal weight.`
+    : `Shared cells: ${qualityManifest.common_cell_count} · centers: ${data.samples.toLocaleString('en-US')}\nMedian of cell medians: ${data.median_of_cell_medians_m.toFixed(2)} m. Each cell has equal weight.`;
 }
 function chooseQualityDataset(){
   qualityManifest=qualityManifests[$('quality-source').value];
   if(qualityPoints){scene.remove(qualityPoints);qualityPoints.geometry.dispose();qualityPoints.material.dispose();qualityPoints=null;}
   qualityLoading=null;clearQualityBox();
-  $('quality-region').replaceChildren(new Option('Все участки выборки',''));
-  for(const item of qualityManifest.regions)$('quality-region').appendChild(new Option(item.label,item.id));
+  $('quality-region').replaceChildren(new Option('All sampled regions',''));
+  for(const [index,item] of qualityManifest.regions.entries()){
+    const label=qualityManifest.kind==='static'?structureLabel(item):`Zone ${index+1} · ${item.bounds_xy[0]}, ${item.bounds_xy[1]} m`;
+    $('quality-region').appendChild(new Option(label,item.id));
+  }
   $('quality-region-info').textContent='';
   const fixed=qualityManifest.kind==='static';
   $('quality-description').textContent=fixed
-    ? 'Две сохраняющиеся поверхности. Краны и техника вне контрольных объёмов. Локальная диагностика, не независимый контроль точности.'
-    : 'Одинаковые ячейки 20 × 20 м во всех датах. Только точки, исключённые из подгонки.';
+    ? 'Two persistent surfaces. Cranes and equipment lie outside the control volumes. Local diagnostics, not independent accuracy control.'
+    : 'The same 20 × 20 m cells across all dates. Only points excluded from fitting.';
   $('quality-report').href=fixed?'/results/static_structures/REPORT.md':'/results/common_areas/REPORT.md';
   updateQualitySummary();updateQualityVisibility();loadQuality().catch(reportError);
 }
@@ -172,7 +182,7 @@ function qualitySelection(moveCamera){
     qualityBox=new THREE.LineSegments(geometry,new THREE.LineBasicMaterial({color:0x39e5e2}));
   }else qualityBox=new THREE.Box3Helper(new THREE.Box3(new THREE.Vector3(b[0],b[1],row.z05-.5),new THREE.Vector3(b[2],b[3],row.z95+.5)),0x39e5e2);
   qualityBox.material.depthTest=false;qualityBox.material.transparent=true;qualityBox.renderOrder=20;qualityBox.visible=$('quality').checked;scene.add(qualityBox);
-  $('quality-region-info').textContent=`${dateData.date}: ${row.count} контрольных центров\nМедиана ${row.median_m.toFixed(2)} м · 90% ближе ${row.p90_m.toFixed(2)} м\nБольшое расстояние требует осмотра; оно не определяет причину расхождения.`;
+  $('quality-region-info').textContent=`${dateData.date}: ${row.count} control centers\nMedian ${row.median_m.toFixed(2)} m · 90% within ${row.p90_m.toFixed(2)} m\nLarge distances need inspection; they do not identify the cause of a discrepancy.`;
 }
 $('quality-region').onchange=()=>{
   $('focus').value='';$('selection').textContent='';
@@ -182,7 +192,7 @@ $('quality-region').onchange=()=>{
 function selectionText(){
   const item=manifest?.landmarks?.find(v=>v.id===$('focus').value);if(!item)return;
   const distance=dateData?.landmark_distances?.[item.id];
-  $('selection').textContent=`${item.label} · ориентир BIM v3 #${item.id}${distance==null?'':` · медиана поверхности до LAS ${dateData.date}: ${distance.toFixed(2)} м`}. Пробы включают скрытые поверхности.`;
+  $('selection').textContent=`${structureLabel(item)} · BIM v3 landmark #${item.id}${distance==null?'':` · median surface distance to LAS ${dateData.date}: ${distance.toFixed(2)} m`}. Samples include hidden surfaces.`;
 }
 $('focus').onchange=()=>{
   const item=manifest?.landmarks?.find(v=>v.id===$('focus').value);if(!item)return;
@@ -194,15 +204,15 @@ $('focus').onchange=()=>{
   selectionText();
 };
 async function init(){
-  manifest=await fetch('/results/0929_bim/manifest.json').then(r=>{if(!r.ok)throw Error('BIM ещё подготавливается — обновите страницу после завершения');return r.json();});
-  for(const item of manifest.landmarks || []){const option=document.createElement('option');option.value=item.id;option.textContent=item.label;$('focus').appendChild(option);}
-  const dateManifest=await fetch('/results/multidate/manifest.json').then(r=>{if(!r.ok)throw Error('Съёмки ещё подготавливаются');return r.json();});
+  manifest=await fetch('/results/0929_bim/manifest.json').then(r=>{if(!r.ok)throw Error('BIM outputs are missing. Run prepare_bim.py and report_bim.py, then reload.');return r.json();});
+  for(const item of manifest.landmarks || []){const option=document.createElement('option');option.value=item.id;option.textContent=structureLabel(item);$('focus').appendChild(option);}
+  const dateManifest=await fetch('/results/multidate/manifest.json').then(r=>{if(!r.ok)throw Error('Capture outputs are missing. Complete the baseline export steps in docs/DATA.md, then reload.');return r.json();});
   dates=dateManifest.dates;$('date').replaceChildren();
-  for(const item of dates){const option=document.createElement('option');option.value=item.date;option.textContent=`${item.label} · ${item.date}`;$('date').appendChild(option);}
+  for(const item of dates){const option=document.createElement('option');option.value=item.date;option.textContent=`${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Number(item.date.slice(0,2))-1]} ${item.date.slice(2)} · ${item.date}`;$('date').appendChild(option);}
   $('date').value='0929';
   await Promise.all([loadBim($('version').value),loadDate('0929')]);
   try{
-    const [common,fixed]=await Promise.all(['/results/common_areas/manifest.json','/results/static_structures/manifest.json'].map(url=>fetch(url).then(r=>{if(!r.ok)throw Error('Данные проверки пока недоступны');return r.json();})));
+    const [common,fixed]=await Promise.all(['/results/common_areas/manifest.json','/results/static_structures/manifest.json'].map(url=>fetch(url).then(r=>{if(!r.ok)throw Error('Quality data is missing. Run the common-area and fixed-structure checks, then reload.');return r.json();})));
     qualityManifests={common,static:fixed};chooseQualityDataset();
     $('quality').disabled=false;$('quality-region').disabled=false;$('quality-source').disabled=false;
   }catch(error){$('quality-summary').textContent=error.message;}
