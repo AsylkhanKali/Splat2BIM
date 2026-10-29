@@ -1,0 +1,25 @@
+{
+  "parameters": {
+    "voxel": 0.12,
+    "plane_distance": 0.05,
+    "cluster_eps": 0.65,
+    "cluster_min_points": 8,
+    "minimum_points": 40,
+    "semantic_exclusion_distance": 0.24,
+    "excluded_classes": [
+      4,
+      5,
+      6
+    ],
+    "seed_attachment_distance": 0.24,
+    "deduplicate_overlap": 0.5,
+    "minimum_persistent_dates": 3
+  },
+  "source_sha256": {
+    "structural_surfaces.py": "cfad16613e6da51b9004bfd5c7537132c0510297faa6614d51631a742586a225",
+    "prepare_structural_surfaces.py": "8c793ebda97897befca1db0512a38a060d7182e4c20f54ef7c288a9576d4d9c7"
+  },
+  "alignment_matrices_used": false,
+  "control_regions_used": false,
+  "only_source_training_tiles": true
+}

@@ -1,0 +1,54 @@
+{
+  "initial_parameters": {
+    "geometry_score_points": 512,
+    "batch_size": 128,
+    "coarse_starts": 4,
+    "minimum_start_separation_m": 2.0,
+    "geometry_quantile": 0.75,
+    "coarse_iterations": 40,
+    "coarse_gates_m": [
+      40.0,
+      20.0,
+      10.0,
+      5.0
+    ]
+  },
+  "semantic_parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "same_initial_pool_and_four_start_budget": true,
+  "semantics_applied_before_icp": true,
+  "source_sha256": {
+    "align_semantic_initial.py": "2e62c209730451d0a85eb201940f2fd3472cf5315ee01060fb6c722f3bccc316",
+    "semantic_initial.py": "7aa6ded1ac93db229d861aec04b010a0abc1255cc4637cb3550eb8af08c1aa23",
+    "semantic_matching.py": "d2a46533a390932ce89d13984a8cab117f611c104d90f347a38610b0bf22b36e",
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5"
+  },
+  "parent_experiment": "semantic_matching: post-coarse semantic reranking converged to the same transforms",
+  "parameters_changed_using_withheld_errors": false
+}

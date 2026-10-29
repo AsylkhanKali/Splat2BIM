@@ -1,0 +1,98 @@
+{
+  "model": {
+    "repository": "wu-pr-gw/segformer-b2-finetuned-with-LoveDA",
+    "revision": "5c74556c08bebb5f45f50b6f78f61a62c5d220c7",
+    "files": {
+      "config.json": "7bad6bc16075fe0b5af4bc0493cf6240873938b7a859d7401dce18faba44acf3",
+      "preprocessor_config.json": "e5a25d8fc054bf780be930e161b47d188bec1b0bf0a44fd5fdfb3f3312c0be0b",
+      "pytorch_model.bin": "f1117b6abbc21949a0cdffec4aa2806202c9c534fd7de3171129ab10cc182b3b"
+    },
+    "published_weight_sha256_verified": true,
+    "remote_code_executed": false
+  },
+  "parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "structure_parameters": {
+    "context_fill_pixels": 24,
+    "context_median_kernel": 3,
+    "neighbor_start_rms_m": 2.0,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "class_mapping": [
+    [
+      0,
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      5
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      4
+    ],
+    []
+  ],
+  "groups": [
+    "unknown",
+    "built",
+    "paved",
+    "bare_ground",
+    "vegetation",
+    "water",
+    "movable"
+  ],
+  "runtime": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "safetensors": "0.8.0",
+    "numpy": "2.4.6",
+    "opencv-python-headless": "4.14.0.94"
+  },
+  "source_sha256": {
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5",
+    "semantic_structures.py": "184f5381794f7b66c385e354d9d0f69185ce18d1a2c0ff39f54604d396e7b90e",
+    "prepare_semantic_structures.py": "7675d4a8159026df80d159735306b71e823b46759191964c43fc3428fa4a89b6"
+  },
+  "query_tiles_used_for_predictions": false,
+  "alignment_matrices_used_for_rendering": false
+}

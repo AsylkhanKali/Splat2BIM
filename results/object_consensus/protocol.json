@@ -1,0 +1,55 @@
+{
+  "frozen_at_utc": "2026-10-27T09:30:23.625352+00:00",
+  "development_date": "0929",
+  "transfer_dates": [
+    "0331",
+    "0504",
+    "0609",
+    "0708",
+    "0723",
+    "0831"
+  ],
+  "parameters": {
+    "min_height": 0.2,
+    "min_rectangle_fill": 0.5,
+    "max_aspect": 6.0,
+    "min_width": 0.6,
+    "max_height_to_length": 0.75,
+    "max_ground_angle_degrees": 15.0,
+    "center_gate_m": 5.0,
+    "dimension_ratio_min": 0.5,
+    "dimension_ratio_max": 2.0,
+    "normal_angle_degrees": 20.0,
+    "min_pairs": 3,
+    "min_separation_m": 10.0,
+    "min_second_axis_m": 2.0,
+    "min_patch_fraction_each_direction": 0.5
+  },
+  "detector_parameters": {
+    "white_min_channel": 0.55,
+    "white_max_chroma": 0.18,
+    "normalized_extent": 100.0,
+    "voxel": 0.12,
+    "plane_distance": 0.05,
+    "plane_iterations": 1500,
+    "planes": 12,
+    "cluster_eps": 0.65,
+    "cluster_min_points": 8,
+    "candidate_min_points": 40,
+    "min_height": 0.4,
+    "max_height_to_length": 0.75,
+    "min_rectangle_fill": 0.75,
+    "max_aspect": 3.0,
+    "min_width": 0.6,
+    "max_length": 20.0,
+    "max_ground_angle_degrees": 15.0
+  },
+  "final_pair_gate": "at least 50% within 1m in EACH direction; >=3 separated non-collinear original pairs",
+  "strict_sensitivity_gate": "add source-to-target fraction >=80%",
+  "selection_uses_withheld_points": false,
+  "manual_reference_annotation_used": false,
+  "code_sha256": {
+    "object_consensus.py": "d08015fbdce7d3301855dcf686421f736937fcba7ee367b514630eaf89217ed4",
+    "align_object_consensus.py": "22b8d09c702b6bc6f167824100be9b93546370b9152bc9936370f37a84e532b5"
+  }
+}

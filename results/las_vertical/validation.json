@@ -1,0 +1,16 @@
+{
+  "all_unique_date_pairs": 21,
+  "structure_pair_estimates": 42,
+  "cross_structure_checks": 12,
+  "sensitivity_checks": 108,
+  "original_las_hashes_unchanged": 7,
+  "registration_files_unchanged": 21,
+  "report_links_exist": 8,
+  "http_contents_verified": [
+    "REPORT.md",
+    "cross_validation.png",
+    "pairwise_offsets.png",
+    "summary.csv",
+    "sensitivity.csv"
+  ]
+}

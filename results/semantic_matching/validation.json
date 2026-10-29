@@ -1,0 +1,58 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 53,
+  "prior_file_hashes_matched": 91,
+  "model_hashes_verified": true,
+  "date_checks": [
+    {
+      "date": "0331",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 282402,
+      "withheld_points": 44746,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0504",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 310706,
+      "withheld_points": 51118,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0609",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 301955,
+      "withheld_points": 48618,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0708",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 295429,
+      "withheld_points": 35302,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0723",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 281986,
+      "withheld_points": 37762,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0831",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 143973,
+      "withheld_points": 46300,
+      "training_tile_leakage_count": 0
+    },
+    {
+      "date": "0929",
+      "recomputed_matrices": 3,
+      "semantic_training_points": 161971,
+      "withheld_points": 47043,
+      "training_tile_leakage_count": 0
+    }
+  ],
+  "meaning": "Numerical/provenance checks, not semantic ground truth or survey validation."
+}

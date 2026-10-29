@@ -1,0 +1,76 @@
+{
+  "refinement_parameters": {
+    "voxel_m": 0.1,
+    "maximum_points_per_surface": 4000,
+    "plane_band_normalized": 0.05,
+    "calibration_block_m": 2.0,
+    "calibration_modulus": 5,
+    "minimum_fit_points": 30,
+    "minimum_calibration_points": 10,
+    "normal_neighbors": 24,
+    "normal_radius_m": 1.25,
+    "minimum_normal_neighbors": 8,
+    "maximum_normal_scatter": 0.08,
+    "huber_m": 0.15,
+    "correspondence_gate_m": 1.0,
+    "rotation_lever_m": 100.0,
+    "svd_relative_cutoff": 0.01,
+    "maximum_iterations": 60,
+    "maximum_motion_m": 0.5,
+    "tangent_weights": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "minimum_calibration_loss_improvement": 1e-06,
+    "maximum_family_median_regression_m": 0.01,
+    "maximum_training_median_regression_m": 0.01
+  },
+  "guard_parameters": {
+    "context_voxel_m": 0.5,
+    "maximum_context_points": 8000,
+    "structure_tangent_weight": 0.1,
+    "context_total_weight": 0.5,
+    "fractions": [
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625,
+      0.03125
+    ],
+    "global_training_median_and_p90_tolerance_m": 1e-09,
+    "maximum_iterations": 60
+  },
+  "object_parameters": {
+    "min_height": 0.2,
+    "min_rectangle_fill": 0.5,
+    "max_aspect": 6.0,
+    "min_width": 0.6,
+    "max_height_to_length": 0.75,
+    "max_ground_angle_degrees": 15.0,
+    "center_gate_m": 5.0,
+    "dimension_ratio_min": 0.5,
+    "dimension_ratio_max": 2.0,
+    "normal_angle_degrees": 20.0,
+    "min_pairs": 3,
+    "min_separation_m": 10.0,
+    "min_second_axis_m": 2.0,
+    "min_patch_fraction_each_direction": 0.5
+  },
+  "strict_forward_fraction": 0.8,
+  "training_median_limit_m": 0.5,
+  "training_rgb_limit": 0.35,
+  "parent_protocol_sha256": "d8bb683c215ed7716d8bfd3fc31f23b2ab54fccfe278385f6bc02a547f4a9ad9",
+  "first_experiment_protocol_sha256": "62a8a2d6811a543cc793cdb2176c40913f44b63ce386f2a7cce8de3c47bc645e",
+  "selection_uses_held_out_errors": false,
+  "same_rules_all_dates": true,
+  "rigid_correction_only": true,
+  "design_revised_after_first_experiment_control_evaluation": true,
+  "same_site_development_experiment": true,
+  "source_sha256": {
+    "fit_guarded_structural_refinement.py": "5ef617972f31350b812be28e7444ca34c69d127bf0c316d2567e6d7f11912402",
+    "guarded_structural_pose.py": "84aca490efd00440bb836df2274545c20faf8479c751e1a5886f720649cf6fd5",
+    "structural_pose_refinement.py": "99878a02b96b023ec9acc03a5a7032fa52a9662eb3260e47401c91a066ea34d8"
+  }
+}

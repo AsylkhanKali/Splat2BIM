@@ -1,0 +1,39 @@
+{
+  "parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "candidate_pool": "four consensus and four recovery coarse hypotheses, identical for both new methods",
+  "semantic_method": "class-balanced same-class nearest-surface score, geometric score + 0.5 * semantic score",
+  "refinement": "unchanged geometric point-to-plane Sim(3), same training tiles and geometric acceptance checks",
+  "source_sha256": {
+    "align_semantic.py": "a96543eb4bb3c08c5df5c65675a1f93df5d585656bbb25fedbdca83e7f985dbc",
+    "semantic_matching.py": "d2a46533a390932ce89d13984a8cab117f611c104d90f347a38610b0bf22b36e",
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5"
+  },
+  "scope": "development on this known site; no new-site generalization claim"
+}

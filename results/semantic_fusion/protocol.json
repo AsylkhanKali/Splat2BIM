@@ -1,0 +1,79 @@
+{
+  "initial_parameters": {
+    "geometry_score_points": 512,
+    "batch_size": 128,
+    "coarse_starts": 4,
+    "minimum_start_separation_m": 2.0,
+    "geometry_quantile": 0.75,
+    "coarse_iterations": 40,
+    "coarse_gates_m": [
+      40.0,
+      20.0,
+      10.0,
+      5.0
+    ]
+  },
+  "semantic_parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "structure_parameters": {
+    "context_fill_pixels": 24,
+    "context_median_kernel": 3,
+    "neighbor_start_rms_m": 2.0,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "same_initial_pool_and_four_start_budget": true,
+  "semantics_applied_before_icp": true,
+  "source_sha256": {
+    "align_semantic_fusion.py": "875ac661e1dcefc779e107c800f13726532c99333a3896b231615e9c162736f5",
+    "semantic_structures.py": "184f5381794f7b66c385e354d9d0f69185ce18d1a2c0ff39f54604d396e7b90e",
+    "semantic_fusion.py": "d51e803b84d17ff1605788d50fd00ed503c0bb5f6f860a7f91e84c22d3e05470",
+    "semantic_initial.py": "7aa6ded1ac93db229d861aec04b010a0abc1255cc4637cb3550eb8af08c1aa23",
+    "semantic_matching.py": "d2a46533a390932ce89d13984a8cab117f611c104d90f347a38610b0bf22b36e",
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5",
+    "object_consensus.py": "d08015fbdce7d3301855dcf686421f736937fcba7ee367b514630eaf89217ed4",
+    "align_object_recovery.py": "d681eb70af68fbdef1dd10edc5ef4ad4607f56eb91a5b6dc758449d987740cd0",
+    "align_object_consensus.py": "22b8d09c702b6bc6f167824100be9b93546370b9152bc9936370f37a84e532b5",
+    "align_dates.py": "124fdbcee5f1521e5d0a5b63cd41b26260ba3f5be12cf9334628da7631c5336e",
+    "align_0929.py": "bfd3f722f4cfd775d6b2405b8830793650320f45561730fe6ce3d447ed61b6ad"
+  },
+  "parent_experiment": "semantic_initial: 0723 lost a dispersed seed identity",
+  "methods": [
+    "geometry_bank",
+    "old_semantic_bank",
+    "semantic_fusion"
+  ],
+  "all_pair_identities_fixed_before_icp": true,
+  "old_results_used_to_identify_development_failure": true,
+  "parameters_changed_using_withheld_errors": false
+}

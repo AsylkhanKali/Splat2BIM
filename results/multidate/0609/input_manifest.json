@@ -1,0 +1,12 @@
+[
+  {
+    "path": "assets/0609/0609.ply",
+    "bytes": 681578210,
+    "sha256": "c4ffb156b8906eb96fc27c5ef48850d09c56d4bd39ee22be297d07d52c3bd207"
+  },
+  {
+    "path": "assets/0609/0609.las",
+    "bytes": 64998517,
+    "sha256": "dbc4f8c6fcc6e903def6ce98da9e06c27da5fd2709014485fe02ea922d4f0b8b"
+  }
+]

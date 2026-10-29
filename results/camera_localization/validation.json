@@ -1,0 +1,69 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 46,
+  "query_checks": [
+    {
+      "query_index": 0,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 1,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 2,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 3,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 4,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 5,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 6,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 7,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 8,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 9,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 10,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    },
+    {
+      "query_index": 11,
+      "status": "candidate_for_review",
+      "training_validation_overlap": 0
+    }
+  ],
+  "camera_input_hashes_matched": 128,
+  "prior_input_and_registration_hashes_matched": 91,
+  "meaning": "Reprojection, split and provenance checks; not independent survey validation."
+}

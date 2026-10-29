@@ -1,0 +1,33 @@
+{
+  "frozen_at_utc": "2026-10-27T10:17:06.481415+00:00",
+  "development_dates": [
+    "0708",
+    "0723"
+  ],
+  "regression_dates": [
+    "0331",
+    "0504",
+    "0609",
+    "0831",
+    "0929"
+  ],
+  "parameters": {
+    "min_target_spacing_m": 20.0,
+    "size_ratio_min": 0.5,
+    "size_ratio_max": 2.0,
+    "proxy_center_gate_m": 5.0,
+    "seeds_per_source_pair": 4,
+    "centroid_refit_iterations": 3
+  },
+  "scale_band": [
+    0.4,
+    1.6
+  ],
+  "scope_assumption": "same-site captures; true scale must lie within 0.4 to 1.6 times the robust extent ratio",
+  "cached_fragments_unchanged": true,
+  "old_matrices_used_to_generate_or_select_new_fit": false,
+  "code_sha256": {
+    "pair_distance_seeds.py": "42d41db9f64b467c3048b8e0f2d7f6437e84d89872ee865399782d67f6c27053",
+    "align_object_recovery.py": "d681eb70af68fbdef1dd10edc5ef4ad4607f56eb91a5b6dc758449d987740cd0"
+  }
+}

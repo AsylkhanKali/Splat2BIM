@@ -1,0 +1,69 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 64,
+  "prior_file_hashes_matched": 91,
+  "model_and_label_hashes_verified": true,
+  "all_initial_scores_and_banks_recomputed": true,
+  "strict_gates_and_triangles_recomputed": true,
+  "held_out_and_static_errors_recomputed": true,
+  "date_checks": [
+    {
+      "date": "0331",
+      "all_initial_scores_recomputed": 719,
+      "coarse_candidates": 4,
+      "withheld_points": 44746,
+      "status": "candidate_for_review",
+      "strict_support_count": 3
+    },
+    {
+      "date": "0504",
+      "all_initial_scores_recomputed": 12665,
+      "coarse_candidates": 4,
+      "withheld_points": 51118,
+      "status": "candidate_for_review",
+      "strict_support_count": 10
+    },
+    {
+      "date": "0609",
+      "all_initial_scores_recomputed": 8237,
+      "coarse_candidates": 4,
+      "withheld_points": 48618,
+      "status": "candidate_for_review",
+      "strict_support_count": 9
+    },
+    {
+      "date": "0708",
+      "all_initial_scores_recomputed": 5236,
+      "coarse_candidates": 4,
+      "withheld_points": 35302,
+      "status": "candidate_for_review",
+      "strict_support_count": 0
+    },
+    {
+      "date": "0723",
+      "all_initial_scores_recomputed": 6018,
+      "coarse_candidates": 4,
+      "withheld_points": 37762,
+      "status": "candidate_for_review",
+      "strict_support_count": 0
+    },
+    {
+      "date": "0831",
+      "all_initial_scores_recomputed": 1673,
+      "coarse_candidates": 4,
+      "withheld_points": 46300,
+      "status": "candidate_for_review",
+      "strict_support_count": 4
+    },
+    {
+      "date": "0929",
+      "all_initial_scores_recomputed": 2122,
+      "coarse_candidates": 4,
+      "withheld_points": 47043,
+      "status": "candidate_for_review",
+      "strict_support_count": 6
+    }
+  ],
+  "verification_code_sha256": "de4f9d7d0aa0e477cd160d77c70c3219995a099d8f61a3ebeba1b4873ebd7746",
+  "meaning": "Repeated registration and verified internal comparisons; not independent survey accuracy."
+}

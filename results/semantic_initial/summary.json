@@ -1,0 +1,58 @@
+{
+  "accepted_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "pooled_geometry": [
+      "0331",
+      "0609",
+      "0708",
+      "0723",
+      "0831"
+    ],
+    "semantic_initial": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0831",
+      "0929"
+    ]
+  },
+  "strict_support_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831"
+    ],
+    "pooled_geometry": [
+      "0331",
+      "0609",
+      "0831"
+    ],
+    "semantic_initial": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ]
+  },
+  "semantic_recovers_geometric_failures": [
+    "0504",
+    "0929"
+  ],
+  "semantic_loses_geometric_successes": [
+    "0723"
+  ],
+  "semantic_accepted_improved_median_over_1cm": 0,
+  "semantic_accepted_worse_median_over_1cm": 0,
+  "semantic_accepted_within_1cm": 6
+}

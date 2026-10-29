@@ -1,0 +1,913 @@
+[
+  {
+    "date": "0331",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "previous_consensus",
+    "status": "candidate_for_review",
+    "previous_status": "candidate_for_review",
+    "recovery_status": "candidate_for_review",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0331/audit.json",
+        "sha256": "ee1256a25902da045e197cb791dfe5e85da1a208ef388a9fc122dabaed879d04"
+      },
+      {
+        "path": "results/object_recovery/0331/audit.json",
+        "sha256": "e18205686d4731bbfedc635d11c4fb6b23a3c7f4495d68f80c51570dbd290e00"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -6.408663171032535,
+        23.73848439664285,
+        -6.799498602307211,
+        6.063326471236348
+      ],
+      [
+        24.400339676352843,
+        5.009373320343394,
+        -5.509027949485217,
+        36.856986500058355
+      ],
+      [
+        -3.7910745667988404,
+        -7.887352142510052,
+        -23.963247195261157,
+        110.39705665784408
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 13,
+        "target_index": 11,
+        "source_id": "p5_c10",
+        "target_id": "p3_c16",
+        "center_distance_m": 0.5693128134319999,
+        "median_m": 0.5869351807736,
+        "p90_m": 0.8617974695880155,
+        "fraction_within_1m": 0.9518716577540107,
+        "reverse_fraction_within_1m": 0.8544600938967136
+      },
+      {
+        "source_index": 25,
+        "target_index": 32,
+        "source_id": "p10_c25",
+        "target_id": "p9_c0",
+        "center_distance_m": 1.7189417194918324,
+        "median_m": 0.322162927856423,
+        "p90_m": 0.9956222548976683,
+        "fraction_within_1m": 0.8863636363636364,
+        "reverse_fraction_within_1m": 1.0
+      },
+      {
+        "source_index": 5,
+        "target_index": 29,
+        "source_id": "p1_c25",
+        "target_id": "p7_c16",
+        "center_distance_m": 2.0397381672551362,
+        "median_m": 0.24336782262226728,
+        "p90_m": 0.36799042620657546,
+        "fraction_within_1m": 1.0,
+        "reverse_fraction_within_1m": 0.6051724137931035
+      },
+      {
+        "source_index": 14,
+        "target_index": 36,
+        "source_id": "p5_c12",
+        "target_id": "p10_c15",
+        "center_distance_m": 3.4029131035621245,
+        "median_m": 0.5092596435092741,
+        "p90_m": 4.360034167479718,
+        "fraction_within_1m": 0.6666666666666666,
+        "reverse_fraction_within_1m": 0.7832512315270936
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 3
+  },
+  {
+    "date": "0504",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "previous_consensus",
+    "status": "candidate_for_review",
+    "previous_status": "candidate_for_review",
+    "recovery_status": "rejected_training_alignment",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0504/audit.json",
+        "sha256": "f622d74a310998b8e0157a5b11dc4b5664ca6300df00843eab1560dd21cc5b27"
+      },
+      {
+        "path": "results/object_recovery/0504/audit.json",
+        "sha256": "c9f9827544b444f23396a9cd746980910bbf87a9b585045e0a1de6ec79f3a22d"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -4.223143488667603,
+        23.91957086979301,
+        -8.069122743087982,
+        8.157305189865
+      ],
+      [
+        24.79860862644058,
+        2.401048856625008,
+        -5.861358882092181,
+        35.91737031639671
+      ],
+      [
+        -4.720765047183048,
+        -8.785251684328376,
+        -23.571705147830325,
+        96.85695601042171
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 49,
+        "target_index": 57,
+        "source_id": "p6_c51",
+        "target_id": "p9_c23",
+        "center_distance_m": 1.0395767908542162,
+        "median_m": 0.3294765728507516,
+        "p90_m": 0.6194263072017814,
+        "fraction_within_1m": 0.9895104895104895,
+        "reverse_fraction_within_1m": 0.7219101123595506
+      },
+      {
+        "source_index": 63,
+        "target_index": 67,
+        "source_id": "p8_c8",
+        "target_id": "p10_c9",
+        "center_distance_m": 1.1919517438734422,
+        "median_m": 0.3139890211499815,
+        "p90_m": 0.6026325697867282,
+        "fraction_within_1m": 0.975,
+        "reverse_fraction_within_1m": 0.8852459016393442
+      },
+      {
+        "source_index": 43,
+        "target_index": 9,
+        "source_id": "p6_c23",
+        "target_id": "p4_c13",
+        "center_distance_m": 1.4998701628890958,
+        "median_m": 0.5500394498975505,
+        "p90_m": 3.596484695464618,
+        "fraction_within_1m": 0.6690140845070423,
+        "reverse_fraction_within_1m": 0.96875
+      },
+      {
+        "source_index": 62,
+        "target_index": 66,
+        "source_id": "p8_c7",
+        "target_id": "p10_c3",
+        "center_distance_m": 1.5134858979923997,
+        "median_m": 0.2661413008875582,
+        "p90_m": 0.36202544511455664,
+        "fraction_within_1m": 0.9925650557620818,
+        "reverse_fraction_within_1m": 0.9938271604938271
+      },
+      {
+        "source_index": 64,
+        "target_index": 68,
+        "source_id": "p8_c16",
+        "target_id": "p10_c14",
+        "center_distance_m": 1.5343225818499886,
+        "median_m": 0.2924605142364307,
+        "p90_m": 0.38156287359083246,
+        "fraction_within_1m": 1.0,
+        "reverse_fraction_within_1m": 0.9858757062146892
+      },
+      {
+        "source_index": 48,
+        "target_index": 14,
+        "source_id": "p6_c50",
+        "target_id": "p4_c28",
+        "center_distance_m": 2.156526491296966,
+        "median_m": 0.6563044207046053,
+        "p90_m": 1.2073327088425,
+        "fraction_within_1m": 0.7872340425531915,
+        "reverse_fraction_within_1m": 0.6329113924050633
+      },
+      {
+        "source_index": 3,
+        "target_index": 8,
+        "source_id": "p1_c47",
+        "target_id": "p2_c57",
+        "center_distance_m": 2.162600040044284,
+        "median_m": 0.2421025465357983,
+        "p90_m": 0.47474348927256055,
+        "fraction_within_1m": 0.952,
+        "reverse_fraction_within_1m": 1.0
+      },
+      {
+        "source_index": 50,
+        "target_index": 22,
+        "source_id": "p6_c52",
+        "target_id": "p4_c81",
+        "center_distance_m": 2.585465142397159,
+        "median_m": 0.5319132823746191,
+        "p90_m": 0.8673509459322678,
+        "fraction_within_1m": 0.9607843137254902,
+        "reverse_fraction_within_1m": 0.7307692307692307
+      },
+      {
+        "source_index": 18,
+        "target_index": 37,
+        "source_id": "p5_c4",
+        "target_id": "p6_c16",
+        "center_distance_m": 2.8177994518028204,
+        "median_m": 0.30678939889475565,
+        "p90_m": 5.812094991838296,
+        "fraction_within_1m": 0.7967032967032966,
+        "reverse_fraction_within_1m": 0.7908045977011494
+      },
+      {
+        "source_index": 12,
+        "target_index": 60,
+        "source_id": "p4_c28",
+        "target_id": "p9_c34",
+        "center_distance_m": 3.1924509690751224,
+        "median_m": 0.8406958670105806,
+        "p90_m": 3.3018209479666445,
+        "fraction_within_1m": 0.5454545454545454,
+        "reverse_fraction_within_1m": 0.5609756097560976
+      },
+      {
+        "source_index": 14,
+        "target_index": 23,
+        "source_id": "p4_c38",
+        "target_id": "p5_c4",
+        "center_distance_m": 3.9225857063917005,
+        "median_m": 0.7659171509035356,
+        "p90_m": 1.7452558924960841,
+        "fraction_within_1m": 0.6141732283464567,
+        "reverse_fraction_within_1m": 0.803030303030303
+      },
+      {
+        "source_index": 46,
+        "target_index": 70,
+        "source_id": "p6_c47",
+        "target_id": "p10_c20",
+        "center_distance_m": 4.01520005585589,
+        "median_m": 0.6469039707621489,
+        "p90_m": 2.9524435668442113,
+        "fraction_within_1m": 0.6050420168067226,
+        "reverse_fraction_within_1m": 0.7142857142857143
+      },
+      {
+        "source_index": 11,
+        "target_index": 33,
+        "source_id": "p4_c23",
+        "target_id": "p5_c38",
+        "center_distance_m": 4.520573368655452,
+        "median_m": 0.2530156438727069,
+        "p90_m": 1.6292810292493747,
+        "fraction_within_1m": 0.8409090909090909,
+        "reverse_fraction_within_1m": 0.9520958083832335
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 7
+  },
+  {
+    "date": "0609",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "previous_consensus",
+    "status": "candidate_for_review",
+    "previous_status": "candidate_for_review",
+    "recovery_status": "candidate_for_review",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0609/audit.json",
+        "sha256": "90deead4b61a69342bdbb011740e195d5d5a6a2931c3fa0a80524290a4d0b330"
+      },
+      {
+        "path": "results/object_recovery/0609/audit.json",
+        "sha256": "3015ac5437f1fe7f013ebe98337a41db14f0f0ca31902bbc40b62aca43d13f8a"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -3.658193420224475,
+        23.828923357736134,
+        -8.628851900260662,
+        8.701848910249897
+      ],
+      [
+        25.037776521082513,
+        2.048869204991766,
+        -4.956706009684147,
+        35.47437597503885
+      ],
+      [
+        -3.922297845119591,
+        -9.14557812263621,
+        -23.593029331186024,
+        98.43445293485382
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 1,
+        "target_index": 59,
+        "source_id": "p1_c22",
+        "target_id": "p8_c51",
+        "center_distance_m": 0.4911928548806855,
+        "median_m": 0.19776784533759031,
+        "p90_m": 0.31259920401123026,
+        "fraction_within_1m": 0.9795918367346939,
+        "reverse_fraction_within_1m": 0.6060606060606061
+      },
+      {
+        "source_index": 53,
+        "target_index": 33,
+        "source_id": "p10_c1",
+        "target_id": "p7_c8",
+        "center_distance_m": 0.5953968356042904,
+        "median_m": 0.4640953554118368,
+        "p90_m": 1.41893030688652,
+        "fraction_within_1m": 0.7906976744186046,
+        "reverse_fraction_within_1m": 0.7030716723549488
+      },
+      {
+        "source_index": 65,
+        "target_index": 89,
+        "source_id": "p11_c16",
+        "target_id": "p11_c22",
+        "center_distance_m": 0.6763077479101753,
+        "median_m": 0.24203138173690616,
+        "p90_m": 0.7169178367625473,
+        "fraction_within_1m": 0.9352941176470588,
+        "reverse_fraction_within_1m": 0.819672131147541
+      },
+      {
+        "source_index": 38,
+        "target_index": 77,
+        "source_id": "p8_c2",
+        "target_id": "p10_c0",
+        "center_distance_m": 0.707304054017588,
+        "median_m": 0.21606735944958408,
+        "p90_m": 0.32214799307031167,
+        "fraction_within_1m": 0.9890909090909091,
+        "reverse_fraction_within_1m": 0.7245370370370371
+      },
+      {
+        "source_index": 42,
+        "target_index": 84,
+        "source_id": "p8_c23",
+        "target_id": "p10_c52",
+        "center_distance_m": 0.8610477080237678,
+        "median_m": 0.27515275818920126,
+        "p90_m": 0.49203048096790036,
+        "fraction_within_1m": 0.9795918367346939,
+        "reverse_fraction_within_1m": 0.9565217391304348
+      },
+      {
+        "source_index": 2,
+        "target_index": 90,
+        "source_id": "p2_c18",
+        "target_id": "p11_c25",
+        "center_distance_m": 1.223318444684732,
+        "median_m": 0.3215215866044251,
+        "p90_m": 0.4047031857731038,
+        "fraction_within_1m": 0.9868421052631579,
+        "reverse_fraction_within_1m": 1.0
+      },
+      {
+        "source_index": 15,
+        "target_index": 40,
+        "source_id": "p5_c2",
+        "target_id": "p7_c21",
+        "center_distance_m": 1.3939936601117962,
+        "median_m": 0.21308195909621913,
+        "p90_m": 0.41762499432528494,
+        "fraction_within_1m": 0.990909090909091,
+        "reverse_fraction_within_1m": 0.9385964912280702
+      },
+      {
+        "source_index": 46,
+        "target_index": 83,
+        "source_id": "p8_c33",
+        "target_id": "p10_c27",
+        "center_distance_m": 1.7651478925692123,
+        "median_m": 0.4214282900907918,
+        "p90_m": 1.7664844801437207,
+        "fraction_within_1m": 0.8082191780821918,
+        "reverse_fraction_within_1m": 0.7153846153846154
+      },
+      {
+        "source_index": 8,
+        "target_index": 6,
+        "source_id": "p3_c43",
+        "target_id": "p4_c22",
+        "center_distance_m": 1.8643735058637696,
+        "median_m": 0.2777462857137306,
+        "p90_m": 0.8364113813936158,
+        "fraction_within_1m": 0.9166666666666666,
+        "reverse_fraction_within_1m": 0.920704845814978
+      },
+      {
+        "source_index": 67,
+        "target_index": 53,
+        "source_id": "p11_c28",
+        "target_id": "p8_c38",
+        "center_distance_m": 2.1387353819061534,
+        "median_m": 0.43890797417609007,
+        "p90_m": 1.4051816665698678,
+        "fraction_within_1m": 0.7,
+        "reverse_fraction_within_1m": 0.6635514018691588
+      },
+      {
+        "source_index": 23,
+        "target_index": 42,
+        "source_id": "p6_c33",
+        "target_id": "p7_c32",
+        "center_distance_m": 2.4794178973823144,
+        "median_m": 0.7492541870735864,
+        "p90_m": 3.5566903933737697,
+        "fraction_within_1m": 0.5673758865248227,
+        "reverse_fraction_within_1m": 1.0
+      },
+      {
+        "source_index": 20,
+        "target_index": 88,
+        "source_id": "p6_c4",
+        "target_id": "p11_c16",
+        "center_distance_m": 2.8081290311827596,
+        "median_m": 0.43075937465040476,
+        "p90_m": 1.367296079650605,
+        "fraction_within_1m": 0.8142857142857143,
+        "reverse_fraction_within_1m": 0.6867469879518072
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 9
+  },
+  {
+    "date": "0708",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "pair_preserving",
+    "status": "candidate_for_review",
+    "previous_status": "rejected_object_correspondences",
+    "recovery_status": "candidate_for_review",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0708/audit.json",
+        "sha256": "9da9e94f359857c4b18bd5649b4475683f7c04be7b30a1c2e0341b88a959ad9a"
+      },
+      {
+        "path": "results/object_recovery/0708/audit.json",
+        "sha256": "a4edf2b9e58eab246811e853d04b95e44da6cd981fc42fb7776b6b38fbddcd6c"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -27.12591570123624,
+        14.04178972968326,
+        -7.157062042360897,
+        6.033844286695636
+      ],
+      [
+        14.803980551867683,
+        17.81312097347115,
+        -21.159999516205566,
+        17.541014389177974
+      ],
+      [
+        -5.407176315857019,
+        -21.673291418085473,
+        -22.028199697601064,
+        106.15982587053573
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 16,
+        "target_index": 13,
+        "source_id": "p5_c25",
+        "target_id": "p4_c46",
+        "center_distance_m": 0.9158095350544488,
+        "median_m": 0.3344364612854819,
+        "p90_m": 0.8619499393896073,
+        "fraction_within_1m": 0.928125,
+        "reverse_fraction_within_1m": 0.86892177589852
+      },
+      {
+        "source_index": 25,
+        "target_index": 22,
+        "source_id": "p6_c19",
+        "target_id": "p5_c39",
+        "center_distance_m": 1.7039783937872377,
+        "median_m": 0.5253029099631766,
+        "p90_m": 1.6498488705094299,
+        "fraction_within_1m": 0.7,
+        "reverse_fraction_within_1m": 0.5596330275229358
+      },
+      {
+        "source_index": 42,
+        "target_index": 63,
+        "source_id": "p9_c16",
+        "target_id": "p6_c10",
+        "center_distance_m": 1.9773788579461073,
+        "median_m": 0.3836276706945663,
+        "p90_m": 0.8688005181824393,
+        "fraction_within_1m": 0.9473684210526315,
+        "reverse_fraction_within_1m": 0.536723163841808
+      },
+      {
+        "source_index": 43,
+        "target_index": 62,
+        "source_id": "p9_c21",
+        "target_id": "p6_c8",
+        "center_distance_m": 2.3091266686494962,
+        "median_m": 0.45484037120715576,
+        "p90_m": 1.4792770178384829,
+        "fraction_within_1m": 0.8596491228070176,
+        "reverse_fraction_within_1m": 0.9
+      },
+      {
+        "source_index": 18,
+        "target_index": 57,
+        "source_id": "p5_c27",
+        "target_id": "p6_c0",
+        "center_distance_m": 2.826702613056924,
+        "median_m": 0.6706714845531369,
+        "p90_m": 1.5888137339933606,
+        "fraction_within_1m": 0.625,
+        "reverse_fraction_within_1m": 0.8591549295774648
+      },
+      {
+        "source_index": 41,
+        "target_index": 20,
+        "source_id": "p9_c0",
+        "target_id": "p5_c21",
+        "center_distance_m": 4.686850248041536,
+        "median_m": 0.4014542356991056,
+        "p90_m": 2.2006928337896254,
+        "fraction_within_1m": 0.78,
+        "reverse_fraction_within_1m": 0.5238095238095238
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 0
+  },
+  {
+    "date": "0723",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "pair_preserving",
+    "status": "candidate_for_review",
+    "previous_status": "rejected_object_correspondences",
+    "recovery_status": "candidate_for_review",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0723/audit.json",
+        "sha256": "2b3b3bad28abaa4b0a220959293be9e9d4c6a7a5a24f7d5eff0314751d9c804a"
+      },
+      {
+        "path": "results/object_recovery/0723/audit.json",
+        "sha256": "b4492279741f22c43315550bfcaa1d9de6305f62c83269701557136dbdeee3cb"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        16.760876807909693,
+        2.067990083873254,
+        15.496700465785265,
+        -2.17765124734846
+      ],
+      [
+        -15.631918801650995,
+        2.5940632695397428,
+        16.56095558883649,
+        40.519821569826824
+      ],
+      [
+        -0.2596591840489781,
+        -22.679187649689656,
+        3.3073137652047215,
+        96.76295049702506
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 36,
+        "target_index": 14,
+        "source_id": "p6_c12",
+        "target_id": "p5_c33",
+        "center_distance_m": 0.6400024847242936,
+        "median_m": 0.22599210435321293,
+        "p90_m": 0.342391791654623,
+        "fraction_within_1m": 1.0,
+        "reverse_fraction_within_1m": 0.8551724137931035
+      },
+      {
+        "source_index": 27,
+        "target_index": 34,
+        "source_id": "p5_c13",
+        "target_id": "p8_c41",
+        "center_distance_m": 2.036904551266406,
+        "median_m": 0.2993043751430433,
+        "p90_m": 1.9419087604554393,
+        "fraction_within_1m": 0.803030303030303,
+        "reverse_fraction_within_1m": 1.0
+      },
+      {
+        "source_index": 52,
+        "target_index": 33,
+        "source_id": "p8_c16",
+        "target_id": "p8_c39",
+        "center_distance_m": 4.895418012443117,
+        "median_m": 0.7931969409889936,
+        "p90_m": 1.8753652456271577,
+        "fraction_within_1m": 0.7115384615384616,
+        "reverse_fraction_within_1m": 0.5538461538461539
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 0
+  },
+  {
+    "date": "0831",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "previous_consensus",
+    "status": "candidate_for_review",
+    "previous_status": "candidate_for_review",
+    "recovery_status": "candidate_for_review",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0831/audit.json",
+        "sha256": "ad4f6e2bc4094bc7f40db1b1319f4a015a74906797597315cc9305dbb6eb97b6"
+      },
+      {
+        "path": "results/object_recovery/0831/audit.json",
+        "sha256": "f80a72146ec574f49bf168cff8e763cf437e605178f4c3e959a435c8312a3196"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -50.47081232646328,
+        5.519421060574883,
+        -36.49393756564498,
+        -3.966693728189206
+      ],
+      [
+        36.822446691173084,
+        3.2992571324362383,
+        -50.426151021389195,
+        47.74051080589045
+      ],
+      [
+        -2.5256499291928676,
+        -62.1950583110292,
+        -5.913560594516392,
+        86.9484874409346
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 6,
+        "target_index": 11,
+        "source_id": "p3_c27",
+        "target_id": "p3_c111",
+        "center_distance_m": 0.6728856111351582,
+        "median_m": 0.5318578840043819,
+        "p90_m": 1.7609185388259145,
+        "fraction_within_1m": 0.7704918032786885,
+        "reverse_fraction_within_1m": 0.9523809523809523
+      },
+      {
+        "source_index": 4,
+        "target_index": 35,
+        "source_id": "p3_c25",
+        "target_id": "p8_c14",
+        "center_distance_m": 1.0838446431942723,
+        "median_m": 0.3633693370528518,
+        "p90_m": 1.18357502574516,
+        "fraction_within_1m": 0.8818181818181818,
+        "reverse_fraction_within_1m": 0.6611226611226612
+      },
+      {
+        "source_index": 31,
+        "target_index": 42,
+        "source_id": "p8_c1",
+        "target_id": "p10_c3",
+        "center_distance_m": 1.3540493394489266,
+        "median_m": 0.3902293392488664,
+        "p90_m": 0.6602140118615535,
+        "fraction_within_1m": 0.9696969696969697,
+        "reverse_fraction_within_1m": 0.818871103622578
+      },
+      {
+        "source_index": 11,
+        "target_index": 13,
+        "source_id": "p3_c50",
+        "target_id": "p3_c136",
+        "center_distance_m": 2.1201634448381665,
+        "median_m": 0.8439859459590041,
+        "p90_m": 6.288606955014344,
+        "fraction_within_1m": 0.5245901639344263,
+        "reverse_fraction_within_1m": 0.8222222222222222
+      },
+      {
+        "source_index": 30,
+        "target_index": 43,
+        "source_id": "p8_c0",
+        "target_id": "p10_c4",
+        "center_distance_m": 2.899850477215506,
+        "median_m": 0.5568736810845949,
+        "p90_m": 2.35216716797974,
+        "fraction_within_1m": 0.6997389033942559,
+        "reverse_fraction_within_1m": 0.9954128440366973
+      },
+      {
+        "source_index": 8,
+        "target_index": 2,
+        "source_id": "p3_c33",
+        "target_id": "p3_c69",
+        "center_distance_m": 3.282895417430441,
+        "median_m": 0.5108835513341148,
+        "p90_m": 1.1175917093017476,
+        "fraction_within_1m": 0.8648648648648649,
+        "reverse_fraction_within_1m": 0.6747967479674797
+      },
+      {
+        "source_index": 36,
+        "target_index": 16,
+        "source_id": "p9_c19",
+        "target_id": "p4_c19",
+        "center_distance_m": 3.859541285445408,
+        "median_m": 0.6411478225664742,
+        "p90_m": 2.8707009019069485,
+        "fraction_within_1m": 0.6304347826086957,
+        "reverse_fraction_within_1m": 0.782051282051282
+      },
+      {
+        "source_index": 16,
+        "target_index": 19,
+        "source_id": "p4_c27",
+        "target_id": "p4_c30",
+        "center_distance_m": 4.597527526681201,
+        "median_m": 0.5876641177340943,
+        "p90_m": 1.336685420116985,
+        "fraction_within_1m": 0.8028169014084507,
+        "reverse_fraction_within_1m": 0.9607843137254902
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 4
+  },
+  {
+    "date": "0929",
+    "rule": "prefer accepted previous automatic consensus; use recovery only on rejection; otherwise reject",
+    "selected_method": "previous_consensus",
+    "status": "candidate_for_review",
+    "previous_status": "candidate_for_review",
+    "recovery_status": "rejected_training_alignment",
+    "routing_uses_date_or_withheld_metrics": false,
+    "working_baseline_used_as_candidate": false,
+    "input_audits": [
+      {
+        "path": "results/object_consensus/0929/audit.json",
+        "sha256": "a8e029a9fdbce485bc44a8f5cf22d2bb009c566b8721d5e60f622402b6ee7569"
+      },
+      {
+        "path": "results/object_recovery/0929/audit.json",
+        "sha256": "9a84617963d9b1eef167c92db46e75abd1d52474e9043110210cb334c9be4bea"
+      }
+    ],
+    "selector_sha256": "6ff32fc988d7e8278045f773480908348b4970d5afbf68cfcb0983ef85fb899b",
+    "matrix_local": [
+      [
+        -23.67281369403859,
+        -5.433238136055357,
+        -58.5511189561189,
+        1.30245866028875
+      ],
+      [
+        46.92956008464925,
+        36.28556775748342,
+        -22.34121032145988,
+        90.91087034707256
+      ],
+      [
+        35.431200909904035,
+        -51.691326271661325,
+        -9.528510177779134,
+        99.08857243768152
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "final_spatial_support": [
+      {
+        "source_index": 6,
+        "target_index": 12,
+        "source_id": "p3_c35",
+        "target_id": "p4_c110",
+        "center_distance_m": 0.6464366179724133,
+        "median_m": 0.5581773480788049,
+        "p90_m": 1.7432072159329564,
+        "fraction_within_1m": 0.759493670886076,
+        "reverse_fraction_within_1m": 0.953125
+      },
+      {
+        "source_index": 41,
+        "target_index": 35,
+        "source_id": "p10_c3",
+        "target_id": "p6_c2",
+        "center_distance_m": 1.7663386707284705,
+        "median_m": 0.43745586594566493,
+        "p90_m": 6.026502825110847,
+        "fraction_within_1m": 0.7301136363636364,
+        "reverse_fraction_within_1m": 0.6980108499095841
+      },
+      {
+        "source_index": 16,
+        "target_index": 21,
+        "source_id": "p5_c10",
+        "target_id": "p5_c49",
+        "center_distance_m": 1.7934659334461414,
+        "median_m": 0.3689181864739436,
+        "p90_m": 0.7720755581250293,
+        "fraction_within_1m": 0.9473684210526315,
+        "reverse_fraction_within_1m": 0.9834710743801653
+      },
+      {
+        "source_index": 26,
+        "target_index": 9,
+        "source_id": "p6_c19",
+        "target_id": "p4_c92",
+        "center_distance_m": 1.9147138180489232,
+        "median_m": 0.4613263138967545,
+        "p90_m": 2.7567933940326204,
+        "fraction_within_1m": 0.7727272727272727,
+        "reverse_fraction_within_1m": 0.5602836879432624
+      },
+      {
+        "source_index": 37,
+        "target_index": 45,
+        "source_id": "p7_c21",
+        "target_id": "p8_c22",
+        "center_distance_m": 2.7622451264208,
+        "median_m": 0.4089089099793626,
+        "p90_m": 1.0128214311279167,
+        "fraction_within_1m": 0.8863636363636364,
+        "reverse_fraction_within_1m": 0.8198198198198198
+      }
+    ],
+    "strict_forward_080_spatial_support_count": 0
+  }
+]

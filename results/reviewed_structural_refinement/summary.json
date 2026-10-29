@@ -1,0 +1,129 @@
+{
+  "refined_dates": [
+    "0331",
+    "0504",
+    "0609",
+    "0708",
+    "0723",
+    "0831"
+  ],
+  "retained_dates": [
+    "0929"
+  ],
+  "improved_over_1mm": [
+    "0331",
+    "0504",
+    "0708",
+    "0723",
+    "0831"
+  ],
+  "regressed_over_1mm": [],
+  "unchanged_within_1mm": [
+    "0609",
+    "0929"
+  ],
+  "mean_of_date_region_medians_before_m": 0.21351377444375358,
+  "mean_of_date_region_medians_after_m": 0.20509083860736751,
+  "relative_improvement_percent": 3.9449144947811963,
+  "global_p90_regressions_over_1cm": [
+    "0331",
+    "0504"
+  ],
+  "individual_region_median_regressions_over_1mm": [
+    {
+      "date": "0331",
+      "region": "bank_mid",
+      "increase_m": 0.0034903320940328497
+    },
+    {
+      "date": "0609",
+      "region": "bank_mid",
+      "increase_m": 0.0021927860895446516
+    }
+  ],
+  "global_median_increase_range_m": [
+    0.001726381305230562,
+    0.008831276730429133
+  ],
+  "spatial_roof_checks": [
+    {
+      "date": "0331",
+      "count": 151,
+      "adequate": true,
+      "before_m": 0.16148577102521222,
+      "after_m": 0.12231937667338467
+    },
+    {
+      "date": "0504",
+      "count": 48,
+      "adequate": true,
+      "before_m": 0.1105986766115923,
+      "after_m": 0.10499691791498597
+    },
+    {
+      "date": "0609",
+      "count": 51,
+      "adequate": true,
+      "before_m": 0.1221168602835503,
+      "after_m": 0.12543302024633268
+    },
+    {
+      "date": "0708",
+      "count": 1,
+      "adequate": false,
+      "before_m": 1.3509574908118382,
+      "after_m": 1.3586080602568122
+    },
+    {
+      "date": "0723",
+      "count": 45,
+      "adequate": true,
+      "before_m": 0.16518010187413676,
+      "after_m": 0.16127618643858213
+    },
+    {
+      "date": "0831",
+      "count": 70,
+      "adequate": true,
+      "before_m": 0.24922669632978714,
+      "after_m": 0.24812199213247277
+    },
+    {
+      "date": "0929",
+      "count": 27,
+      "adequate": false,
+      "before_m": 0.19804774829269894,
+      "after_m": 0.19804774829269894
+    }
+  ],
+  "strict_pass_dates": [
+    "0331",
+    "0504",
+    "0609",
+    "0708",
+    "0723",
+    "0831",
+    "0929"
+  ],
+  "fit_sha256": {
+    "0331": "b8440137deba32479845c260b89363fa1842f267fd3d8383d84cd7cf6add5940",
+    "0504": "a85b19512bbf9504737d01898119e2c870bc5464b4b12bfb82a4e6a125390fa2",
+    "0609": "821a441e9976ae347a3247b682571e82373077867b10c4f396f9fc88dc3f6ad3",
+    "0708": "a56152fb9e088bbdc71544a72001202947f6a72c44c6e2e7134530d3083367b2",
+    "0723": "05d63f2fec68f60b40be66071ffea0ff4f864e6aa977cedeca1f5a16b4524737",
+    "0831": "8891750aa4880df7f10207fd345f250943078b2e2c73d141f7748b2b3fef95b1",
+    "0929": "abd4d8a897e8c473fe3334e9258308ada352b112853380a52b93172f375c2e4e"
+  },
+  "evaluation_sha256": {
+    "0331": "797c5513818e3f69e785d3b78795b28a3a009053cdba03b2c6a25510c027a37e",
+    "0504": "b124ede78ef66f96975178d192d6232c18f662091f92820c07af5a801b2992db",
+    "0609": "9a4fb7a2235a0d37c5d61cba3793661905d3c582c42891a9bf6b5ccaa505dcb4",
+    "0708": "b7501f9ba4ed6147a6d064f284aba4c8dab6a2a5b398c87654958ce98ef0586e",
+    "0723": "a67bc6b740169de7a75994f673f734dba3adde7dc9dbc18a58bf418c9d6bdd42",
+    "0831": "3f9c9c13720f2a9fdf8efdb4a7001a99fa7e52850ba6ad6dc42defa9b5160b7f",
+    "0929": "678dd18b304a2e997e0521677db0c0d55de0e325c4e9f034d4d838f57f040bd4"
+  },
+  "source_sha256": {
+    "report_structural_refinement.py": "863fa689044635b94b2782be4365b732df2c638244f21f1b4a56f974535e4d4b"
+  }
+}

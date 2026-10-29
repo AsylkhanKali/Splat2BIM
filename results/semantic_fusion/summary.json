@@ -1,0 +1,96 @@
+{
+  "accepted_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0831",
+      "0929"
+    ],
+    "geometry_bank": [
+      "0331",
+      "0609",
+      "0708",
+      "0723",
+      "0831"
+    ],
+    "old_semantic_bank": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "semantic_fusion": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ]
+  },
+  "strict_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ],
+    "geometry_bank": [
+      "0331",
+      "0609",
+      "0831"
+    ],
+    "old_semantic_bank": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ],
+    "semantic_fusion": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ]
+  },
+  "new_accepted_median_improvements_over_1cm": 0,
+  "new_accepted_median_regressions_over_1cm": 0,
+  "las_roof_detected_dates": [
+    "0331",
+    "0504",
+    "0609",
+    "0831",
+    "0929"
+  ],
+  "source_roof_detected_dates": [],
+  "las_vegetation_false_built_max": 0.0,
+  "shared_built_class_dates": [
+    "0331",
+    "0504",
+    "0929"
+  ]
+}

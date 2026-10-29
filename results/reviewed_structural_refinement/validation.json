@@ -1,0 +1,48 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 79,
+  "preserved_file_hashes": 91,
+  "all_fits_recomputed": true,
+  "point_ids_and_spatial_splits_recomputed": true,
+  "strict_gates_unchanged": true,
+  "all_control_errors_recomputed": true,
+  "date_checks": [
+    {
+      "date": "0331",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0504",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0609",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0708",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0723",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0831",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    },
+    {
+      "date": "0929",
+      "experiments_verified": 3,
+      "all_selected_strict_checks_passed": true
+    }
+  ],
+  "verification_code_sha256": "38afcb2963d301a59db0868c04f616585efa8353b3407908de03a0530f7b252f",
+  "meaning": "Internal same-site development comparison; reviewed-region experiment uses manual region definitions, never held control records."
+}

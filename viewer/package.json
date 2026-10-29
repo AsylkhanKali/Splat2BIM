@@ -1,0 +1,9 @@
+{
+  "name": "0929-local-inspection",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@sparkjsdev/spark": "2.4.0",
+    "three": "0.180.0"
+  }
+}

@@ -1,0 +1,7 @@
+folder,date,source_patch_count,target_patch_count,forward_median_m,forward_p90_m,forward_fraction_within_1m,centroid_separation_m,registration_training_status,pair_consistency_gate_passed,review_status
+0929,0929,352,90,42.67761023381673,49.55874425789881,0.0,51.179432445252615,rejected,False,rejected_training_alignment
+0708,0708,98,101,73.05422507866538,75.22936739862132,0.0,77.57078976534262,candidate_for_review_not_survey_validated,False,object_pair_not_confirmed
+0708_reference_roof,0708,177,4640,4.115881706447392,8.788764411843713,0.15254237288135594,18.553018839653813,candidate_for_review_not_survey_validated,False,object_pair_not_confirmed
+0723_reference_roof,0723,152,6215,33.29508576179043,35.877759997444315,0.0,48.258127901254326,rejected,False,rejected_training_alignment
+0831_reference_roof,0831,87,1974,6.859857782365818,15.05435119756322,0.06896551724137931,18.102393480270116,candidate_for_review_not_survey_validated,False,object_pair_not_confirmed
+0929_reference_roof,0929,352,2744,0.21625592355473133,0.4360061145802593,0.9914772727272727,0.674668884128948,candidate_for_review_not_survey_validated,True,candidate_for_review

@@ -1,0 +1,9 @@
+{
+  "count_preserved": true,
+  "all_fields_preserved": true,
+  "all_output_values_finite": true,
+  "opacity_preserved": true,
+  "dc_color_preserved": true,
+  "max_sampled_position_rounding_m": 1.524214110304456e-05,
+  "max_quaternion_norm_error": 5.078996334617614e-08
+}

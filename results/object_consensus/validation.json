@@ -1,0 +1,95 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 29,
+  "original_input_hashes_matched": 14,
+  "registration_file_hashes_matched": 21,
+  "frozen_parameters_and_code_matched": true,
+  "training_tile_leakage_count": 0,
+  "date_checks": [
+    {
+      "date": "0331",
+      "evaluated_matrices": 3,
+      "training_records_checked": 683033,
+      "withheld_records_checked": 44746,
+      "static_records_checked": {
+        "roof_unseen_records": 370,
+        "roof_spatial_holdout": 151,
+        "bank_mid_unseen_records": 109,
+        "bank_mid_spatial_holdout": 14
+      }
+    },
+    {
+      "date": "0504",
+      "evaluated_matrices": 3,
+      "training_records_checked": 747130,
+      "withheld_records_checked": 51118,
+      "static_records_checked": {
+        "roof_unseen_records": 478,
+        "roof_spatial_holdout": 48,
+        "bank_mid_unseen_records": 87,
+        "bank_mid_spatial_holdout": 20
+      }
+    },
+    {
+      "date": "0609",
+      "evaluated_matrices": 3,
+      "training_records_checked": 733808,
+      "withheld_records_checked": 48618,
+      "static_records_checked": {
+        "roof_unseen_records": 405,
+        "roof_spatial_holdout": 51,
+        "bank_mid_unseen_records": 98,
+        "bank_mid_spatial_holdout": 3
+      }
+    },
+    {
+      "date": "0708",
+      "evaluated_matrices": 3,
+      "training_records_checked": 563491,
+      "withheld_records_checked": 35302,
+      "static_records_checked": {
+        "roof_unseen_records": 240,
+        "roof_spatial_holdout": 1,
+        "bank_mid_unseen_records": 43,
+        "bank_mid_spatial_holdout": 0
+      }
+    },
+    {
+      "date": "0723",
+      "evaluated_matrices": 3,
+      "training_records_checked": 584635,
+      "withheld_records_checked": 37762,
+      "static_records_checked": {
+        "roof_unseen_records": 444,
+        "roof_spatial_holdout": 45,
+        "bank_mid_unseen_records": 96,
+        "bank_mid_spatial_holdout": 29
+      }
+    },
+    {
+      "date": "0831",
+      "evaluated_matrices": 3,
+      "training_records_checked": 724962,
+      "withheld_records_checked": 46300,
+      "static_records_checked": {
+        "roof_unseen_records": 228,
+        "roof_spatial_holdout": 70,
+        "bank_mid_unseen_records": 35,
+        "bank_mid_spatial_holdout": 3
+      }
+    },
+    {
+      "date": "0929",
+      "evaluated_matrices": 3,
+      "training_records_checked": 761464,
+      "withheld_records_checked": 47043,
+      "static_records_checked": {
+        "roof_unseen_records": 118,
+        "roof_spatial_holdout": 27,
+        "bank_mid_unseen_records": 56,
+        "bank_mid_spatial_holdout": 0
+      }
+    }
+  ],
+  "meaning": "Numerical consistency and data preservation; not acceptance of every estimated pose."
+}

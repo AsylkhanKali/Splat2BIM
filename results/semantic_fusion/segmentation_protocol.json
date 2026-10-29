@@ -1,0 +1,33 @@
+{
+  "parameters": {
+    "building_confidence": 0.6,
+    "protected_drone_classes": [
+      4,
+      5,
+      6
+    ],
+    "source_context_radius": "max(24, ceil(0.4 / pixel_size_source_units))",
+    "held_tile_width_source_units": 0.4,
+    "median_kernel": 3
+  },
+  "model": {
+    "repository": "wu-pr-gw/segformer-b2-finetuned-with-LoveDA",
+    "revision": "5c74556c08bebb5f45f50b6f78f61a62c5d220c7",
+    "files": {
+      "config.json": "7bad6bc16075fe0b5af4bc0493cf6240873938b7a859d7401dce18faba44acf3",
+      "preprocessor_config.json": "e5a25d8fc054bf780be930e161b47d188bec1b0bf0a44fd5fdfb3f3312c0be0b",
+      "pytorch_model.bin": "f1117b6abbc21949a0cdffec4aa2806202c9c534fd7de3171129ab10cc182b3b"
+    },
+    "published_weight_sha256_verified": true,
+    "remote_code_executed": false
+  },
+  "source_sha256": {
+    "semantic_fusion.py": "d51e803b84d17ff1605788d50fd00ed503c0bb5f6f860a7f91e84c22d3e05470",
+    "semantic_structures.py": "184f5381794f7b66c385e354d9d0f69185ce18d1a2c0ff39f54604d396e7b90e",
+    "prepare_semantic_fusion.py": "1e8149b7c5f2389097c807c011317c7346bd125bab7edcc035dbeb09748cfa27"
+  },
+  "old_protocol_sha256": "fea2611eaa6fda6c9cce1c5fbe66fe0fa80acb0b404f5f392a9a281d1678a15a",
+  "expert_protocol_sha256": "ab814c9f899c7e71491248fab894dc665414fa21ac8e137b9b48952957ea52d7",
+  "alignment_matrices_used_for_predictions": false,
+  "held_out_points_used_for_predictions": false
+}

@@ -1,0 +1,17 @@
+{
+  "las_hashes_unchanged": 7,
+  "registration_files_unchanged": 21,
+  "trial_runs": 42,
+  "rigid_matrices_verified": true,
+  "monotonic_stage_losses_verified": true,
+  "held_out_scores_recomputed": 6,
+  "selection_by_training_only_verified": true,
+  "report_links_exist": 12,
+  "http_contents_verified": [
+    "REPORT.md",
+    "comparison.png",
+    "bank_south_selection.png",
+    "comparison.csv"
+  ],
+  "tests_passed": 19
+}

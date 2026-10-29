@@ -1,0 +1,12 @@
+[
+  {
+    "path": "assets/0331/0331.ply",
+    "bytes": 708001537,
+    "sha256": "221c03c70f3e8884870c1b3140460cbac605a0dba6ed9759d7900089fa44c1ea"
+  },
+  {
+    "path": "assets/0331/0331.las",
+    "bytes": 64999609,
+    "sha256": "2fa11653bf7f798286e27a2f3a468da3224572dd10456d38fbc5e419d0c640ae"
+  }
+]

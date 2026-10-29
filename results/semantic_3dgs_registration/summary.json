@@ -1,0 +1,277 @@
+{
+  "accepted_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "gaussian_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ]
+  },
+  "strict_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ],
+    "gaussian_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ]
+  },
+  "accepted_median_improvements_over_1cm": [],
+  "accepted_median_regressions_over_1cm": [],
+  "rejected_dates": [],
+  "changes": [
+    {
+      "date": "0331",
+      "previous_starts": [
+        527,
+        73,
+        16,
+        178
+      ],
+      "new_starts": [
+        527,
+        16,
+        73,
+        178
+      ],
+      "previous_selected": "consensus_16",
+      "new_selected": "consensus_76",
+      "selected_seed_changed": true,
+      "shared_classes": [
+        "built",
+        "paved",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 27606,
+      "target_built_count": 15536,
+      "current_pose_displacement_median_m": 0.0,
+      "current_pose_displacement_p95_m": 0.0,
+      "previous_pose_displacement_median_m": 2.074005965273276e-13,
+      "previous_pose_displacement_p95_m": 3.5957955699586803e-13
+    },
+    {
+      "date": "0504",
+      "previous_starts": [
+        7035,
+        7447,
+        12215,
+        5203
+      ],
+      "new_starts": [
+        7261,
+        5076,
+        12270,
+        4921
+      ],
+      "previous_selected": "recovery_3087",
+      "new_selected": "recovery_3491",
+      "selected_seed_changed": true,
+      "shared_classes": [
+        "built",
+        "paved",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 32172,
+      "target_built_count": 8341,
+      "current_pose_displacement_median_m": 1.6059791802307836e-05,
+      "current_pose_displacement_p95_m": 2.4931843068513637e-05,
+      "previous_pose_displacement_median_m": 1.605979189710202e-05,
+      "previous_pose_displacement_p95_m": 2.4931842746755734e-05
+    },
+    {
+      "date": "0609",
+      "previous_starts": [
+        5275,
+        5917,
+        3024,
+        6191
+      ],
+      "new_starts": [
+        5275,
+        5917,
+        6191,
+        3375
+      ],
+      "previous_selected": "recovery_3618",
+      "new_selected": "recovery_3618",
+      "selected_seed_changed": false,
+      "shared_classes": [
+        "built",
+        "paved",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 28942,
+      "target_built_count": 20973,
+      "current_pose_displacement_median_m": 4.22280037301551e-13,
+      "current_pose_displacement_p95_m": 8.204230552940464e-13,
+      "previous_pose_displacement_median_m": 0.0,
+      "previous_pose_displacement_p95_m": 0.0
+    },
+    {
+      "date": "0708",
+      "previous_starts": [
+        1307,
+        1316,
+        3225,
+        3421
+      ],
+      "new_starts": [
+        1307,
+        1316,
+        3225,
+        3421
+      ],
+      "previous_selected": "recovery_61",
+      "new_selected": "recovery_61",
+      "selected_seed_changed": false,
+      "shared_classes": [
+        "paved",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 36374,
+      "target_built_count": 23,
+      "current_pose_displacement_median_m": 1.8739512282025527e-13,
+      "current_pose_displacement_p95_m": 3.159319430127384e-13,
+      "previous_pose_displacement_median_m": 0.0,
+      "previous_pose_displacement_p95_m": 0.0
+    },
+    {
+      "date": "0723",
+      "previous_starts": [
+        558,
+        1308,
+        3739,
+        4424
+      ],
+      "new_starts": [
+        564,
+        1308,
+        3739,
+        4424
+      ],
+      "previous_selected": "recovery_366",
+      "new_selected": "recovery_373",
+      "selected_seed_changed": true,
+      "shared_classes": [
+        "built",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 10603,
+      "target_built_count": 4013,
+      "current_pose_displacement_median_m": 0.0,
+      "current_pose_displacement_p95_m": 0.0,
+      "previous_pose_displacement_median_m": 2.6481423494692853e-13,
+      "previous_pose_displacement_p95_m": 5.662985485392731e-13
+    },
+    {
+      "date": "0831",
+      "previous_starts": [
+        786,
+        616,
+        785,
+        457
+      ],
+      "new_starts": [
+        786,
+        616,
+        785,
+        457
+      ],
+      "previous_selected": "recovery_1141",
+      "new_selected": "recovery_562",
+      "selected_seed_changed": true,
+      "shared_classes": [
+        "built",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 7970,
+      "target_built_count": 9575,
+      "current_pose_displacement_median_m": 3.341817778250756e-13,
+      "current_pose_displacement_p95_m": 7.23205436182372e-13,
+      "previous_pose_displacement_median_m": 3.0873879072715384e-13,
+      "previous_pose_displacement_p95_m": 6.898122193969272e-13
+    },
+    {
+      "date": "0929",
+      "previous_starts": [
+        493,
+        266,
+        1148,
+        1599
+      ],
+      "new_starts": [
+        493,
+        1148,
+        266,
+        1252
+      ],
+      "previous_selected": "recovery_1639",
+      "new_selected": "recovery_1639",
+      "selected_seed_changed": false,
+      "shared_classes": [
+        "built",
+        "bare_ground",
+        "vegetation"
+      ],
+      "source_built_count": 7084,
+      "target_built_count": 13261,
+      "current_pose_displacement_median_m": 2.6762844028288508e-08,
+      "current_pose_displacement_p95_m": 3.769039892330072e-08,
+      "previous_pose_displacement_median_m": 0.0,
+      "previous_pose_displacement_p95_m": 0.0
+    }
+  ],
+  "source_sha256": {
+    "report_semantic_3dgs_registration.py": "cb88d9a510cbedcbcf4e259b164a8e9ddd0514f8c186584bc77314b0bcc7a78f"
+  },
+  "audit_sha256": {
+    "0331": "27114900b03e2caa3fdcecd88dcbadc9bd5c8f0564adf0467e57442bb65a5449",
+    "0504": "21eace9dad03f9d3a13768ceafa56d24de35ace06023703f1ba6009facba7c59",
+    "0609": "61b506a94324038abfc5f19dcb90220d364855262a876c4525f59d0103f5ed57",
+    "0708": "06376e33ddbab0fbe70133cd195237804815d237261d52023332dfef207b03ae",
+    "0723": "d15048c967b5938a5e61291873d0dc2940b3def49669c7476f20767b67d0ed22",
+    "0831": "293d1fadaf61671745ae52efe7b74b8c77cbf3914080cd594d96641b781892b4",
+    "0929": "a69a98107e46ec61c4365cd71e6548e5faea79ae95ae6fa713f5b542253e7327"
+  },
+  "strict_diagnostic_sha256": "691fec16feff64f8532dc4c67c756c39f9a912738e4fba16a21d4d70676e9315"
+}

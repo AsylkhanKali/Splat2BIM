@@ -1,0 +1,53 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 60,
+  "model_hashes_verified": true,
+  "recognition_counts_recomputed": true,
+  "pre_icp_banks_recomputed": true,
+  "prior_file_hashes_matched": 91,
+  "date_checks": [
+    {
+      "date": "0331",
+      "all_initial_scores_recomputed": 719,
+      "matrices_recomputed": 4,
+      "withheld_points": 44746
+    },
+    {
+      "date": "0504",
+      "all_initial_scores_recomputed": 12665,
+      "matrices_recomputed": 4,
+      "withheld_points": 51118
+    },
+    {
+      "date": "0609",
+      "all_initial_scores_recomputed": 8237,
+      "matrices_recomputed": 4,
+      "withheld_points": 48618
+    },
+    {
+      "date": "0708",
+      "all_initial_scores_recomputed": 5236,
+      "matrices_recomputed": 4,
+      "withheld_points": 35302
+    },
+    {
+      "date": "0723",
+      "all_initial_scores_recomputed": 6018,
+      "matrices_recomputed": 4,
+      "withheld_points": 37762
+    },
+    {
+      "date": "0831",
+      "all_initial_scores_recomputed": 1673,
+      "matrices_recomputed": 4,
+      "withheld_points": 46300
+    },
+    {
+      "date": "0929",
+      "all_initial_scores_recomputed": 2122,
+      "matrices_recomputed": 4,
+      "withheld_points": 47043
+    }
+  ],
+  "meaning": "Recomputed rankings, gates and held-out distances; not independent survey or semantic ground truth."
+}

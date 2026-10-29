@@ -1,0 +1,42 @@
+{
+  "parameters": {
+    "voxel": 0.12,
+    "plane_distance": 0.05,
+    "cluster_eps": 0.65,
+    "cluster_min_points": 8,
+    "minimum_points": 40,
+    "semantic_exclusion_distance": 0.24,
+    "excluded_classes": [
+      4,
+      5,
+      6
+    ],
+    "seed_attachment_distance": 0.24,
+    "deduplicate_overlap": 0.5,
+    "minimum_persistent_dates": 3
+  },
+  "temporal_parameters": {
+    "distance_m": 1.0,
+    "minimum_coverage": 0.8,
+    "minimum_dates_including_capture": 3
+  },
+  "source_sha256": {
+    "prepare_stable_structures.py": "a0685497a22c3ed99460efd511cb8875e293a6aa83bb5bbc4e310976883fed48",
+    "surface_infill.py": "352d803fa47cb8e97a851f77e4b2bb79cad73bde2578922052be8ae410ea21db",
+    "structural_surfaces.py": "cfad16613e6da51b9004bfd5c7537132c0510297faa6614d51631a742586a225",
+    "structural_correspondence.py": "585f495934b930ebef87ff4cf210da251864bd223a70589088f2b56d2b31f729",
+    "object_candidates.py": "feac4c98ad75056fa102fd79e30f0fd05b4f082c3c9421ef4929bf81fef91113",
+    "object_consensus.py": "d08015fbdce7d3301855dcf686421f736937fcba7ee367b514630eaf89217ed4"
+  },
+  "source_training_only": true,
+  "source_alignment_matrices_used": false,
+  "control_regions_used": false,
+  "variants": [
+    "original_white",
+    "connected_full_color",
+    "measured_infill_within_original_footprint"
+  ],
+  "one_support_per_source_and_target_family": true,
+  "all_seven_dates_same_rules": true,
+  "growth_protocol_sha256": "5727aaceab90bc00663705b33734e7f7657af6e5b9b88a55561f41825c7c121b"
+}

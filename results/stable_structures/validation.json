@@ -1,0 +1,72 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 72,
+  "prior_file_hashes_matched": 91,
+  "model_and_label_hashes_verified": true,
+  "frozen_initial_scores_verified": true,
+  "all_banks_recomputed": true,
+  "infill_and_temporal_coverage_recomputed": true,
+  "growth_code_and_cache_hashes_verified": true,
+  "strict_gates_and_triangles_recomputed": true,
+  "held_out_and_static_errors_recomputed": true,
+  "date_checks": [
+    {
+      "date": "0331",
+      "frozen_initial_scores_verified": 719,
+      "coarse_candidates": 4,
+      "withheld_points": 44746,
+      "status": "candidate_for_review",
+      "strict_support_count": 5
+    },
+    {
+      "date": "0504",
+      "frozen_initial_scores_verified": 12665,
+      "coarse_candidates": 4,
+      "withheld_points": 51118,
+      "status": "candidate_for_review",
+      "strict_support_count": 5
+    },
+    {
+      "date": "0609",
+      "frozen_initial_scores_verified": 8237,
+      "coarse_candidates": 4,
+      "withheld_points": 48618,
+      "status": "candidate_for_review",
+      "strict_support_count": 8
+    },
+    {
+      "date": "0708",
+      "frozen_initial_scores_verified": 5236,
+      "coarse_candidates": 4,
+      "withheld_points": 35302,
+      "status": "candidate_for_review",
+      "strict_support_count": 3
+    },
+    {
+      "date": "0723",
+      "frozen_initial_scores_verified": 6018,
+      "coarse_candidates": 4,
+      "withheld_points": 37762,
+      "status": "candidate_for_review",
+      "strict_support_count": 3
+    },
+    {
+      "date": "0831",
+      "frozen_initial_scores_verified": 1673,
+      "coarse_candidates": 4,
+      "withheld_points": 46300,
+      "status": "candidate_for_review",
+      "strict_support_count": 5
+    },
+    {
+      "date": "0929",
+      "frozen_initial_scores_verified": 2122,
+      "coarse_candidates": 4,
+      "withheld_points": 47043,
+      "status": "candidate_for_review",
+      "strict_support_count": 4
+    }
+  ],
+  "verification_code_sha256": "2fcfe8deb8921810181f785674dad6cddf9289f6738f87e95aed6d9cc79074f6",
+  "meaning": "Repeated registration and verified internal comparisons; not independent survey accuracy."
+}

@@ -1,0 +1,57 @@
+{
+  "model": {
+    "repository": "wu-pr-gw/segformer-b2-finetuned-with-LoveDA",
+    "revision": "5c74556c08bebb5f45f50b6f78f61a62c5d220c7",
+    "files": {
+      "config.json": "7bad6bc16075fe0b5af4bc0493cf6240873938b7a859d7401dce18faba44acf3",
+      "preprocessor_config.json": "e5a25d8fc054bf780be930e161b47d188bec1b0bf0a44fd5fdfb3f3312c0be0b",
+      "pytorch_model.bin": "f1117b6abbc21949a0cdffec4aa2806202c9c534fd7de3171129ab10cc182b3b"
+    },
+    "published_weight_sha256_verified": true,
+    "remote_code_executed": false
+  },
+  "render": {
+    "minimum_alpha": 0.00392156862745098,
+    "pixel_covariance_padding": 0.3,
+    "ellipse_sigma_radius": 3.0,
+    "background_rgb": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "source_record_stride": 2,
+    "source_tile_width": 0.4
+  },
+  "raster_size": 2048,
+  "fusion": {
+    "building_confidence": 0.6,
+    "protected_drone_classes": [
+      4,
+      5,
+      6
+    ]
+  },
+  "source_sha256": {
+    "gaussian_ortho.cpp": "7cdd8d003d5eff7a4de002971fbbf0626bd572bc0223d7b3ef27571d04745156",
+    "gaussian_ortho.py": "ba0ad1f313c66c3389aba73cb040a4367836a0dcee6f3a77acb175144f54337c",
+    "prepare_semantic_3dgs.py": "69e519f3368c2761f3b6d41b2e491a5ac67a9e712219b8a054a9aad2e7a1fcea",
+    "semantic_structures.py": "184f5381794f7b66c385e354d9d0f69185ce18d1a2c0ff39f54604d396e7b90e",
+    "semantic_fusion.py": "d51e803b84d17ff1605788d50fd00ed503c0bb5f6f860a7f91e84c22d3e05470"
+  },
+  "runtime": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "plyfile": "1.1.5",
+    "opencv-python-headless": "4.14.0.94"
+  },
+  "compiler": "Apple clang version 21.0.0 (clang-2100.0.123.102)",
+  "previous_protocol_sha256": "fb2e0fa9660dd485f56b9e9a289d7be9a233ec4ce3a5a85bbdc050c9b8f30ec9",
+  "alignment_matrices_used_for_rendering_or_prediction": false,
+  "held_out_centers_used_for_prediction": false,
+  "footprints_may_overlap_excluded_tiles": true,
+  "unchanged_target_labels": true,
+  "registration_rerun": false,
+  "development_note": "Resolution selected after exploratory roof checks on 0723 and 0929; all seven dates use the same settings. These regions are development diagnostics, not an independent semantic test set."
+}

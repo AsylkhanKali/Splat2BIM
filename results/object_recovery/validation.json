@@ -1,0 +1,54 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 39,
+  "unchanged_file_hashes": 91,
+  "original_input_hashes_matched": 14,
+  "working_registration_files_unchanged": 21,
+  "frozen_code_and_scale_band_match": true,
+  "training_tile_leakage_count": 0,
+  "date_checks": [
+    {
+      "date": "0331",
+      "matrices_recomputed": 5,
+      "training_records_checked": 683033,
+      "withheld_records_checked": 44746
+    },
+    {
+      "date": "0504",
+      "matrices_recomputed": 5,
+      "training_records_checked": 747130,
+      "withheld_records_checked": 51118
+    },
+    {
+      "date": "0609",
+      "matrices_recomputed": 5,
+      "training_records_checked": 733808,
+      "withheld_records_checked": 48618
+    },
+    {
+      "date": "0708",
+      "matrices_recomputed": 5,
+      "training_records_checked": 563491,
+      "withheld_records_checked": 35302
+    },
+    {
+      "date": "0723",
+      "matrices_recomputed": 5,
+      "training_records_checked": 584635,
+      "withheld_records_checked": 37762
+    },
+    {
+      "date": "0831",
+      "matrices_recomputed": 5,
+      "training_records_checked": 724962,
+      "withheld_records_checked": 46300
+    },
+    {
+      "date": "0929",
+      "matrices_recomputed": 5,
+      "training_records_checked": 761464,
+      "withheld_records_checked": 47043
+    }
+  ],
+  "meaning": "Numerical and provenance checks, not independent survey validation."
+}

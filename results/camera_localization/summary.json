@@ -1,0 +1,19 @@
+{
+  "queries": 12,
+  "accepted_candidates": 12,
+  "rejected": 0,
+  "scope": "0929 calibrated same-model localization; not independent camera ground truth",
+  "fitted_queries": 12,
+  "center_difference_to_colmap_m": {
+    "median": 0.16651855741219918,
+    "max": 0.4855577700716778
+  },
+  "rotation_difference_to_colmap_degrees": {
+    "median": 0.055432676124002954,
+    "max": 0.2122972282659907
+  },
+  "validation_fraction_within_3px": {
+    "median": 0.8917734463041029,
+    "max": 0.9429735234215886
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "all_checks_passed": true,
+  "report_rows_checked": 21,
+  "http_resources_checked": 10,
+  "validation_sha256": "aa7c14487c6a1eecf9fb952ea8446f101fa0b468187565517ca846b4db711b4a",
+  "summary_sha256": "7dffd147deeee05c2a096a65828f73485b56bd72285205aa7549931321684f68",
+  "report_sha256": "f0a4265453fa89a9ebfc4b1c82c1dcf9831cb2dc87c8fe2acdf2ee9ed7c45388"
+}

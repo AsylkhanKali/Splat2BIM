@@ -1,0 +1,58 @@
+{
+  "refinement_parameters": {
+    "voxel_m": 0.1,
+    "maximum_points_per_surface": 4000,
+    "plane_band_normalized": 0.05,
+    "calibration_block_m": 2.0,
+    "calibration_modulus": 5,
+    "minimum_fit_points": 30,
+    "minimum_calibration_points": 10,
+    "normal_neighbors": 24,
+    "normal_radius_m": 1.25,
+    "minimum_normal_neighbors": 8,
+    "maximum_normal_scatter": 0.08,
+    "huber_m": 0.15,
+    "correspondence_gate_m": 1.0,
+    "rotation_lever_m": 100.0,
+    "svd_relative_cutoff": 0.01,
+    "maximum_iterations": 60,
+    "maximum_motion_m": 0.5,
+    "tangent_weights": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "minimum_calibration_loss_improvement": 1e-06,
+    "maximum_family_median_regression_m": 0.01,
+    "maximum_training_median_regression_m": 0.01
+  },
+  "object_parameters": {
+    "min_height": 0.2,
+    "min_rectangle_fill": 0.5,
+    "max_aspect": 6.0,
+    "min_width": 0.6,
+    "max_height_to_length": 0.75,
+    "max_ground_angle_degrees": 15.0,
+    "center_gate_m": 5.0,
+    "dimension_ratio_min": 0.5,
+    "dimension_ratio_max": 2.0,
+    "normal_angle_degrees": 20.0,
+    "min_pairs": 3,
+    "min_separation_m": 10.0,
+    "min_second_axis_m": 2.0,
+    "min_patch_fraction_each_direction": 0.5
+  },
+  "strict_forward_fraction": 0.8,
+  "training_median_limit_m": 0.5,
+  "training_rgb_limit": 0.35,
+  "parent_protocol_sha256": "d8bb683c215ed7716d8bfd3fc31f23b2ab54fccfe278385f6bc02a547f4a9ad9",
+  "parent_validation_sha256": "aa7c14487c6a1eecf9fb952ea8446f101fa0b468187565517ca846b4db711b4a",
+  "initialization": "Previous stable-structure final matrix; this is an explicit local refinement experiment.",
+  "same_rules_all_dates": true,
+  "rigid_correction_only": true,
+  "selection_uses_held_out_errors": false,
+  "source_sha256": {
+    "fit_structural_refinement.py": "dabd6ee03313ef59af16d3862da0bdd91828ebccada96ebc80f17d17b2de79c9",
+    "structural_pose_refinement.py": "99878a02b96b023ec9acc03a5a7032fa52a9662eb3260e47401c91a066ea34d8"
+  }
+}

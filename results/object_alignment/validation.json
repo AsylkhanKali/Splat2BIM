@@ -1,0 +1,79 @@
+{
+  "all_checks_passed": true,
+  "original_input_hashes_matched": 14,
+  "registration_file_hashes_matched": 21,
+  "identical_detector_parameters": true,
+  "training_tile_leakage_count": 0,
+  "numerical_unit_tests_passed": 23,
+  "runs": [
+    {
+      "folder": "0331_reference_roof",
+      "training_indices_checked": 683033,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 0,
+      "status": "rejected_no_object_hypotheses"
+    },
+    {
+      "folder": "0504_reference_roof",
+      "training_indices_checked": 747130,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 0,
+      "status": "rejected_no_object_hypotheses"
+    },
+    {
+      "folder": "0609_reference_roof",
+      "training_indices_checked": 733808,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 0,
+      "status": "rejected_no_object_hypotheses"
+    },
+    {
+      "folder": "0708",
+      "training_indices_checked": 563491,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "object_pair_not_confirmed"
+    },
+    {
+      "folder": "0708_reference_roof",
+      "training_indices_checked": 563491,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "object_pair_not_confirmed"
+    },
+    {
+      "folder": "0723_reference_roof",
+      "training_indices_checked": 584635,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "rejected_training_alignment"
+    },
+    {
+      "folder": "0831_reference_roof",
+      "training_indices_checked": 724962,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "object_pair_not_confirmed"
+    },
+    {
+      "folder": "0929",
+      "training_indices_checked": 761464,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "rejected_training_alignment"
+    },
+    {
+      "folder": "0929_reference_roof",
+      "training_indices_checked": 761464,
+      "withheld_tile_leakage": 0,
+      "evaluations_recomputed": 3,
+      "status": "candidate_for_review"
+    }
+  ],
+  "code_sha256": {
+    "object_candidates.py": "feac4c98ad75056fa102fd79e30f0fd05b4f082c3c9421ef4929bf81fef91113",
+    "align_objects.py": "8bbc5912980f1a59642cc775a40a4bb180f5a9d06e2553f7130efe85f1864bc9",
+    "report_object_alignment.py": "e7787c4a96105ea1d242a5553ead5bad4f88f3f2a62415126dafc2b0c6302859",
+    "test_object_candidates.py": "030bf9ee88de71fbc5e1c70bed9434792e27ac9f78645aab6a2aaadc9f4245cb"
+  }
+}

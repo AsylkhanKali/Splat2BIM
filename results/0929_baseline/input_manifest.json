@@ -1,0 +1,22 @@
+[
+  {
+    "path": "assets/0929/0929.las",
+    "bytes": 64991939,
+    "sha256": "f29f15e7bfede278be3b4259ca2c309463edcb84f5863ad8120a4baabe7ded05"
+  },
+  {
+    "path": "assets/0929/0929.ply",
+    "bytes": 678305126,
+    "sha256": "1976c0f7301fde4b9fd55564a20297eb614339eaf061af109d038825ecbdd828"
+  },
+  {
+    "path": "assets/0929/colmap/images.txt",
+    "bytes": 379474,
+    "sha256": "db25d503f832de78ad432034b64fe90a87e418069bb8456afde1c2e27e4f5da9"
+  },
+  {
+    "path": "assets/0929/colmap/points3D.txt",
+    "bytes": 69099447,
+    "sha256": "b5b9979085a1f7c4941426cd4a6f209a6b0d62a62a081b6e2183ab6960397ddd"
+  }
+]

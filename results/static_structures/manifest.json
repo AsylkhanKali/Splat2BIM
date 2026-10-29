@@ -1,0 +1,520 @@
+{
+  "kind": "static",
+  "origin_global": [
+    825800.0,
+    842100.0,
+    0.0
+  ],
+  "region_count": 2,
+  "sample_protocol": "Every 10th original Gaussian starting at index 5; opacity logit > 0; finite XYZ; no quantile or error clipping. These records were not fitted, but are not an independent spatial holdout.",
+  "color_limits_m": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "colors": [
+    "#2dd4bf",
+    "#fde047",
+    "#fb923c",
+    "#f472b6"
+  ],
+  "dates": {
+    "0331": {
+      "date": "0331",
+      "samples": 479,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.17992946342670108,
+      "mean_of_region_p90_m": 0.38948817814979153,
+      "point_weighted_median_m": 0.14896122350005142,
+      "point_weighted_p90_m": 0.28955343355653834,
+      "mean_region_fraction_within_1m": 0.9908256880733946,
+      "mean_region_to_0929_median_m": 0.5277699100930057,
+      "old_spatial_holdout_count": 165,
+      "eligible_record_count": 185934,
+      "outside_positive_masks": 185455,
+      "points_url": "/results/static_structures/0331_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.37714438112813,
+        "las_plane_z_delta_vs_0929_m": -0.6773863406607816,
+        "las_plane_abs_p90_m": 0.06815965374213914,
+        "las_fraction_within_015m_of_plane": 0.9997834091401343,
+        "gs_signed_plane_median_m": 0.10061636208286381,
+        "gs_abs_plane_p90_m": 0.189069834349414,
+        "normal": [
+          0.03614221769766403,
+          -0.01884507352908197,
+          0.9991689563350025
+        ]
+      },
+      "delta_mean_median_vs_0929_m": -0.07253374838846444
+    },
+    "0504": {
+      "date": "0504",
+      "samples": 565,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.14440300340841786,
+      "mean_of_region_p90_m": 0.3245224648974993,
+      "point_weighted_median_m": 0.10816609196875322,
+      "point_weighted_p90_m": 0.23925067307143194,
+      "mean_region_fraction_within_1m": 0.9770114942528736,
+      "mean_region_to_0929_median_m": 0.6210384734891731,
+      "old_spatial_holdout_count": 68,
+      "eligible_record_count": 205201,
+      "outside_positive_masks": 204636,
+      "points_url": "/results/static_structures/0504_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.191507518712267,
+        "las_plane_z_delta_vs_0929_m": -0.8630232030766436,
+        "las_plane_abs_p90_m": 0.09563475979112158,
+        "las_fraction_within_015m_of_plane": 0.9798475514252898,
+        "gs_signed_plane_median_m": -0.00856645578186041,
+        "gs_abs_plane_p90_m": 0.1577824281762335,
+        "normal": [
+          0.03248407633239449,
+          -0.02375109090822071,
+          0.9991900071885731
+        ]
+      },
+      "delta_mean_median_vs_0929_m": -0.10806020840674765
+    },
+    "0609": {
+      "date": "0609",
+      "samples": 503,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.1914204514631298,
+      "mean_of_region_p90_m": 0.47475038928924745,
+      "point_weighted_median_m": 0.14960603129305813,
+      "point_weighted_p90_m": 0.3247420945538999,
+      "mean_region_fraction_within_1m": 0.9642857142857143,
+      "mean_region_to_0929_median_m": 0.628197798676936,
+      "old_spatial_holdout_count": 54,
+      "eligible_record_count": 199573,
+      "outside_positive_masks": 199070,
+      "points_url": "/results/static_structures/0609_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.369968157848295,
+        "las_plane_z_delta_vs_0929_m": -0.6845625639406165,
+        "las_plane_abs_p90_m": 0.06310394765835352,
+        "las_fraction_within_015m_of_plane": 0.9989019607843137,
+        "gs_signed_plane_median_m": -0.08162779607392734,
+        "gs_abs_plane_p90_m": 0.2222727882800904,
+        "normal": [
+          0.029062675557103883,
+          -0.02562629243633454,
+          0.9992490450460436
+        ]
+      },
+      "delta_mean_median_vs_0929_m": -0.06104276035203571
+    },
+    "0708": {
+      "date": "0708",
+      "samples": 283,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.26680502493449754,
+      "mean_of_region_p90_m": 0.8410721978712411,
+      "point_weighted_median_m": 0.19176094710599434,
+      "point_weighted_p90_m": 0.8521819614871425,
+      "mean_region_fraction_within_1m": 0.9043604651162791,
+      "mean_region_to_0929_median_m": 0.7385029080158745,
+      "old_spatial_holdout_count": 1,
+      "eligible_record_count": 151555,
+      "outside_positive_masks": 151272,
+      "points_url": "/results/static_structures/0708_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.518362234800211,
+        "las_plane_z_delta_vs_0929_m": -0.5361684869887,
+        "las_plane_abs_p90_m": 0.051145471519356854,
+        "las_fraction_within_015m_of_plane": 0.9872763419483102,
+        "gs_signed_plane_median_m": 0.032267209772938184,
+        "gs_abs_plane_p90_m": 0.7111835919344669,
+        "normal": [
+          0.02091786299019191,
+          -0.029544780961026116,
+          0.999344559661926
+        ]
+      },
+      "delta_mean_median_vs_0929_m": 0.014341813119332025
+    },
+    "0723": {
+      "date": "0723",
+      "samples": 540,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.2242991910368638,
+      "mean_of_region_p90_m": 0.5604771381927732,
+      "point_weighted_median_m": 0.176196141591073,
+      "point_weighted_p90_m": 0.4159323943517143,
+      "mean_region_fraction_within_1m": 0.9452421171171171,
+      "mean_region_to_0929_median_m": 0.7957730608898135,
+      "old_spatial_holdout_count": 74,
+      "eligible_record_count": 159261,
+      "outside_positive_masks": 158721,
+      "points_url": "/results/static_structures/0723_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.277926673211875,
+        "las_plane_z_delta_vs_0929_m": -0.7766040485770365,
+        "las_plane_abs_p90_m": 0.05202214715890057,
+        "las_fraction_within_015m_of_plane": 1.0,
+        "gs_signed_plane_median_m": 0.07885167238352567,
+        "gs_abs_plane_p90_m": 0.2515976469563694,
+        "normal": [
+          0.022553025584130488,
+          -0.029522044904976192,
+          0.9993096666707624
+        ]
+      },
+      "delta_mean_median_vs_0929_m": -0.028164020778301713
+    },
+    "0831": {
+      "date": "0831",
+      "samples": 263,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.21340508212721865,
+      "mean_of_region_p90_m": 0.4085588765486503,
+      "point_weighted_median_m": 0.23374351691343054,
+      "point_weighted_p90_m": 0.4154268822858069,
+      "mean_region_fraction_within_1m": 0.9769423558897243,
+      "mean_region_to_0929_median_m": 0.5364990288524828,
+      "old_spatial_holdout_count": 73,
+      "eligible_record_count": 196893,
+      "outside_positive_masks": 196630,
+      "points_url": "/results/static_structures/0831_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 10.356522721715379,
+        "las_plane_z_delta_vs_0929_m": -0.698008000073532,
+        "las_plane_abs_p90_m": 0.04996588916400292,
+        "las_fraction_within_015m_of_plane": 0.9681390296886314,
+        "gs_signed_plane_median_m": 0.041059833040798216,
+        "gs_abs_plane_p90_m": 0.2435226010237223,
+        "normal": [
+          0.02761599612740814,
+          -0.03155644277385749,
+          0.9991203869791423
+        ]
+      },
+      "delta_mean_median_vs_0929_m": -0.03905812968794686
+    },
+    "0929": {
+      "date": "0929",
+      "samples": 174,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.2524632118151655,
+      "mean_of_region_p90_m": 1.228444635845244,
+      "point_weighted_median_m": 0.2310609583221671,
+      "point_weighted_p90_m": 1.2518837594219367,
+      "mean_region_fraction_within_1m": 0.8734866828087167,
+      "mean_region_to_0929_median_m": 0.2524632118151655,
+      "old_spatial_holdout_count": 27,
+      "eligible_record_count": 204341,
+      "outside_positive_masks": 204167,
+      "points_url": "/results/static_structures/0929_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 11.054530721788911,
+        "las_plane_z_delta_vs_0929_m": 0.0,
+        "las_plane_abs_p90_m": 2.6715058035774266,
+        "las_fraction_within_015m_of_plane": 0.8237129485179407,
+        "gs_signed_plane_median_m": -0.02583320862832944,
+        "gs_abs_plane_p90_m": 1.3835740581867344,
+        "normal": [
+          0.018847857402947383,
+          -0.025136929857359668,
+          0.9995063246566598
+        ]
+      },
+      "delta_mean_median_vs_0929_m": 0.0
+    }
+  },
+  "regions": [
+    {
+      "id": "roof",
+      "label": "Крыша стационарного блока",
+      "polygon": [
+        [
+          101.5,
+          73.5
+        ],
+        [
+          114,
+          87.5
+        ],
+        [
+          128,
+          75.4
+        ],
+        [
+          115.4,
+          63.1
+        ]
+      ],
+      "z_range": [
+        8,
+        16
+      ],
+      "bounds_xy": [
+        101.5,
+        63.1,
+        128.0,
+        87.5
+      ],
+      "dates": {
+        "0331": {
+          "date": "0331",
+          "region": "roof",
+          "count": 370,
+          "median_m": 0.14252163513582994,
+          "p90_m": 0.21728151622678213,
+          "max_m": 0.5109516845417864,
+          "within_1m": 1.0,
+          "las_count": 9234,
+          "old_spatial_holdout_count": 151,
+          "to_0929_median_m": 0.6526796739504295,
+          "to_0929_p90_m": 0.8392205730020105,
+          "z05": 10.01914403947671,
+          "z_median": 10.433159091766179,
+          "z95": 10.873417724079147
+        },
+        "0504": {
+          "date": "0504",
+          "region": "roof",
+          "count": 478,
+          "median_m": 0.10232707985214222,
+          "p90_m": 0.19482963603853048,
+          "max_m": 0.6858046149544851,
+          "within_1m": 1.0,
+          "las_count": 9577,
+          "old_spatial_holdout_count": 48,
+          "to_0929_median_m": 0.9315211663074277,
+          "to_0929_p90_m": 1.0964708212489889,
+          "z05": 9.734033762219433,
+          "z_median": 10.114337705564843,
+          "z95": 10.547434865599971
+        },
+        "0609": {
+          "date": "0609",
+          "region": "roof",
+          "count": 405,
+          "median_m": 0.14199655290707208,
+          "p90_m": 0.2519692550598771,
+          "max_m": 0.8680797127999751,
+          "within_1m": 1.0,
+          "las_count": 6375,
+          "old_spatial_holdout_count": 51,
+          "to_0929_median_m": 0.8312586542413,
+          "to_0929_p90_m": 1.003796979298144,
+          "z05": 9.835274378282879,
+          "z_median": 10.256631903575396,
+          "z95": 10.655673014145645
+        },
+        "0708": {
+          "date": "0708",
+          "region": "roof",
+          "count": 240,
+          "median_m": 0.18191473889244747,
+          "p90_m": 0.6700640737049677,
+          "max_m": 1.9654181608947612,
+          "within_1m": 0.925,
+          "las_count": 2515,
+          "old_spatial_holdout_count": 1,
+          "to_0929_median_m": 0.5697952927467517,
+          "to_0929_p90_m": 1.1898549555725464,
+          "z05": 9.343617472415584,
+          "z_median": 10.405206074310932,
+          "z95": 10.828834698026586
+        },
+        "0723": {
+          "date": "0723",
+          "region": "roof",
+          "count": 444,
+          "median_m": 0.16977667881965833,
+          "p90_m": 0.28409420903197236,
+          "max_m": 2.369923168896308,
+          "within_1m": 0.9842342342342343,
+          "las_count": 4059,
+          "old_spatial_holdout_count": 45,
+          "to_0929_median_m": 0.7516503780256444,
+          "to_0929_p90_m": 0.93451861788744,
+          "z05": 9.878980821345829,
+          "z_median": 10.314617009397892,
+          "z95": 10.69268819230632
+        },
+        "0831": {
+          "date": "0831",
+          "region": "roof",
+          "count": 228,
+          "median_m": 0.24236908342301122,
+          "p90_m": 0.4147134841358226,
+          "max_m": 1.2981869713627738,
+          "within_1m": 0.9824561403508771,
+          "las_count": 1381,
+          "old_spatial_holdout_count": 70,
+          "to_0929_median_m": 0.7291394359860045,
+          "to_0929_p90_m": 0.9568142916762109,
+          "z05": 9.728713103590273,
+          "z_median": 10.253126611594276,
+          "z95": 10.739949038626513
+        },
+        "0929": {
+          "date": "0929",
+          "region": "roof",
+          "count": 118,
+          "median_m": 0.2158468060336,
+          "p90_m": 1.2344540310083165,
+          "max_m": 3.02857551724583,
+          "within_1m": 0.8898305084745762,
+          "las_count": 1923,
+          "old_spatial_holdout_count": 27,
+          "to_0929_median_m": 0.2158468060336,
+          "to_0929_p90_m": 1.2344540310083165,
+          "z05": 9.005995130365243,
+          "z_median": 10.924517824830893,
+          "z95": 11.300361527157877
+        }
+      }
+    },
+    {
+      "id": "bank_mid",
+      "label": "Прибрежная конструкция — середина",
+      "polygon": [
+        [
+          -57.226196904426494,
+          32.42232238711353
+        ],
+        [
+          -35.4261969044265,
+          54.42232238711353
+        ],
+        [
+          -34.5738030955735,
+          53.57767761288647
+        ],
+        [
+          -56.3738030955735,
+          31.57767761288647
+        ]
+      ],
+      "z_range": [
+        2,
+        7.5
+      ],
+      "bounds_xy": [
+        -57.226196904426494,
+        31.57767761288647,
+        -34.5738030955735,
+        54.42232238711353
+      ],
+      "dates": {
+        "0331": {
+          "date": "0331",
+          "region": "bank_mid",
+          "count": 109,
+          "median_m": 0.2173372917175722,
+          "p90_m": 0.5616948400728009,
+          "max_m": 3.317773039534544,
+          "within_1m": 0.981651376146789,
+          "las_count": 1578,
+          "old_spatial_holdout_count": 14,
+          "to_0929_median_m": 0.40286014623558186,
+          "to_0929_p90_m": 0.9341419174715744,
+          "z05": 5.687663714274374,
+          "z_median": 6.225447406601077,
+          "z95": 6.973233991686342
+        },
+        "0504": {
+          "date": "0504",
+          "region": "bank_mid",
+          "count": 87,
+          "median_m": 0.18647892696469348,
+          "p90_m": 0.45421529375646813,
+          "max_m": 3.8764292169315717,
+          "within_1m": 0.9540229885057471,
+          "las_count": 1337,
+          "old_spatial_holdout_count": 20,
+          "to_0929_median_m": 0.31055578067091855,
+          "to_0929_p90_m": 0.8658043846739892,
+          "z05": 5.608032075376874,
+          "z_median": 6.295976434421775,
+          "z95": 7.10917112421311
+        },
+        "0609": {
+          "date": "0609",
+          "region": "bank_mid",
+          "count": 98,
+          "median_m": 0.24084435001918753,
+          "p90_m": 0.6975315235186178,
+          "max_m": 3.3758199257806645,
+          "within_1m": 0.9285714285714286,
+          "las_count": 1240,
+          "old_spatial_holdout_count": 3,
+          "to_0929_median_m": 0.4251369431125722,
+          "to_0929_p90_m": 1.0013364196097336,
+          "z05": 5.329338559657323,
+          "z_median": 6.050434976557277,
+          "z95": 7.059180025148597
+        },
+        "0708": {
+          "date": "0708",
+          "region": "bank_mid",
+          "count": 43,
+          "median_m": 0.35169531097654755,
+          "p90_m": 1.0120803220375145,
+          "max_m": 2.823939833495674,
+          "within_1m": 0.8837209302325582,
+          "las_count": 1096,
+          "old_spatial_holdout_count": 0,
+          "to_0929_median_m": 0.9072105232849972,
+          "to_0929_p90_m": 1.8411445404103166,
+          "z05": 4.356264852372378,
+          "z_median": 5.341685452733117,
+          "z95": 6.260358495817543
+        },
+        "0723": {
+          "date": "0723",
+          "region": "bank_mid",
+          "count": 96,
+          "median_m": 0.2788217032540693,
+          "p90_m": 0.8368600673535741,
+          "max_m": 4.692356773410634,
+          "within_1m": 0.90625,
+          "las_count": 1240,
+          "old_spatial_holdout_count": 29,
+          "to_0929_median_m": 0.8398957437539826,
+          "to_0929_p90_m": 1.5488137828011084,
+          "z05": 4.469291777558965,
+          "z_median": 5.29962747559626,
+          "z95": 6.160245509424076
+        },
+        "0831": {
+          "date": "0831",
+          "region": "bank_mid",
+          "count": 35,
+          "median_m": 0.1844410808314261,
+          "p90_m": 0.402404268961478,
+          "max_m": 1.3035686582688744,
+          "within_1m": 0.9714285714285714,
+          "las_count": 674,
+          "old_spatial_holdout_count": 3,
+          "to_0929_median_m": 0.34385862171896103,
+          "to_0929_p90_m": 0.7452703442165474,
+          "z05": 5.340117537835232,
+          "z_median": 6.132567082482353,
+          "z95": 6.7781896492059
+        },
+        "0929": {
+          "date": "0929",
+          "region": "bank_mid",
+          "count": 56,
+          "median_m": 0.28907961759673095,
+          "p90_m": 1.2224352406821715,
+          "max_m": 2.740056816889056,
+          "within_1m": 0.8571428571428571,
+          "las_count": 542,
+          "old_spatial_holdout_count": 0,
+          "to_0929_median_m": 0.28907961759673095,
+          "to_0929_p90_m": 1.2224352406821715,
+          "z05": 5.0494923464462325,
+          "z_median": 6.210742501377631,
+          "z95": 7.189325775190916
+        }
+      }
+    }
+  ]
+}

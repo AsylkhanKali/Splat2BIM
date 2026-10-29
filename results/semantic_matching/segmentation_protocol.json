@@ -1,0 +1,65 @@
+{
+  "model": {
+    "repository": "Thalirajesh/Aerial-Drone-Image-Segmentation",
+    "revision": "fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+    "upstream_url": "https://huggingface.co/Thalirajesh/Aerial-Drone-Image-Segmentation/tree/fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+    "weights_sha256": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+    "license": "other",
+    "files": {
+      "model.safetensors": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+      "MODEL_CARD.md": "7018ea12ea8f8888dc1611c3252cc16d64fe5fea5039ab684479cbc196156786",
+      "config.json": "44a04fc71272408c10eb64592fb3508f78de1374a294fedf1a0b80e9db7ee60c",
+      "preprocessor_config.json": "fe597b83386ec66639cff01cafcfe906158ab3229d5d9b378eba68bff6f4855a"
+    }
+  },
+  "parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "groups": [
+    "unknown",
+    "built",
+    "paved",
+    "bare_ground",
+    "vegetation",
+    "water",
+    "movable"
+  ],
+  "runtime": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "safetensors": "0.8.0",
+    "numpy": "2.4.6",
+    "opencv-python-headless": "4.14.0.94"
+  },
+  "source_sha256": {
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5",
+    "prepare_semantic_clouds.py": "9f0e8d273ee4f78ad639bc6892fc07c47254ac77454438f4f77371932775e945"
+  },
+  "query_tiles_used_for_predictions": false,
+  "alignment_matrices_used_for_rendering": false
+}

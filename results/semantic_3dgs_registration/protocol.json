@@ -1,0 +1,98 @@
+{
+  "initial_parameters": {
+    "geometry_score_points": 512,
+    "batch_size": 128,
+    "coarse_starts": 4,
+    "minimum_start_separation_m": 2.0,
+    "geometry_quantile": 0.75,
+    "coarse_iterations": 40,
+    "coarse_gates_m": [
+      40.0,
+      20.0,
+      10.0,
+      5.0
+    ]
+  },
+  "semantic_parameters": {
+    "raster_size": 1024,
+    "tile_size": 512,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "crop_quantiles": [
+      0.002,
+      0.998
+    ],
+    "hole_fill_pixels": 4,
+    "confidence": 0.6,
+    "static_groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "min_class_points": 128,
+    "min_shared_groups": 2,
+    "max_source_points_per_class": 512,
+    "semantic_distance_cap_m": 20.0,
+    "semantic_distance_quantile": 0.6,
+    "semantic_weight": 0.5
+  },
+  "structure_parameters": {
+    "context_fill_pixels": 24,
+    "context_median_kernel": 3,
+    "neighbor_start_rms_m": 2.0,
+    "quarter_turns": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "object_parameters": {
+    "min_height": 0.2,
+    "min_rectangle_fill": 0.5,
+    "max_aspect": 6.0,
+    "min_width": 0.6,
+    "max_height_to_length": 0.75,
+    "max_ground_angle_degrees": 15.0,
+    "center_gate_m": 5.0,
+    "dimension_ratio_min": 0.5,
+    "dimension_ratio_max": 2.0,
+    "normal_angle_degrees": 20.0,
+    "min_pairs": 3,
+    "min_separation_m": 10.0,
+    "min_second_axis_m": 2.0,
+    "min_patch_fraction_each_direction": 0.5
+  },
+  "strict_forward_fraction": 0.8,
+  "training_median_limit_m": 0.5,
+  "training_rgb_limit": 0.35,
+  "same_initial_pool_and_four_start_budget": true,
+  "unchanged_geometry_and_refinement": true,
+  "all_pair_identities_fixed_before_icp": true,
+  "only_source_labels_changed": true,
+  "target_labels": "semantic_fusion",
+  "fresh_icp_and_refinement": true,
+  "source_sha256": {
+    "align_semantic_3dgs.py": "56c651c10fd77e3f2c3ba620c1fd463543f439a19027986a71c54401b81a689f",
+    "semantic_structures.py": "184f5381794f7b66c385e354d9d0f69185ce18d1a2c0ff39f54604d396e7b90e",
+    "semantic_initial.py": "7aa6ded1ac93db229d861aec04b010a0abc1255cc4637cb3550eb8af08c1aa23",
+    "semantic_matching.py": "d2a46533a390932ce89d13984a8cab117f611c104d90f347a38610b0bf22b36e",
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5",
+    "object_consensus.py": "d08015fbdce7d3301855dcf686421f736937fcba7ee367b514630eaf89217ed4",
+    "align_objects.py": "8bbc5912980f1a59642cc775a40a4bb180f5a9d06e2553f7130efe85f1864bc9",
+    "align_object_recovery.py": "d681eb70af68fbdef1dd10edc5ef4ad4607f56eb91a5b6dc758449d987740cd0",
+    "align_object_consensus.py": "22b8d09c702b6bc6f167824100be9b93546370b9152bc9936370f37a84e532b5",
+    "align_dates.py": "124fdbcee5f1521e5d0a5b63cd41b26260ba3f5be12cf9334628da7631c5336e",
+    "align_0929.py": "bfd3f722f4cfd775d6b2405b8830793650320f45561730fe6ce3d447ed61b6ad",
+    "diagnose_strict_support.py": "a195ebb9496b9bfab89be935bb735490335f9c0abd35bde02ba413461825c479"
+  },
+  "parent_protocol_sha256": "874456ce2ee29cb6ddadd8c4c2ddcb72b0fbcf7310a28effb9ce4b1d8fc2f668",
+  "label_protocol_sha256": "bd33d52b8e9cf97ad5a90629f10e1eec09fb7ee31466d47925743184247996a8",
+  "parameters_changed_using_withheld_errors": false,
+  "same_site_development_experiment": true
+}

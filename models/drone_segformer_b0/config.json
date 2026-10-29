@@ -1,0 +1,122 @@
+{
+  "_name_or_path": "nvidia/mit-b0",
+  "architectures": [
+    "SegformerForSemanticSegmentation"
+  ],
+  "attention_probs_dropout_prob": 0.0,
+  "classifier_dropout_prob": 0.1,
+  "decoder_hidden_size": 256,
+  "depths": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "downsampling_rates": [
+    1,
+    4,
+    8,
+    16
+  ],
+  "drop_path_rate": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.0,
+  "hidden_sizes": [
+    32,
+    64,
+    160,
+    256
+  ],
+  "id2label": {
+    "0": "unlabeled",
+    "1": "paved-area",
+    "2": "dirt",
+    "3": "grass",
+    "4": "gravel",
+    "5": "water",
+    "6": "rocks",
+    "7": "pool",
+    "8": "vegetation",
+    "9": "roof",
+    "10": "wall",
+    "11": "window",
+    "12": "door",
+    "13": "fence",
+    "14": "fence-pole",
+    "15": "person",
+    "16": "dog",
+    "17": "car",
+    "18": "bicycle",
+    "19": "tree",
+    "20": "bald-tree",
+    "21": "ar-marker",
+    "22": "obstacle",
+    "23": "conflicting"
+  },
+  "image_size": 224,
+  "initializer_range": 0.02,
+  "label2id": {
+    "ar-marker": 21,
+    "bald-tree": 20,
+    "bicycle": 18,
+    "car": 17,
+    "conflicting": 23,
+    "dirt": 2,
+    "dog": 16,
+    "door": 12,
+    "fence": 13,
+    "fence-pole": 14,
+    "grass": 3,
+    "gravel": 4,
+    "obstacle": 22,
+    "paved-area": 1,
+    "person": 15,
+    "pool": 7,
+    "rocks": 6,
+    "roof": 9,
+    "tree": 19,
+    "unlabeled": 0,
+    "vegetation": 8,
+    "wall": 10,
+    "water": 5,
+    "window": 11
+  },
+  "layer_norm_eps": 1e-06,
+  "mlp_ratios": [
+    4,
+    4,
+    4,
+    4
+  ],
+  "model_type": "segformer",
+  "num_attention_heads": [
+    1,
+    2,
+    5,
+    8
+  ],
+  "num_channels": 3,
+  "num_encoder_blocks": 4,
+  "patch_sizes": [
+    7,
+    3,
+    3,
+    3
+  ],
+  "reshape_last_stage": true,
+  "semantic_loss_ignore_index": 255,
+  "sr_ratios": [
+    8,
+    4,
+    2,
+    1
+  ],
+  "strides": [
+    4,
+    2,
+    2,
+    2
+  ],
+  "torch_dtype": "float32",
+  "transformers_version": "4.38.1"
+}

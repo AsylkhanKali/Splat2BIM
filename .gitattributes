@@ -1,0 +1,6 @@
+# Research protocols verify exact file bytes; do not normalize line endings.
+* -text
+*.csv whitespace=cr-at-eol
+starter_code/** whitespace=cr-at-eol linguist-vendored=true
+results/** linguist-generated=true
+models/** linguist-vendored=true

@@ -1,0 +1,71 @@
+{
+  "all_checks_passed": true,
+  "unit_tests_passed": 64,
+  "prior_files_preserved": 91,
+  "model_hashes_verified": true,
+  "held_out_centers_and_odd_control_records_excluded": true,
+  "region_counts_and_fusion_recomputed": true,
+  "strict_overlap_and_all_bank_triangles_recomputed": true,
+  "neural_inference_repeated_in_verifier": false,
+  "date_checks": [
+    {
+      "date": "0331",
+      "render_context_count": 1087154,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 4,
+      "admissible_triangles": 3
+    },
+    {
+      "date": "0504",
+      "render_context_count": 1063281,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 10,
+      "admissible_triangles": 115
+    },
+    {
+      "date": "0609",
+      "render_context_count": 1059406,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 9,
+      "admissible_triangles": 82
+    },
+    {
+      "date": "0708",
+      "render_context_count": 875969,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 3,
+      "admissible_triangles": 0
+    },
+    {
+      "date": "0723",
+      "render_context_count": 942595,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 2,
+      "admissible_triangles": 0
+    },
+    {
+      "date": "0831",
+      "render_context_count": 1052380,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 5,
+      "admissible_triangles": 10
+    },
+    {
+      "date": "0929",
+      "render_context_count": 1067018,
+      "render_reproduced_exactly": true,
+      "strict_overlap_pairs": 6,
+      "admissible_triangles": 19
+    }
+  ],
+  "verification_script_sha256": "6d6bb736bc24c017b7e4e159751bec2d6c2087dc807beb27d3df26c38129590d",
+  "supporting_code_sha256": {
+    "export_3dgs.py": "e3b39dada50e8d69df8f9156456632f1f274060936aeb0e0a380228dc8c83b1f",
+    "semantic_projection.py": "71f9b48e669e50426cc61e7753d1137e81905022a1b4a223ef02d1aae75a94f5",
+    "align_objects.py": "8bbc5912980f1a59642cc775a40a4bb180f5a9d06e2553f7130efe85f1864bc9",
+    "align_dates.py": "124fdbcee5f1521e5d0a5b63cd41b26260ba3f5be12cf9334628da7631c5336e",
+    "diagnose_strict_support.py": "a195ebb9496b9bfab89be935bb735490335f9c0abd35bde02ba413461825c479",
+    "report_semantic_3dgs.py": "4e8bdf4cddff4fc5f5a2087d3fbf2178ec20f90ff50ee99428957672807a50d9"
+  },
+  "meaning": "Reproducibility and consistency of development diagnostics; no new alignment result or independent semantic accuracy claim."
+}

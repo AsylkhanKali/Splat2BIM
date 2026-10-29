@@ -1,0 +1,21 @@
+{
+  "accepted_dates": {
+    "current_automatic": 7,
+    "pooled_geometry": 7,
+    "semantic_rerank": 7
+  },
+  "strict_support_dates": {
+    "current_automatic": 4,
+    "pooled_geometry": 4,
+    "semantic_rerank": 5
+  },
+  "semantic_improvements_over_1cm": 0,
+  "semantic_regressions_over_1cm": 0,
+  "within_1cm": 7,
+  "changed_candidate_vs_matched_geometry": 3,
+  "mean_date_medians_m": {
+    "current_automatic": 0.23577256664304325,
+    "pooled_geometry": 0.23577256700173246,
+    "semantic_rerank": 0.2357725670018068
+  }
+}

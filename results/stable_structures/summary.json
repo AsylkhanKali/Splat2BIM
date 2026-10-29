@@ -1,0 +1,104 @@
+{
+  "accepted_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ],
+    "stable_structures": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ]
+  },
+  "strict_dates": {
+    "current_automatic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831"
+    ],
+    "previous_semantic": [
+      "0331",
+      "0504",
+      "0609",
+      "0831",
+      "0929"
+    ],
+    "stable_structures": [
+      "0331",
+      "0504",
+      "0609",
+      "0708",
+      "0723",
+      "0831",
+      "0929"
+    ]
+  },
+  "pose_changes": [
+    {
+      "date": "0331",
+      "current_pose_p95_m": 0.0,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0504",
+      "current_pose_p95_m": 2.4931843068513637e-05,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0609",
+      "current_pose_p95_m": 8.204230552940464e-13,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0708",
+      "current_pose_p95_m": 3.159319430127384e-13,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0723",
+      "current_pose_p95_m": 0.0,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0831",
+      "current_pose_p95_m": 7.23205436182372e-13,
+      "previous_pose_p95_m": 0.0
+    },
+    {
+      "date": "0929",
+      "current_pose_p95_m": 3.769039892330072e-08,
+      "previous_pose_p95_m": 0.0
+    }
+  ],
+  "audit_sha256": {
+    "0331": "a6bd3c54d2a80fb80942654b753951fc8b76d1baa2d80bc0766be1e190796b73",
+    "0504": "d3e048de01c9eeb576612b2b37c823a6ca2038619d76d42e69a7d3e5e218db9b",
+    "0609": "9ad30b42069917f4913efc713c047efe4c3433d498781d9e1991c48821084d4b",
+    "0708": "d671ad7fa7cfc9dafdccb17bf52a957f5edfe046825b7bde0d72450906b96810",
+    "0723": "7c7200f95d8ea8d42e59d359ea9189f91883b107c9bf38c36cc96d6aaffe7768",
+    "0831": "4ebcf93aea61c2796f1e0f32c3c856de7b46c7aed01bade930bddcbeeced6a79",
+    "0929": "c0f76aff5f13572ad16804f2e251e4853a37d9e61f1a02733d82442a5a563d3a"
+  },
+  "source_sha256": {
+    "report_stable_structures.py": "963a2a809abb3bea4402f2054adbbad76125ada6b5a2a7665d508fb966d8e18c"
+  }
+}

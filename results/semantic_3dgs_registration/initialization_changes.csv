@@ -1,0 +1,8 @@
+date,previous_starts,new_starts,previous_selected,new_selected,selected_seed_changed,shared_classes,source_built_count,target_built_count,current_pose_displacement_median_m,current_pose_displacement_p95_m,previous_pose_displacement_median_m,previous_pose_displacement_p95_m
+0331,"[527, 73, 16, 178]","[527, 16, 73, 178]",consensus_16,consensus_76,True,"['built', 'paved', 'bare_ground', 'vegetation']",27606,15536,0.0,0.0,2.074005965273276e-13,3.5957955699586803e-13
+0504,"[7035, 7447, 12215, 5203]","[7261, 5076, 12270, 4921]",recovery_3087,recovery_3491,True,"['built', 'paved', 'bare_ground', 'vegetation']",32172,8341,1.6059791802307836e-05,2.4931843068513637e-05,1.605979189710202e-05,2.4931842746755734e-05
+0609,"[5275, 5917, 3024, 6191]","[5275, 5917, 6191, 3375]",recovery_3618,recovery_3618,False,"['built', 'paved', 'bare_ground', 'vegetation']",28942,20973,4.22280037301551e-13,8.204230552940464e-13,0.0,0.0
+0708,"[1307, 1316, 3225, 3421]","[1307, 1316, 3225, 3421]",recovery_61,recovery_61,False,"['paved', 'bare_ground', 'vegetation']",36374,23,1.8739512282025527e-13,3.159319430127384e-13,0.0,0.0
+0723,"[558, 1308, 3739, 4424]","[564, 1308, 3739, 4424]",recovery_366,recovery_373,True,"['built', 'bare_ground', 'vegetation']",10603,4013,0.0,0.0,2.6481423494692853e-13,5.662985485392731e-13
+0831,"[786, 616, 785, 457]","[786, 616, 785, 457]",recovery_1141,recovery_562,True,"['built', 'bare_ground', 'vegetation']",7970,9575,3.341817778250756e-13,7.23205436182372e-13,3.0873879072715384e-13,6.898122193969272e-13
+0929,"[493, 266, 1148, 1599]","[493, 1148, 266, 1252]",recovery_1639,recovery_1639,False,"['built', 'bare_ground', 'vegetation']",7084,13261,2.6762844028288508e-08,3.769039892330072e-08,0.0,0.0

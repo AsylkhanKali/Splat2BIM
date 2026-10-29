@@ -1,0 +1,254 @@
+[
+  {
+    "date": "0331",
+    "gaussians": 3000000,
+    "median_m": 0.2656964845549762,
+    "p90_m": 1.1507992469705937,
+    "within_1m": 0.8827115888356969,
+    "xy_overlap": 0.9865092376394478,
+    "heldout_samples": 44284,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 5.028329651194067
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 8.411296496198755
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 1.9246365528313691
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 2.222725802655407
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 1.33934667550982
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 20.5014003601133
+      }
+    },
+    "delta_median_vs_0929_m": 0.04704091628893317
+  },
+  {
+    "date": "0504",
+    "gaussians": 2929187,
+    "median_m": 0.19554601920363074,
+    "p90_m": 0.7583855107597854,
+    "within_1m": 0.9313225882910642,
+    "xy_overlap": 0.9931111255322654,
+    "heldout_samples": 50628,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 4.400298788362084
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 6.828935474323946
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 1.52843653756933
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 0.9942862158910439
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 1.3991964613314842
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 18.439953394563787
+      }
+    },
+    "delta_median_vs_0929_m": -0.023109549062412277
+  },
+  {
+    "date": "0609",
+    "gaussians": 2888037,
+    "median_m": 0.2481491377332575,
+    "p90_m": 0.806730747901256,
+    "within_1m": 0.9279301591232741,
+    "xy_overlap": 0.9966131351011199,
+    "heldout_samples": 48453,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 4.604661608489307
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 7.371034083949188
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 0.9342023076806469
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 2.2577890167726276
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 1.5898967927647805
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 19.985685688439133
+      }
+    },
+    "delta_median_vs_0929_m": 0.029493569467214487
+  },
+  {
+    "date": "0708",
+    "gaussians": 2380897,
+    "median_m": 0.2485367447416016,
+    "p90_m": 1.0181440416153715,
+    "within_1m": 0.8975702851283219,
+    "xy_overlap": 0.9937318473488687,
+    "heldout_samples": 35107,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 0.8222269337039025
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 3.8493109383600466
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 0.9194169246579871
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 3.2345171706276092
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 1.8293415645960955
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 20.13446485103862
+      }
+    },
+    "delta_median_vs_0929_m": 0.029881176475558574
+  },
+  {
+    "date": "0723",
+    "gaussians": 2580522,
+    "median_m": 0.20863987897331934,
+    "p90_m": 0.758995035046909,
+    "within_1m": 0.9354223505416788,
+    "xy_overlap": 0.9997545092769652,
+    "heldout_samples": 37753,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 0.5106094303589443
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 2.43581124625576
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 0.9448429667940215
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 3.0707751289197858
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 2.3180501336617407
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 18.94982786179318
+      }
+    },
+    "delta_median_vs_0929_m": -0.010015689292723673
+  },
+  {
+    "date": "0831",
+    "gaussians": 2882481,
+    "median_m": 0.2300581249056018,
+    "p90_m": 0.7721778897528195,
+    "within_1m": 0.9436628849270664,
+    "xy_overlap": 0.9996284317727467,
+    "heldout_samples": 46275,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 0.7272791718567357
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 0.5384290172827788
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 0.7577998217054006
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 3.4386080372085517
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 0.9309335003021009
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 17.47575960159814
+      }
+    },
+    "delta_median_vs_0929_m": 0.011402556639558775
+  },
+  {
+    "date": "0929",
+    "gaussians": 2874168,
+    "median_m": 0.21865556826604302,
+    "p90_m": 0.7451270077026992,
+    "within_1m": 0.9332874384183465,
+    "xy_overlap": 0.9908061205542423,
+    "heldout_samples": 46483,
+    "bim_groups": {
+      "Deck": {
+        "elements": 80,
+        "median_of_element_medians_m": 0.7205916415154686
+      },
+      "Canopy": {
+        "elements": 60,
+        "median_of_element_medians_m": 0.36644797769820914
+      },
+      "Pier": {
+        "elements": 15,
+        "median_of_element_medians_m": 0.7064323090032154
+      },
+      "Pile Cap": {
+        "elements": 4,
+        "median_of_element_medians_m": 3.7915364404939593
+      },
+      "Kiosk": {
+        "elements": 4,
+        "median_of_element_medians_m": 0.9049780906543173
+      },
+      "Underground piles": {
+        "elements": 69,
+        "median_of_element_medians_m": 18.845258586913676
+      }
+    },
+    "delta_median_vs_0929_m": 0.0
+  }
+]

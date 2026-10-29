@@ -1,0 +1,65 @@
+{
+  "previous_metrics": {
+    "0331": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 44284
+    },
+    "0504": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 50628
+    },
+    "0609": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 48453
+    },
+    "0708": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 35107
+    },
+    "0723": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 37753
+    },
+    "0831": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 46275
+    },
+    "0929": {
+      "previous_metrics_reproduced": true,
+      "heldout_overlap_count": 46483
+    }
+  },
+  "common_cell_count": 21,
+  "minimum_count_observed": 51,
+  "alignment_inputs": [
+    {
+      "path": "results/multidate/0331/alignment.json",
+      "sha256": "70622f0231b5e5357d077f29ef849a30e627baab5cc34d7512ae16ede2f17a48"
+    },
+    {
+      "path": "results/multidate/0504/alignment.json",
+      "sha256": "2102264f306386b4d46ef9ed61004baf91412e5b9b01eaaed3f8d54018110d05"
+    },
+    {
+      "path": "results/multidate/0609/alignment.json",
+      "sha256": "3d42aee3b77d6b41320cf01c036e1a48784c7e26f7cf8c0e98452e5dd2cf559d"
+    },
+    {
+      "path": "results/multidate/0708/alignment.json",
+      "sha256": "d68a77c5de626d10c88f5c30d93bd8f97cd4bb93c4d70dd4ec6ec11b1e1bb2d8"
+    },
+    {
+      "path": "results/multidate/0723/alignment.json",
+      "sha256": "f06ebd5e3b1435b4136f39b99cccfcf49ba97593f71877d1fdb91b69dd3eb05f"
+    },
+    {
+      "path": "results/multidate/0831/alignment.json",
+      "sha256": "6d8040fd96a241f7d5cafa14872a1ff731b65f61188862a9501f6b763fc6bde8"
+    },
+    {
+      "path": "results/0929_baseline/alignment.json",
+      "sha256": "aa1f6e0bdf9120103f21aa98d50383394a45fe34bb42565027dd6451e91ca14c"
+    }
+  ],
+  "colored_exports_reread": 7
+}
