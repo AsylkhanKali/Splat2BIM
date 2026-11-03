@@ -1,0 +1,13 @@
+{
+  "repository": "Thalirajesh/Aerial-Drone-Image-Segmentation",
+  "revision": "fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+  "upstream_url": "https://huggingface.co/Thalirajesh/Aerial-Drone-Image-Segmentation/tree/fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+  "weights_sha256": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+  "license": "other",
+  "files": {
+    "model.safetensors": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+    "MODEL_CARD.md": "7018ea12ea8f8888dc1611c3252cc16d64fe5fea5039ab684479cbc196156786",
+    "config.json": "44a04fc71272408c10eb64592fb3508f78de1374a294fedf1a0b80e9db7ee60c",
+    "preprocessor_config.json": "fe597b83386ec66639cff01cafcfe906158ab3229d5d9b378eba68bff6f4855a"
+  }
+}

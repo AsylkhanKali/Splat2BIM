@@ -1,0 +1,9 @@
+{
+  "fit_records": 152324,
+  "heldout_records": 48081,
+  "las_points": 2499670,
+  "pca_source_points": 17160,
+  "pca_target_points": 94761,
+  "fit_test_overlap": 0,
+  "semantic_source_held_tile_overlap": 0
+}

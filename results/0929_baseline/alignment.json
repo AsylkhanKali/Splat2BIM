@@ -1,0 +1,162 @@
+{
+  "dataset": "0929",
+  "status": "diagnostic baseline, not survey validation",
+  "origin_global": [
+    825800.0,
+    842100.0,
+    0.0
+  ],
+  "projection": "axis order change (2D) + Inverse of Hong Kong 1980 to WGS 84 (1) + Hong Kong 1980 Grid + axis order change (2D)",
+  "camera_pairs": 1586,
+  "camera_holdout": {
+    "count": 350,
+    "median": 0.6099203113906635,
+    "p90": 1.3813928308369752,
+    "p95": 1.535800651978218,
+    "rmse": 0.83081437406977
+  },
+  "camera_T_local": [
+    [
+      19.901718231572335,
+      60.179840387431994,
+      -0.28195173368860305,
+      1.2361487868888332
+    ],
+    [
+      59.9871369993099,
+      -19.861341853974597,
+      -4.9841316988422975,
+      90.89992520773517
+    ],
+    [
+      -4.820381775642766,
+      1.2980697626035982,
+      -63.189002277566296,
+      94.61246962022236
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "sparse_to_las_local": [
+    [
+      19.90730265532659,
+      60.17827117275841,
+      -0.2146020808300758,
+      1.3422971672125141
+    ],
+    [
+      59.99642119415319,
+      -19.86447098042589,
+      -4.858323884577132,
+      90.87564704718699
+    ],
+    [
+      -4.679724274874832,
+      1.3227039471088367,
+      -63.199064149601575,
+      98.91661820800587
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ply_to_sparse": [
+    [
+      0.5422321634650296,
+      0.5752401863963506,
+      -0.6124533464333012,
+      0.0008278357587996415
+    ],
+    [
+      -0.5745864555412733,
+      -0.2779833772832003,
+      -0.769799804989177,
+      -0.00031462593119467775
+    ],
+    [
+      -0.6130667000507907,
+      0.7693114210822011,
+      0.1797922450494097,
+      -0.0025255462713693077
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ply_to_las_local": [
+    [
+      -23.651674356687444,
+      -5.442174401339585,
+      -58.55609933299526,
+      1.3403854870914942
+    ],
+    [
+      46.92432182780587,
+      36.296781190199916,
+      -22.32683200582124,
+      90.94383402950322
+    ],
+    [
+      35.44773691380956,
+      -51.67941702652083,
+      -9.51480607648908,
+      99.0719401687658
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ply_to_las_distances_m": {
+    "count": 199263,
+    "median": 0.21862318816486362,
+    "p90": 0.7665436156854483,
+    "p95": 1.3545946692879411,
+    "rmse": 13.428901561080838
+  },
+  "ply_withheld_overlap_distances_m": {
+    "count": 46483,
+    "median": 0.21865556826604302,
+    "p90": 0.7451270077026992,
+    "p95": 1.217641997536856,
+    "rmse": 1.0857379658824493
+  },
+  "ply_withheld_overlap_fraction_within_1m": 0.9332874384183465,
+  "ply_samples": 199263,
+  "ply_horizontal_overlap_fraction": 0.9908061205542423,
+  "sample_filter": "Every tenth Gaussian, opacity logit > 0; exclude coordinate-wise outer 0.5 percent tails",
+  "holdout_definition": "PLY source-space 0.4-unit checkerboard tiles, 25 percent nominally withheld from PLY-to-sparse fitting; overlap is XY distance to LAS < 1 m",
+  "sparse_holdout_distances_m": {
+    "count": 77586,
+    "median": 0.4362161222671185,
+    "p90": 3.4629563894448614,
+    "p95": 27.397140412820406,
+    "rmse": 38.12060337313039
+  },
+  "caveats": [
+    "Nearest-neighbor distances are agreement with the supplied LAS, not survey accuracy",
+    "Absolute photo altitude datum is unverified; vertical offset was estimated from geometry",
+    "LAS projection parameters match Hong Kong Grid, but its custom geokeys omit valid ellipsoid values; EPSG:2326 is a documented working assumption supported by BIM",
+    "BIM metadata was inspected; BIM geometry has not been validated",
+    "No independent surveyed control points are available",
+    "The existing cameras and LAS may originate from related photogrammetry; camera holdout is not independent ground truth"
+  ],
+  "orientation_candidate_medians_source_units": [
+    0.02934089226400883,
+    0.03506088337453392,
+    0.038235847049718705,
+    0.038616769926504375
+  ]
+}

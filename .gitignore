@@ -1,0 +1,31 @@
+# All captures and generated geometry stay local.
+assets/
+.venv/
+node_modules/
+.cache/
+__pycache__/
+*.pyc
+*.log
+.env*
+.DS_Store
+*.ply
+*.las
+*.ifc
+*.npz
+*.npy
+*.bin
+*.pt
+*.safetensors
+*.so
+*.dylib
+# Compact, single-date evidence is explicitly selected.
+results/**
+!results/**/
+!results/**/*.md
+!results/**/*.html
+!results/**/*.csv
+!results/**/*.json
+!results/**/T_*.txt
+!results/**/*.png
+!results/**/*.jpg
+!results/**/*.svg

@@ -1,0 +1,35 @@
+{
+  "date": "0929",
+  "status": "passed",
+  "description": "Independent regeneration from raw PLY/LAS with pinned models; every array compared exactly to frozen benchmark inputs.",
+  "results": {
+    "source": {
+      "arrays_identical": [
+        "points",
+        "input_indices",
+        "probabilities",
+        "labels",
+        "confidence",
+        "original_ply_indices",
+        "label_origin",
+        "building_expert_probabilities",
+        "render_uv"
+      ],
+      "frozen_sha256": "63369abb26730e104f3a0807059e4a4fc3232d35fd5085e91c505dd6a56b43b0",
+      "rebuilt_sha256": "63369abb26730e104f3a0807059e4a4fc3232d35fd5085e91c505dd6a56b43b0"
+    },
+    "target": {
+      "arrays_identical": [
+        "points",
+        "input_indices",
+        "probabilities",
+        "labels",
+        "confidence",
+        "label_origin",
+        "building_expert_probabilities"
+      ],
+      "frozen_sha256": "ac112596088727f21315cd531b8218dc0c0cf03bce7896d84660c0dbbfc04a67",
+      "rebuilt_sha256": "ac112596088727f21315cd531b8218dc0c0cf03bce7896d84660c0dbbfc04a67"
+    }
+  }
+}

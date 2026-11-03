@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splat2BIM | The Loop: captures, LAS and BIM</title>
+<style>
+  * { box-sizing: border-box; } body { margin:0; background:#151b22; color:#e8edf3; font:14px system-ui,sans-serif; }
+  canvas { display:block; } aside { position:fixed; z-index:2; top:65px; left:20px; width:285px; padding:18px; background:#17202aee; border:1px solid #465363; border-radius:9px; max-height:calc(100vh - 125px); overflow:auto; }
+  h1 { font-size:20px; margin:0 0 5px; } p { color:#b9c5d1; font-size:12px; line-height:1.5; margin:5px 0 15px; }
+  label { display:flex; align-items:center; gap:8px; margin:12px 0; } input[type=checkbox] { width:17px; height:17px; accent-color:#ecad5c; } select { background:#25313e; color:white; border:1px solid #607084; padding:5px; }
+  button { cursor:pointer; background:#293849; color:white; border:1px solid #64778c; border-radius:4px; padding:8px 10px; margin:3px 2px 3px 0; }
+  button:hover { background:#3a5067; } #status { margin-top:15px; font-size:12px; line-height:1.5; white-space:pre-line; color:#d1dbe6; }
+  .rule { border-top:1px solid #465363; padding-top:10px; margin-top:12px; } #help { position:fixed; bottom:15px; left:20px; color:#d2dbe3; padding:8px 12px; background:#17202acc; border-radius:5px; font-size:12px; }
+  #error { color:#ffb2a2; } #selection { font-size:12px; line-height:1.5; overflow-wrap:anywhere; }
+  #panel { position:fixed;z-index:3;top:17px;left:20px; } aside.closed { display:none; }
+  #date-control { position:fixed;z-index:3;top:20px;left:160px;margin:0;padding:4px 8px;background:#17202aee;border-radius:4px; }
+  select:disabled { opacity:.6; } #metrics { white-space:pre-line;font-size:12px;line-height:1.5;color:#c9d8e6; }
+  summary { cursor:pointer;font-weight:600;padding:4px 0; } #quality-summary, #quality-region-info { font-size:12px;line-height:1.5;white-space:pre-line; }
+  .quality-region-label { display:block; } #quality-region { display:block;max-width:100%;width:100%;margin-top:7px; }
+  #quality-legend { position:fixed;z-index:2;bottom:88px;left:20px;padding:10px 12px;background:#17202aee;border:1px solid #465363;border-radius:5px;max-width:calc(100vw - 40px);font-size:12px;line-height:1.5; }
+  #quality-legend[hidden] { display:none; } .distance-key { display:flex;gap:12px;flex-wrap:wrap; } .distance-key span { display:inline-flex;align-items:center;gap:5px; } .distance-key i { display:inline-block;width:9px;height:9px;border-radius:50%; }
+  @media(min-width:700px) { aside:not(.closed) ~ #quality-legend { left:325px;max-width:calc(100vw - 345px); } }
+  @media(max-width:699px) { body:has(#quality:checked) aside { max-height:calc(100vh - 260px); } }
+  aside a { color:#9ad9ff; } :focus-visible { outline:2px solid #9ad9ff;outline-offset:3px; }
+  @media (max-width:700px) { aside:not(.open) { display:none; } #help { max-width:calc(100vw - 40px); } }
+</style>
+<button id="panel" aria-expanded="true">Layers & views</button>
+<label id="date-control">Date <select id="date" aria-label="Capture date" disabled><option value="0929">Sep 29 · 0929</option></select><span id="loading" role="status" aria-live="polite">…</span></label>
+<aside>
+  <h1 id="heading">0929 · The Loop</h1><p>Historical RTK/COLMAP-assisted baseline<br>Controlled PCA ablation is reported separately</p>
+  <div id="metrics"></div>
+  <details class="rule" id="quality-panel">
+    <summary>Alignment checks</summary>
+    <label class="quality-region-label">Sample <select id="quality-source" aria-label="Evaluation sample" disabled><option value="static">Stable structures</option></select></label>
+    <p id="quality-description">Loading evaluation method…</p>
+    <div id="quality-summary">Loading checks…</div>
+    <label><input id="quality" type="checkbox" disabled> Show distances to LAS</label>
+    <label class="quality-region-label">Inspection regions <select id="quality-region" aria-label="Inspection region" disabled><option value="">All shared regions</option></select></label>
+    <div id="quality-region-info"></div>
+    <p><a id="quality-report" href="/results/ablation/inspection.html" target="_blank" rel="noopener">Separate controlled ablation report</a></p>
+  </details>
+  <label><input id="gs" type="checkbox" checked> 3DGS · captured site</label>
+  <label><input id="bim" type="checkbox" checked> BIM <select id="version" aria-label="BIM revision"><option>v3</option><option>v2</option><option>v1</option></select></label>
+  <label><input id="las" type="checkbox"> LAS · reference cloud</label>
+  <label><input id="xray" type="checkbox" checked> BIM wireframe, including hidden parts</label>
+  <label>BIM opacity <input id="opacity" aria-label="BIM opacity" type="range" min="0" max="1" step="0.05" value="0.35" style="width:105px"></label>
+  <div class="rule"><button id="overview">Overview</button><button id="top">Top view</button><button id="photo">0929 drone view</button></div>
+  <p><a href="/results/camera_localization/inspection.html">Photo to model: 12 camera checks (0929)</a></p>
+  <p><a href="/results/ablation/inspection.html">0929: controlled registration ablation and pipeline</a></p>
+  <label>Structure <select id="focus" aria-label="BIM structure" style="max-width:180px"><option value="">Select a structure…</option></select></label>
+  <div id="selection"></div><div id="status">Loading 3DGS…</div><div id="error"></div>
+</aside>
+<div id="quality-legend" hidden><strong>Control-center distance to LAS</strong><div class="distance-key"><span><i style="background:#2dd4bf"></i>&lt; 0.25 m</span><span><i style="background:#fde047"></i>0.25–0.5 m</span><span><i style="background:#fb923c"></i>0.5–1 m</span><span><i style="background:#f472b6"></i>≥ 1 m</span></div><div>Points are drawn over the scene, including hidden points.</div></div>
+<div id="help">Yellow: BIM · cyan outline: selected region<br>Left drag: orbit · right drag: pan · wheel: zoom</div>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","@sparkjsdev/spark":"./node_modules/@sparkjsdev/spark/dist/spark.module.js"}}</script>
+<script type="module" src="./main.js?v=0929-ablation-1"></script>
+</html>

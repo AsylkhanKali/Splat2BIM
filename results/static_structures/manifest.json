@@ -1,0 +1,154 @@
+{
+  "kind": "static",
+  "origin_global": [
+    825800.0,
+    842100.0,
+    0.0
+  ],
+  "region_count": 2,
+  "sample_protocol": "Every 10th original Gaussian starting at index 5; opacity logit > 0; finite XYZ; no quantile or error clipping. These records were not fitted, but are not an independent spatial holdout.",
+  "color_limits_m": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "colors": [
+    "#2dd4bf",
+    "#fde047",
+    "#fb923c",
+    "#f472b6"
+  ],
+  "dates": {
+    "0929": {
+      "date": "0929",
+      "samples": 174,
+      "regions": 2,
+      "mean_of_region_medians_m": 0.2524632118151655,
+      "mean_of_region_p90_m": 1.228444635845244,
+      "point_weighted_median_m": 0.2310609583221671,
+      "point_weighted_p90_m": 1.2518837594219367,
+      "mean_region_fraction_within_1m": 0.8734866828087167,
+      "mean_region_to_0929_median_m": 0.2524632118151655,
+      "old_spatial_holdout_count": 27,
+      "eligible_record_count": 204341,
+      "outside_positive_masks": 204167,
+      "points_url": "/results/static_structures/0929_distances.ply",
+      "roof_plane": {
+        "las_plane_z_at_anchor_m": 11.054530721788911,
+        "las_plane_z_delta_vs_0929_m": 0.0,
+        "las_plane_abs_p90_m": 2.6715058035774266,
+        "las_fraction_within_015m_of_plane": 0.8237129485179407,
+        "gs_signed_plane_median_m": -0.02583320862832944,
+        "gs_abs_plane_p90_m": 1.3835740581867344,
+        "normal": [
+          0.018847857402947383,
+          -0.025136929857359668,
+          0.9995063246566598
+        ]
+      },
+      "delta_mean_median_vs_0929_m": 0.0
+    }
+  },
+  "regions": [
+    {
+      "id": "roof",
+      "label": "\u041a\u0440\u044b\u0448\u0430 \u0441\u0442\u0430\u0446\u0438\u043e\u043d\u0430\u0440\u043d\u043e\u0433\u043e \u0431\u043b\u043e\u043a\u0430",
+      "polygon": [
+        [
+          101.5,
+          73.5
+        ],
+        [
+          114,
+          87.5
+        ],
+        [
+          128,
+          75.4
+        ],
+        [
+          115.4,
+          63.1
+        ]
+      ],
+      "z_range": [
+        8,
+        16
+      ],
+      "bounds_xy": [
+        101.5,
+        63.1,
+        128.0,
+        87.5
+      ],
+      "dates": {
+        "0929": {
+          "date": "0929",
+          "region": "roof",
+          "count": 118,
+          "median_m": 0.2158468060336,
+          "p90_m": 1.2344540310083165,
+          "max_m": 3.02857551724583,
+          "within_1m": 0.8898305084745762,
+          "las_count": 1923,
+          "old_spatial_holdout_count": 27,
+          "to_0929_median_m": 0.2158468060336,
+          "to_0929_p90_m": 1.2344540310083165,
+          "z05": 9.005995130365243,
+          "z_median": 10.924517824830893,
+          "z95": 11.300361527157877
+        }
+      }
+    },
+    {
+      "id": "bank_mid",
+      "label": "\u041f\u0440\u0438\u0431\u0440\u0435\u0436\u043d\u0430\u044f \u043a\u043e\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u044f \u2014 \u0441\u0435\u0440\u0435\u0434\u0438\u043d\u0430",
+      "polygon": [
+        [
+          -57.226196904426494,
+          32.42232238711353
+        ],
+        [
+          -35.4261969044265,
+          54.42232238711353
+        ],
+        [
+          -34.5738030955735,
+          53.57767761288647
+        ],
+        [
+          -56.3738030955735,
+          31.57767761288647
+        ]
+      ],
+      "z_range": [
+        2,
+        7.5
+      ],
+      "bounds_xy": [
+        -57.226196904426494,
+        31.57767761288647,
+        -34.5738030955735,
+        54.42232238711353
+      ],
+      "dates": {
+        "0929": {
+          "date": "0929",
+          "region": "bank_mid",
+          "count": 56,
+          "median_m": 0.28907961759673095,
+          "p90_m": 1.2224352406821715,
+          "max_m": 2.740056816889056,
+          "within_1m": 0.8571428571428571,
+          "las_count": 542,
+          "old_spatial_holdout_count": 0,
+          "to_0929_median_m": 0.28907961759673095,
+          "to_0929_p90_m": 1.2224352406821715,
+          "z05": 5.0494923464462325,
+          "z_median": 6.210742501377631,
+          "z95": 7.189325775190916
+        }
+      }
+    }
+  ]
+}

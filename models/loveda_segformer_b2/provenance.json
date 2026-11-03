@@ -1,0 +1,11 @@
+{
+  "repository": "wu-pr-gw/segformer-b2-finetuned-with-LoveDA",
+  "revision": "5c74556c08bebb5f45f50b6f78f61a62c5d220c7",
+  "files": {
+    "config.json": "7bad6bc16075fe0b5af4bc0493cf6240873938b7a859d7401dce18faba44acf3",
+    "preprocessor_config.json": "e5a25d8fc054bf780be930e161b47d188bec1b0bf0a44fd5fdfb3f3312c0be0b",
+    "pytorch_model.bin": "f1117b6abbc21949a0cdffec4aa2806202c9c534fd7de3171129ab10cc182b3b"
+  },
+  "published_weight_sha256_verified": true,
+  "remote_code_executed": false
+}

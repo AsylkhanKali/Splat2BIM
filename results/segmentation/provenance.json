@@ -1,0 +1,35 @@
+{
+  "date": "0929",
+  "models": {
+    "drone_segformer_b0": {
+      "repository": "Thalirajesh/Aerial-Drone-Image-Segmentation",
+      "revision": "fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+      "upstream_url": "https://huggingface.co/Thalirajesh/Aerial-Drone-Image-Segmentation/tree/fb5d31d4a149b819fade8d79288a9b48f7fa804f",
+      "weights_sha256": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+      "license": "other",
+      "files": {
+        "model.safetensors": "1fde7aabeac50e77f25d8326d46ad7cf45171833c40f087857ec7902f2a2fccb",
+        "MODEL_CARD.md": "7018ea12ea8f8888dc1611c3252cc16d64fe5fea5039ab684479cbc196156786",
+        "config.json": "44a04fc71272408c10eb64592fb3508f78de1374a294fedf1a0b80e9db7ee60c",
+        "preprocessor_config.json": "fe597b83386ec66639cff01cafcfe906158ab3229d5d9b378eba68bff6f4855a"
+      }
+    },
+    "loveda_segformer_b2": {
+      "repository": "wu-pr-gw/segformer-b2-finetuned-with-LoveDA",
+      "revision": "5c74556c08bebb5f45f50b6f78f61a62c5d220c7",
+      "files": {
+        "config.json": "7bad6bc16075fe0b5af4bc0493cf6240873938b7a859d7401dce18faba44acf3",
+        "preprocessor_config.json": "e5a25d8fc054bf780be930e161b47d188bec1b0bf0a44fd5fdfb3f3312c0be0b",
+        "pytorch_model.bin": "f1117b6abbc21949a0cdffec4aa2806202c9c534fd7de3171129ab10cc182b3b"
+      },
+      "published_weight_sha256_verified": true,
+      "remote_code_executed": false
+    }
+  },
+  "projection_sha256": "e95eac18eec46c697299c3ec8e30db6ea4ef9ece327aff9f77aa6c6586d08ece",
+  "label_sha256": {
+    "source": "63369abb26730e104f3a0807059e4a4fc3232d35fd5085e91c505dd6a56b43b0",
+    "target": "ac112596088727f21315cd531b8218dc0c0cf03bce7896d84660c0dbbfc04a67"
+  },
+  "note": "Reproduces historical development settings, including globally estimated cropping bounds; no fitted alignment matrix is read. Held-out centers are excluded; Gaussian footprints may cross tile boundaries."
+}

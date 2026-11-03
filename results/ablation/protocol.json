@@ -1,0 +1,227 @@
+{
+  "date": "0929",
+  "frozen_at_utc": "2026-11-03T14:23:36Z",
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "configurations": [
+    {
+      "name": "pca_only",
+      "starts": 1,
+      "weight": 0.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": false
+    },
+    {
+      "name": "pca_icp",
+      "starts": 1,
+      "weight": 0.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "pca_semantic_icp",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "geometry_starts_4",
+      "starts": 4,
+      "weight": 0.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "semantic_starts_4",
+      "starts": 4,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "semantic_weight_025",
+      "starts": 1,
+      "weight": 0.25,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "semantic_weight_100",
+      "starts": 1,
+      "weight": 1.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "confidence_070",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.7,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "confidence_080",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.8,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "trim_060",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.6,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "trim_090",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.9,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "fine_voxel_030",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.3,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "fine_voxel_120",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 1.2,
+      "shuffle": false,
+      "icp": true
+    },
+    {
+      "name": "shuffled_source_labels",
+      "starts": 1,
+      "weight": 0.5,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": true,
+      "icp": true
+    }
+  ],
+  "input_sha256": {
+    "assets/0929/0929.ply": "1976c0f7301fde4b9fd55564a20297eb614339eaf061af109d038825ecbdd828",
+    "assets/0929/0929.las": "f29f15e7bfede278be3b4259ca2c309463edcb84f5863ad8120a4baabe7ded05",
+    "results/segmentation/source_labels.npz": "63369abb26730e104f3a0807059e4a4fc3232d35fd5085e91c505dd6a56b43b0",
+    "results/segmentation/target_labels.npz": "ac112596088727f21315cd531b8218dc0c0cf03bce7896d84660c0dbbfc04a67"
+  },
+  "source_sha256": {
+    "registration_ablation.py": "1cb87f4ca3e5b90d3bbfabfa76c43dcb72a862729cbfdad388da82aef36c6f56",
+    "run_registration_ablation.py": "81612cbad89dbac4bfe6b269da40f8e75d584c7ecb953986a5e4fb8322a09657",
+    "project_data.py": "de94149e806f89546c1d1a1093eecdd0ed36484e73a03d3a462555e816b5c43b"
+  },
+  "runtime": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "open3d": "0.20.0",
+    "laspy": "2.7.0",
+    "plyfile": "1.1.5"
+  },
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "source_record_stride": 10,
+  "source_opacity_logit_min": 0,
+  "source_tile_width": 0.4,
+  "heldout_rule": "sum(floor(source_xyz / 0.4)) modulo 4 == 0",
+  "fit_only_quantile_crop": [
+    0.005,
+    0.995
+  ],
+  "evaluation_crop": "none; all finite positive-opacity held-out records",
+  "coarse_source_voxel": 0.06,
+  "coarse_target_voxel_m": 2.0,
+  "fit_points_max": 10000,
+  "ranking_points_max": 4096,
+  "candidate_pool": "Four proper PCA sign hypotheses; no RTK, manual seed, old fitted pose, or correspondence bank",
+  "candidate_selection": "75th-percentile training geometry distance + weight * class-balanced 60th-percentile capped semantic distance",
+  "semantic_classes": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "minimum_points_per_class": 128,
+  "minimum_shared_classes": 2,
+  "semantic_distance_cap_m": 20.0,
+  "iterations_per_gate": 30,
+  "point_to_point_gates_m": [
+    40,
+    20,
+    10,
+    5
+  ],
+  "point_to_plane_gates_m": [
+    18,
+    9,
+    4,
+    2,
+    1
+  ],
+  "normal_radius_m": 3.0,
+  "normal_max_neighbors": 40,
+  "robust_plane_scale_m": 0.25,
+  "semantic_input": "Frozen fused predictions from previous 0929 development; confidence ablations only reject more cached labels, not rerun the networks",
+  "semantic_stage_changes_coordinates": false,
+  "bim_used_for_fit_or_evaluation": false,
+  "limitations": [
+    "One previously explored capture, not an independent new-site test.",
+    "Labels/render settings were developed previously; Gaussian footprints can cross held-out boundaries.",
+    "LAS is reference geometry, not independent survey truth.",
+    "Seeds measure sampling sensitivity, not repeated independent captures.",
+    "No model-selection claim is made from the ablation outcomes."
+  ],
+  "bootstrap": {
+    "replicates": 1000,
+    "seed": 2026,
+    "block_width_source_units": 1.6,
+    "statistic": "equal-weight mean of occupied block medians; paired differences; not the pooled point median"
+  }
+}
