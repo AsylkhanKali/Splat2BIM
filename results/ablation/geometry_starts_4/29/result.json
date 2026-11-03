@@ -9,7 +9,8 @@
     "trim": 0.75,
     "fine_voxel_m": 0.6,
     "shuffle": false,
-    "icp": true
+    "icp": true,
+    "iterations": 500
   },
   "initial_scores": [
     {
@@ -45,22 +46,22 @@
       "index": 0,
       "matrix": [
         [
-          -21.97601403215087,
-          -4.724839176020886,
-          -58.65403200737552,
-          5.593126509467599
+          -23.675111362033668,
+          -5.431919156250011,
+          -58.559825990475844,
+          1.3060502987124665
         ],
         [
-          47.03801617093173,
-          36.208753285238934,
-          -20.540593685057985,
-          45.91841121066898
+          46.937078336948026,
+          36.29045938354324,
+          -22.342405839170617,
+          90.90542209681274
         ],
         [
-          35.3559699437683,
-          -51.10936165706032,
-          -9.129803341030719,
-          98.74992177146132
+          35.435429205047434,
+          -51.698807295437305,
+          -9.530663410413458,
+          99.07316498251384
         ],
         [
           0.0,
@@ -71,22 +72,22 @@
       ],
       "coarse_matrix": [
         [
-          -22.849119101364394,
-          -4.991005833484013,
-          -59.9690494733015,
-          9.70304248151542
+          -21.464774784715946,
+          -4.390083528495744,
+          -57.46816970980762,
+          1.8649126000186853
         ],
         [
-          47.99996017373851,
-          37.17608553741538,
-          -21.38274456433906,
-          36.71754348517424
+          46.116659009603524,
+          35.47470307929124,
+          -19.934872032925274,
+          49.97024386174209
         ],
         [
-          36.293261871601615,
-          -52.30972952094424,
-          -9.474735765941917,
-          100.59430502956195
+          34.57046607979475,
+          -50.04870155947905,
+          -9.089019032695141,
+          96.4821982197016
         ],
         [
           0.0,
@@ -96,112 +97,155 @@
         ]
       ],
       "parts": {
-        "scale": 62.81373073383528,
+        "scale": 63.39771181801023,
         "rotation": [
           [
-            -0.3498600349861604,
-            -0.07521984637470039,
-            -0.9337772382270061
+            -0.37343794725581825,
+            -0.08568005059619349,
+            -0.9236898984395203
           ],
           [
-            0.7488492662575479,
-            0.5764464689841247,
-            -0.3270080195060533
+            0.7403591863328731,
+            0.5724253816560257,
+            -0.35241659672681613
           ],
           [
-            0.5628700847842403,
-            -0.8136654368394285,
-            -0.14534725504073354
+            0.5589386144845186,
+            -0.8154680320930847,
+            -0.1503313469383915
           ]
         ],
         "translation_local_m": [
-          5.593126509467599,
-          45.91841121066898,
-          98.74992177146132
+          1.3060502987124665,
+          90.90542209681274,
+          99.07316498251384
         ]
       },
       "training_score": {
-        "geometry": 5.646647356158624,
+        "geometry": 1.2636245637691073,
         "semantic": null,
-        "combined": 5.646647356158624
+        "combined": 1.2636245637691073
       },
       "trace": [
         {
           "stage": "point_to_point",
           "gate_m": 40.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.01877678097186265,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 20.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 257,
+          "pairs": 7500,
+          "last_update": 2.774892644311722e-13,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_point",
           "gate_m": 10.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 9.03875659015507e-14,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_point",
           "gate_m": 5.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 8.173660695436279e-14,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 18.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.03350135354069,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 9.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 284,
+          "pairs": 7500,
+          "last_update": 8.016840110896849e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 4.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 1.32361665141711e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 2.0,
-          "iterations": 30,
-          "pairs": 5930
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 2.2070751172510343e-08,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 1.0,
-          "iterations": 30,
-          "pairs": 3841
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 3.709769664710887e-09,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         }
-      ]
+      ],
+      "convergence": {
+        "terminal_converged": true,
+        "stages_at_limit": 2,
+        "total_iterations": 1546
+      },
+      "fit_reused": true,
+      "fit_seconds": 18.07960275000005
     },
     {
       "index": 2,
       "matrix": [
         [
-          -50.952160293841224,
-          -35.473232270607504,
-          -1.6599308572645872,
-          4.137009917061946
+          -48.09296621813225,
+          -33.92978217633633,
+          0.10573376498408732,
+          4.331192357665512
         ],
         [
-          3.749765632498554,
-          -8.261031144568406,
-          61.440400706005306,
-          23.747693508236058
+          4.9442145645978615,
+          -6.826536395487728,
+          58.25056086425984,
+          31.236357205640108
         ],
         [
-          -35.313521997625095,
-          50.30540103695376,
-          8.919081086036835,
-          -83.87760174838952
+          -33.567782776076726,
+          47.60612334698566,
+          8.42826655906434,
+          -79.27932972963804
         ],
         [
           0.0,
@@ -212,22 +256,22 @@
       ],
       "coarse_matrix": [
         [
-          -52.127744200392215,
-          -36.13399913341886,
-          -1.784409506561387,
-          2.9243881374266314
+          -48.335921191783804,
+          -34.05418352550315,
+          0.040954338971673644,
+          4.224681052914021
         ],
         [
-          3.7708845488132052,
-          -8.539326331440437,
-          62.76154922886507,
-          20.166649896512535
+          4.861872767711608,
+          -6.830468937382182,
+          58.529968884247765,
+          32.69807821562828
         ],
         [
-          -35.98097331063443,
-          51.454501635074394,
-          9.162725969284795,
-          -85.4648268962029
+          -33.70535990072397,
+          47.850889738980854,
+          8.383998774814405,
+          -79.22610660333983
         ],
         [
           0.0,
@@ -237,112 +281,155 @@
         ]
       ],
       "parts": {
-        "scale": 62.10658754741492,
+        "scale": 58.8572399779403,
         "rotation": [
           [
-            -0.8203986453923602,
-            -0.5711669835913247,
-            -0.026727130290282373
+            -0.8171121553806718,
+            -0.576475930387718,
+            0.0017964444989896967
           ],
           [
-            0.060376294698784035,
-            -0.13301376666785258,
-            0.9892734914649591
+            0.084003506899932,
+            -0.11598465028340292,
+            0.9896923621646573
           ],
           [
-            -0.5685954323390444,
-            0.8099849472255803,
-            0.14360926011637032
+            -0.5703254652895368,
+            0.808840566850033,
+            0.14319846738010913
           ]
         ],
         "translation_local_m": [
-          4.137009917061946,
-          23.747693508236058,
-          -83.87760174838952
+          4.331192357665512,
+          31.236357205640108,
+          -79.27932972963804
         ]
       },
       "training_score": {
-        "geometry": 9.042797964578876,
+        "geometry": 6.584714596360351,
         "semantic": null,
-        "combined": 9.042797964578876
+        "combined": 6.584714596360351
       },
       "trace": [
         {
           "stage": "point_to_point",
           "gate_m": 40.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.019767043854144534,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 20.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 176,
+          "pairs": 7500,
+          "last_update": 1.093494674375398e-12,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_point",
           "gate_m": 10.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 2.040409639379427e-13,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_point",
           "gate_m": 5.0,
-          "iterations": 30,
-          "pairs": 7195
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 6.957304635959324e-14,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 18.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 2.6475988342566984e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 9.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 2.6475988340875205e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 4.0,
-          "iterations": 30,
-          "pairs": 6990
+          "iterations": 500,
+          "pairs": 7478,
+          "last_update": 0.0012324736494783734,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 2.0,
-          "iterations": 30,
-          "pairs": 5174
+          "iterations": 79,
+          "pairs": 5681,
+          "last_update": 7.693968261970158e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 1.0,
-          "iterations": 30,
-          "pairs": 3204
+          "iterations": 500,
+          "pairs": 3511,
+          "last_update": 5.2781144382417224e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         }
-      ]
+      ],
+      "convergence": {
+        "terminal_converged": false,
+        "stages_at_limit": 5,
+        "total_iterations": 2757
+      },
+      "fit_reused": false,
+      "fit_seconds": 32.48879400000078
     },
     {
       "index": 3,
       "matrix": [
         [
-          47.93827838735282,
-          32.84090483625222,
-          -0.7749213758354069,
-          28.900083539117965
+          42.06661042701339,
+          29.354573849587972,
+          -4.129781975452364,
+          24.373956173889074
         ],
         [
-          -5.390969438398309,
-          6.5125895690732625,
-          -57.49545802900343,
-          19.57047660254264
+          -7.618814954672931,
+          3.7776846409959846,
+          -50.75459166729268,
+          36.44536185672138
         ],
         [
-          -32.40467531262747,
-          47.50016015748731,
-          8.418780864366418,
-          -78.02343521460529
+          -28.647857925900205,
+          42.09969015012681,
+          7.4338511819644655,
+          -68.64515500031182
         ],
         [
           0.0,
@@ -353,22 +440,22 @@
       ],
       "coarse_matrix": [
         [
-          50.881309676312796,
-          34.261745305905826,
-          1.20908812766111,
-          30.36834120883798
+          43.734825635365915,
+          30.207367357042912,
+          -3.0384481439126216,
+          21.12896394639234
         ],
         [
-          -4.107874737956596,
-          8.241128396648561,
-          -60.6584365753954,
-          23.524999297220052
+          -6.923717760705983,
+          4.736013878661277,
+          -52.574561225307086,
+          38.566063626690585
         ],
         [
-          -34.03607572333389,
-          50.22403180975547,
-          9.128468546932831,
-          -82.20622276794279
+          -29.559758830833886,
+          43.58368172861195,
+          7.818921150999834,
+          -70.87938992965546
         ],
         [
           0.0,
@@ -378,112 +465,155 @@
         ]
       ],
       "parts": {
-        "scale": 58.113716697057725,
+        "scale": 51.46208135971773,
         "rotation": [
           [
-            0.824904706013751,
-            0.5651145151746066,
-            -0.013334569183984766
+            0.817429247234864,
+            0.5704117104086942,
+            -0.08024902736804145
           ],
           [
-            -0.09276586914068863,
-            0.11206630618762321,
-            -0.9893612265194252
+            -0.148047159255331,
+            0.07340714835434137,
+            -0.9862522137905825
           ],
           [
-            -0.5576080339440431,
-            0.8173657246034003,
-            0.14486736252394364
+            -0.5566789599055062,
+            0.8180720452375758,
+            0.14445298335296947
           ]
         ],
         "translation_local_m": [
-          28.900083539117965,
-          19.57047660254264,
-          -78.02343521460529
+          24.373956173889074,
+          36.44536185672138,
+          -68.64515500031182
         ]
       },
       "training_score": {
-        "geometry": 7.49285237073817,
+        "geometry": 5.437517744117516,
         "semantic": null,
-        "combined": 7.49285237073817
+        "combined": 5.437517744117516
       },
       "trace": [
         {
           "stage": "point_to_point",
           "gate_m": 40.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.028493760025434207,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 20.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.014388619102220146,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 10.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.02006255984675054,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 5.0,
-          "iterations": 30,
-          "pairs": 7203
+          "iterations": 186,
+          "pairs": 7500,
+          "last_update": 5.529057819885289e-13,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 18.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 285,
+          "pairs": 7500,
+          "last_update": 8.773645648704203e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 9.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 5.501646925176837e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 4.0,
-          "iterations": 30,
-          "pairs": 7065
+          "iterations": 1,
+          "pairs": 7500,
+          "last_update": 3.457522827284843e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 2.0,
-          "iterations": 30,
-          "pairs": 5328
+          "iterations": 500,
+          "pairs": 6140,
+          "last_update": 0.0002949679931138617,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 1.0,
-          "iterations": 30,
-          "pairs": 3315
+          "iterations": 500,
+          "pairs": 3889,
+          "last_update": 0.00027859256008848463,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         }
-      ]
+      ],
+      "convergence": {
+        "terminal_converged": false,
+        "stages_at_limit": 5,
+        "total_iterations": 2973
+      },
+      "fit_reused": false,
+      "fit_seconds": 24.349107041000025
     },
     {
       "index": 1,
       "matrix": [
         [
-          17.01174173571149,
-          3.175155847130946,
-          54.326558839200594,
-          13.48759763121277
+          9.350443143802757,
+          -1.3707246422726795,
+          48.67511005831555,
+          6.4561894745268225
         ],
         [
-          -43.495016007921,
-          -33.41443350557403,
-          15.572898985655906,
-          10.07509446802434
+          -39.49793122574404,
+          -29.201399361526114,
+          6.765184138994443,
+          6.739065833836177
         ],
         [
-          32.70535418602545,
-          -46.08958652117908,
-          -7.547568397746575,
-          90.13969758306332
+          28.479091525553326,
+          -40.04966169025774,
+          -6.598632933866392,
+          79.44778998438134
         ],
         [
           0.0,
@@ -494,22 +624,22 @@
       ],
       "coarse_matrix": [
         [
-          20.45972416392818,
-          4.676928800192398,
-          57.82932546245513,
-          19.129769999982425
+          13.228946726676345,
+          0.7286891792159049,
+          52.39535087048694,
+          12.557731390740818
         ],
         [
-          -46.258326311700166,
-          -35.69593081833324,
-          19.252860285204786,
-          9.844405103145167
+          -42.27787888454924,
+          -31.77759227513088,
+          11.116402227223107,
+          18.399564913496622
         ],
         [
-          35.01816376232317,
-          -49.886187660707854,
-          -8.3547200254983,
-          96.20595743192061
+          30.95778961400787,
+          -43.708837247575744,
+          -7.208440950697087,
+          85.52569285075533
         ],
         [
           0.0,
@@ -519,124 +649,172 @@
         ]
       ],
       "parts": {
-        "scale": 57.016278086571326,
+        "scale": 49.58402981021157,
         "rotation": [
           [
-            0.2983664017823386,
-            0.05568858497410005,
-            0.9528254151685109
+            0.18857771705108733,
+            -0.027644478424187824,
+            0.9816691028265551
           ],
           [
-            -0.7628526004780571,
-            -0.5860507670254947,
-            0.27313075332645553
+            -0.7965857429685889,
+            -0.5889275130177548,
+            0.13643877201770296
           ],
           [
-            0.5736143305665603,
-            -0.80835838584901,
-            -0.13237567675474426
+            0.574360164644952,
+            -0.8077129237690505,
+            -0.13307980329802557
           ]
         ],
         "translation_local_m": [
-          13.48759763121277,
-          10.07509446802434,
-          90.13969758306332
+          6.4561894745268225,
+          6.739065833836177,
+          79.44778998438134
         ]
       },
       "training_score": {
-        "geometry": 7.371654699292636,
+        "geometry": 4.53262068811484,
         "semantic": null,
-        "combined": 7.371654699292636
+        "combined": 4.53262068811484
       },
       "trace": [
         {
           "stage": "point_to_point",
           "gate_m": 40.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.03715334044700809,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 20.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.020158413719848386,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 10.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.0022458147112559947,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 5.0,
-          "iterations": 30,
-          "pairs": 7110
+          "iterations": 7,
+          "pairs": 7500,
+          "last_update": 2.6563966655048296e-13,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 18.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.023674907016190804,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 9.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.0002360100295670695,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 4.0,
-          "iterations": 30,
-          "pairs": 7188
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.00023601002956690373,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 2.0,
-          "iterations": 30,
-          "pairs": 5330
+          "iterations": 90,
+          "pairs": 6285,
+          "last_update": 8.871246221562556e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 1.0,
-          "iterations": 30,
-          "pairs": 3330
+          "iterations": 98,
+          "pairs": 4080,
+          "last_update": 8.26016102110286e-07,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "tolerance"
         }
-      ]
+      ],
+      "convergence": {
+        "terminal_converged": true,
+        "stages_at_limit": 6,
+        "total_iterations": 3195
+      },
+      "fit_reused": false,
+      "fit_seconds": 43.13686208400031
     }
   ],
   "failures": [],
-  "registration_seconds": 15.448874457999864,
+  "registration_seconds": 100.01192037500005,
   "selected_index": 0,
-  "status": "evaluated_not_survey_certified",
+  "convergence": {
+    "terminal_converged": true,
+    "stages_at_limit": 2,
+    "total_iterations": 1546
+  },
+  "status": "evaluated_terminal_converged",
   "metrics": {
     "n": 48081,
-    "median_m": 1.2855028682732133,
-    "p90_m": 7.071485512574842,
-    "rmse_m": 13.353445687991753,
-    "within_025m": 0.09294731806742788,
-    "within_05m": 0.23477049146232398,
-    "within_1m": 0.4234104947900418
+    "median_m": 0.22063525237743864,
+    "p90_m": 0.885085520023573,
+    "rmse_m": 15.512699950719844,
+    "within_025m": 0.5779205923337701,
+    "within_05m": 0.8156028368794326,
+    "within_1m": 0.91283459162663
   },
   "matrix": [
     [
-      -21.97601403215087,
-      -4.724839176020886,
-      -58.65403200737552,
-      5.593126509467599
+      -23.675111362033668,
+      -5.431919156250011,
+      -58.559825990475844,
+      1.3060502987124665
     ],
     [
-      47.03801617093173,
-      36.208753285238934,
-      -20.540593685057985,
-      45.91841121066898
+      46.937078336948026,
+      36.29045938354324,
+      -22.342405839170617,
+      90.90542209681274
     ],
     [
-      35.3559699437683,
-      -51.10936165706032,
-      -9.129803341030719,
-      98.74992177146132
+      35.435429205047434,
+      -51.698807295437305,
+      -9.530663410413458,
+      99.07316498251384
     ],
     [
       0.0,
@@ -646,28 +824,28 @@
     ]
   ],
   "parts": {
-    "scale": 62.81373073383528,
+    "scale": 63.39771181801023,
     "rotation": [
       [
-        -0.3498600349861604,
-        -0.07521984637470039,
-        -0.9337772382270061
+        -0.37343794725581825,
+        -0.08568005059619349,
+        -0.9236898984395203
       ],
       [
-        0.7488492662575479,
-        0.5764464689841247,
-        -0.3270080195060533
+        0.7403591863328731,
+        0.5724253816560257,
+        -0.35241659672681613
       ],
       [
-        0.5628700847842403,
-        -0.8136654368394285,
-        -0.14534725504073354
+        0.5589386144845186,
+        -0.8154680320930847,
+        -0.1503313469383915
       ]
     ],
     "translation_local_m": [
-      5.593126509467599,
-      45.91841121066898,
-      98.74992177146132
+      1.3060502987124665,
+      90.90542209681274,
+      99.07316498251384
     ]
   },
   "stages": {
@@ -691,21 +869,21 @@
     },
     "point_to_point_icp": {
       "n": 48081,
-      "median_m": 1.5126228739494982,
-      "p90_m": 10.742450455199284,
-      "rmse_m": 14.107890412755143,
-      "within_025m": 0.08150828809716935,
-      "within_05m": 0.20644329360870198,
-      "within_1m": 0.3843722052369959
+      "median_m": 1.189005265290431,
+      "p90_m": 5.867678590040112,
+      "rmse_m": 13.043359673223438,
+      "within_025m": 0.09427840519123978,
+      "within_05m": 0.24652149497722592,
+      "within_1m": 0.44897152721449224
     },
     "final": {
       "n": 48081,
-      "median_m": 1.2855028682732133,
-      "p90_m": 7.071485512574842,
-      "rmse_m": 13.353445687991753,
-      "within_025m": 0.09294731806742788,
-      "within_05m": 0.23477049146232398,
-      "within_1m": 0.4234104947900418
+      "median_m": 0.22063525237743864,
+      "p90_m": 0.885085520023573,
+      "rmse_m": 15.512699950719844,
+      "within_025m": 0.5779205923337701,
+      "within_05m": 0.8156028368794326,
+      "within_1m": 0.91283459162663
     }
   }
 }

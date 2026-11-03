@@ -9,7 +9,8 @@
     "trim": 0.75,
     "fine_voxel_m": 1.2,
     "shuffle": false,
-    "icp": true
+    "icp": true,
+    "iterations": 500
   },
   "initial_scores": [
     {
@@ -46,22 +47,22 @@
       "index": 0,
       "matrix": [
         [
-          -22.32570545476699,
-          -4.850065477968951,
-          -58.52293292113672,
-          -0.4400885877686572
+          -23.67041755354377,
+          -5.430713864638807,
+          -58.54347129057536,
+          1.2808518733572793
         ],
         [
-          46.93908085211411,
-          36.148388883984616,
-          -20.902406721150513,
-          45.0077190320836
+          46.92344842866862,
+          36.28130457072351,
+          -22.33777690815424,
+          90.9106231372776
         ],
         [
-          35.2871010652782,
-          -51.153345763861005,
-          -9.222236846731173,
-          98.62390833233245
+          35.42627092135703,
+          -51.684558976125004,
+          -9.529168014056681,
+          99.05502790403634
         ],
         [
           0.0,
@@ -72,22 +73,22 @@
       ],
       "coarse_matrix": [
         [
-          -23.182758900909356,
-          -5.097793113332795,
-          -60.233277110067675,
-          8.57248345540641
+          -19.749492622844215,
+          -3.511461804268274,
+          -55.581320012395935,
+          0.12857862188152938
         ],
         [
-          48.21446841868309,
-          37.35186293669074,
-          -21.718168582197276,
-          35.90824318360822
+          44.71842802262208,
+          34.14995970019432,
+          -18.047116247305105,
+          63.17097920402284
         ],
         [
-          36.46094076060541,
-          -52.63388943289858,
-          -9.578567654889719,
-          101.07065785312518
+          33.19451300304113,
+          -48.094759024821485,
+          -8.75639297992142,
+          92.90513280983609
         ],
         [
           0.0,
@@ -97,124 +98,172 @@
         ]
       ],
       "parts": {
-        "scale": 62.82431007886578,
+        "scale": 63.380749056710556,
         "rotation": [
           [
-            -0.3553673001222086,
-            -0.07720045746432355,
-            -0.9315332368580034
+            -0.3734638341425159,
+            -0.08568396469690855,
+            -0.9236790691475263
           ],
           [
-            0.7471483696866654,
-            0.5753885532305273,
-            -0.3327120774571327
+            0.740342282586206,
+            0.5724341398720367,
+            -0.35243788122742586
           ],
           [
-            0.5616790860254723,
-            -0.8142285319113929,
-            -0.14679408074922182
+            0.5589437084383307,
+            -0.8154614728500562,
+            -0.15034798666595695
           ]
         ],
         "translation_local_m": [
-          -0.4400885877686572,
-          45.0077190320836,
-          98.62390833233245
+          1.2808518733572793,
+          90.9106231372776,
+          99.05502790403634
         ]
       },
       "training_score": {
-        "geometry": 5.552762396667276,
-        "semantic": 20.0,
-        "combined": 15.552762396667276
+        "geometry": 1.2778506073703568,
+        "semantic": 9.515382075929969,
+        "combined": 6.035541645335341
       },
       "trace": [
         {
           "stage": "point_to_point",
           "gate_m": 40.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.03533627080462453,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 20.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.03226647701914231,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 10.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 0.0034820401956399205,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_point",
           "gate_m": 5.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 55,
+          "pairs": 7500,
+          "last_update": 2.264358331194354e-13,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "tolerance"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 18.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 9.928976067518028e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 9.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 9.928976067612934e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 4.0,
-          "iterations": 30,
-          "pairs": 7500
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 9.928976067818558e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 2.0,
-          "iterations": 30,
-          "pairs": 5744
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 9.928976067507251e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         },
         {
           "stage": "point_to_plane",
           "gate_m": 1.0,
-          "iterations": 30,
-          "pairs": 3557
+          "iterations": 500,
+          "pairs": 7500,
+          "last_update": 9.928976067633895e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
         }
-      ]
+      ],
+      "convergence": {
+        "terminal_converged": false,
+        "stages_at_limit": 8,
+        "total_iterations": 4055
+      },
+      "fit_reused": false,
+      "fit_seconds": 30.237341000000015
     }
   ],
   "failures": [],
-  "registration_seconds": 2.811584167000092,
+  "registration_seconds": 30.288833000000523,
   "selected_index": 0,
-  "status": "evaluated_not_survey_certified",
+  "convergence": {
+    "terminal_converged": false,
+    "stages_at_limit": 8,
+    "total_iterations": 4055
+  },
+  "status": "evaluated_iteration_limited",
   "metrics": {
     "n": 48081,
-    "median_m": 1.3000492448215581,
-    "p90_m": 6.840354418842247,
-    "rmse_m": 13.675210008293995,
-    "within_025m": 0.09088829267278135,
-    "within_05m": 0.2331690272664878,
-    "within_1m": 0.4226617582828976
+    "median_m": 0.22208618818592404,
+    "p90_m": 0.8834039087137263,
+    "rmse_m": 15.509710240711177,
+    "within_025m": 0.572949813855785,
+    "within_05m": 0.8151868721532414,
+    "within_1m": 0.9129385828081779
   },
   "matrix": [
     [
-      -22.32570545476699,
-      -4.850065477968951,
-      -58.52293292113672,
-      -0.4400885877686572
+      -23.67041755354377,
+      -5.430713864638807,
+      -58.54347129057536,
+      1.2808518733572793
     ],
     [
-      46.93908085211411,
-      36.148388883984616,
-      -20.902406721150513,
-      45.0077190320836
+      46.92344842866862,
+      36.28130457072351,
+      -22.33777690815424,
+      90.9106231372776
     ],
     [
-      35.2871010652782,
-      -51.153345763861005,
-      -9.222236846731173,
-      98.62390833233245
+      35.42627092135703,
+      -51.684558976125004,
+      -9.529168014056681,
+      99.05502790403634
     ],
     [
       0.0,
@@ -224,28 +273,28 @@
     ]
   ],
   "parts": {
-    "scale": 62.82431007886578,
+    "scale": 63.380749056710556,
     "rotation": [
       [
-        -0.3553673001222086,
-        -0.07720045746432355,
-        -0.9315332368580034
+        -0.3734638341425159,
+        -0.08568396469690855,
+        -0.9236790691475263
       ],
       [
-        0.7471483696866654,
-        0.5753885532305273,
-        -0.3327120774571327
+        0.740342282586206,
+        0.5724341398720367,
+        -0.35243788122742586
       ],
       [
-        0.5616790860254723,
-        -0.8142285319113929,
-        -0.14679408074922182
+        0.5589437084383307,
+        -0.8154614728500562,
+        -0.15034798666595695
       ]
     ],
     "translation_local_m": [
-      -0.4400885877686572,
-      45.0077190320836,
-      98.62390833233245
+      1.2808518733572793,
+      90.9106231372776,
+      99.05502790403634
     ]
   },
   "stages": {
@@ -269,21 +318,21 @@
     },
     "point_to_point_icp": {
       "n": 48081,
-      "median_m": 1.5357673807677132,
-      "p90_m": 11.221676810647756,
-      "rmse_m": 14.43429668726523,
-      "within_025m": 0.07743183378049541,
-      "within_05m": 0.19648093841642228,
-      "within_1m": 0.3766560595661488
+      "median_m": 0.8637031123805051,
+      "p90_m": 3.969278298652343,
+      "rmse_m": 12.998346402227591,
+      "within_025m": 0.13425261537821592,
+      "within_05m": 0.325721178844034,
+      "within_1m": 0.5468688255235956
     },
     "final": {
       "n": 48081,
-      "median_m": 1.3000492448215581,
-      "p90_m": 6.840354418842247,
-      "rmse_m": 13.675210008293995,
-      "within_025m": 0.09088829267278135,
-      "within_05m": 0.2331690272664878,
-      "within_1m": 0.4226617582828976
+      "median_m": 0.22208618818592404,
+      "p90_m": 0.8834039087137263,
+      "rmse_m": 15.509710240711177,
+      "within_025m": 0.572949813855785,
+      "within_05m": 0.8151868721532414,
+      "within_1m": 0.9129385828081779
     }
   }
 }

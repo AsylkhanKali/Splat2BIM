@@ -1,0 +1,334 @@
+{
+  "name": "iteration_budget_200",
+  "seed": 43,
+  "config": {
+    "name": "iteration_budget_200",
+    "starts": 1,
+    "weight": 0.0,
+    "confidence": 0.6,
+    "trim": 0.75,
+    "fine_voxel_m": 0.6,
+    "shuffle": false,
+    "icp": true,
+    "iterations": 200
+  },
+  "initial_scores": [
+    {
+      "geometry": 7.879780214462388,
+      "semantic": null,
+      "combined": 7.879780214462388
+    },
+    {
+      "geometry": 16.31962497558643,
+      "semantic": null,
+      "combined": 16.31962497558643
+    },
+    {
+      "geometry": 15.282238076402782,
+      "semantic": null,
+      "combined": 15.282238076402782
+    },
+    {
+      "geometry": 16.459796920528063,
+      "semantic": null,
+      "combined": 16.459796920528063
+    }
+  ],
+  "selected_starts": [
+    0
+  ],
+  "semantic_class_ids": [],
+  "candidates": [
+    {
+      "index": 0,
+      "matrix": [
+        [
+          -23.67199258934926,
+          -5.4311693306147735,
+          -58.549577823973586,
+          1.316431730763489
+        ],
+        [
+          46.927718073352274,
+          36.285890497175,
+          -22.339143315463538,
+          90.89970909241079
+        ],
+        [
+          35.43077673565363,
+          -51.68897800637141,
+          -9.53013690243467,
+          99.05935791912873
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "coarse_matrix": [
+        [
+          -21.257718249085507,
+          -4.297907734613844,
+          -57.403681797069986,
+          0.8057536679054772
+        ],
+        [
+          46.07068679318206,
+          35.41816578817083,
+          -19.71270226321639,
+          50.49370971462959
+        ],
+        [
+          34.51299049864037,
+          -49.92621356781116,
+          -9.042785275262121,
+          96.2647676371675
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "parts": {
+        "scale": 63.38701678430531,
+        "rotation": [
+          [
+            -0.37345175384891227,
+            -0.08568267771767951,
+            -0.9236840727685187
+          ],
+          [
+            0.7403364356621942,
+            0.5724498854497191,
+            -0.3524245886421765
+          ],
+          [
+            0.5589595240965233,
+            -0.8154505548393256,
+            -0.15034840549231118
+          ]
+        ],
+        "translation_local_m": [
+          1.316431730763489,
+          90.89970909241079,
+          99.05935791912873
+        ]
+      },
+      "training_score": {
+        "geometry": 1.2762714327867908,
+        "semantic": null,
+        "combined": 1.2762714327867908
+      },
+      "trace": [
+        {
+          "stage": "point_to_point",
+          "gate_m": 40.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.03294044837938336,
+          "tolerance": 0.0004,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_point",
+          "gate_m": 20.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.053402675930120415,
+          "tolerance": 0.0002,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_point",
+          "gate_m": 10.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.012905560975359644,
+          "tolerance": 0.0001,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_point",
+          "gate_m": 5.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.034469790380953,
+          "tolerance": 5e-05,
+          "update_measure": "RMS correspondence displacement, metres",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_plane",
+          "gate_m": 18.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.06953008012480213,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_plane",
+          "gate_m": 9.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 0.05373814762558831,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_plane",
+          "gate_m": 4.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 2.603792138107169e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_plane",
+          "gate_m": 2.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 2.6037921389805783e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
+        },
+        {
+          "stage": "point_to_plane",
+          "gate_m": 1.0,
+          "iterations": 200,
+          "pairs": 7500,
+          "last_update": 2.6037921372802515e-05,
+          "tolerance": 1e-06,
+          "update_measure": "Norm of bounded rotation/translation/log-scale increment",
+          "stop_reason": "iteration_limit"
+        }
+      ],
+      "convergence": {
+        "terminal_converged": false,
+        "stages_at_limit": 9,
+        "total_iterations": 1800
+      },
+      "fit_reused": false,
+      "fit_seconds": 19.65008879099969
+    }
+  ],
+  "failures": [],
+  "registration_seconds": 19.674637999999504,
+  "selected_index": 0,
+  "convergence": {
+    "terminal_converged": false,
+    "stages_at_limit": 9,
+    "total_iterations": 1800
+  },
+  "status": "evaluated_iteration_limited",
+  "metrics": {
+    "n": 48081,
+    "median_m": 0.22047444981947792,
+    "p90_m": 0.8850319753674748,
+    "rmse_m": 15.508298794107775,
+    "within_025m": 0.5773382417171024,
+    "within_05m": 0.814874898608598,
+    "within_1m": 0.9128137933903205
+  },
+  "matrix": [
+    [
+      -23.67199258934926,
+      -5.4311693306147735,
+      -58.549577823973586,
+      1.316431730763489
+    ],
+    [
+      46.927718073352274,
+      36.285890497175,
+      -22.339143315463538,
+      90.89970909241079
+    ],
+    [
+      35.43077673565363,
+      -51.68897800637141,
+      -9.53013690243467,
+      99.05935791912873
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "parts": {
+    "scale": 63.38701678430531,
+    "rotation": [
+      [
+        -0.37345175384891227,
+        -0.08568267771767951,
+        -0.9236840727685187
+      ],
+      [
+        0.7403364356621942,
+        0.5724498854497191,
+        -0.3524245886421765
+      ],
+      [
+        0.5589595240965233,
+        -0.8154505548393256,
+        -0.15034840549231118
+      ]
+    ],
+    "translation_local_m": [
+      1.316431730763489,
+      90.89970909241079,
+      99.05935791912873
+    ]
+  },
+  "stages": {
+    "pca": {
+      "n": 48081,
+      "median_m": 2.278402761608578,
+      "p90_m": 14.702638143238529,
+      "rmse_m": 15.320898914555181,
+      "within_025m": 0.052869116698903935,
+      "within_05m": 0.1374139472972692,
+      "within_1m": 0.26419999584035275
+    },
+    "after_semantic_labels": {
+      "n": 48081,
+      "median_m": 2.278402761608578,
+      "p90_m": 14.702638143238529,
+      "rmse_m": 15.320898914555181,
+      "within_025m": 0.052869116698903935,
+      "within_05m": 0.1374139472972692,
+      "within_1m": 0.26419999584035275
+    },
+    "point_to_point_icp": {
+      "n": 48081,
+      "median_m": 1.2026217650713655,
+      "p90_m": 5.8467509247284974,
+      "rmse_m": 13.084578662497535,
+      "within_025m": 0.09706536885672094,
+      "within_05m": 0.24735342442960837,
+      "within_1m": 0.44655893180258316
+    },
+    "final": {
+      "n": 48081,
+      "median_m": 0.22047444981947792,
+      "p90_m": 0.8850319753674748,
+      "rmse_m": 15.508298794107775,
+      "within_025m": 0.5773382417171024,
+      "within_05m": 0.814874898608598,
+      "within_1m": 0.9128137933903205
+    }
+  }
+}

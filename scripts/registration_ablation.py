@@ -60,24 +60,26 @@ def scores(T,points,tree,classes,weight):
     return {'geometry':geometry,'semantic':semantic,'combined':geometry+weight*semantic if weight and semantic is not None else (geometry if not weight else None)}
 
 
-def refine(source,target,initial,trim=.75,iterations=30,fine_target=None):
+def refine(source,target,initial,trim=.75,iterations=500,fine_target=None):
     T=initial.copy();tree=cKDTree(target);trace=[]
     for gate in (40.,20.,10.,5.):
         for iteration in range(iterations):
             moved=apply(source,T);distance,index=tree.query(moved,workers=2)
-            keep=distance<min(gate,np.quantile(distance,trim))
+            keep=(distance<gate)&(distance<=np.quantile(distance,trim))
             if keep.sum()<30:raise ValueError('Insufficient point-to-point correspondences')
             delta=similarity(moved[keep],target[index[keep]]);T=delta@T
             movement=float(np.sqrt(np.mean(np.sum((apply(moved[keep],delta)-moved[keep])**2,axis=1))))
             if movement<gate*1e-5:break
-        trace.append({'stage':'point_to_point','gate_m':gate,'iterations':iteration+1,'pairs':int(keep.sum())})
+        trace.append({'stage':'point_to_point','gate_m':gate,'iterations':iteration+1,'pairs':int(keep.sum()),
+                      'last_update':movement,'tolerance':gate*1e-5,'update_measure':'RMS correspondence displacement, metres',
+                      'stop_reason':'tolerance' if movement<gate*1e-5 else 'iteration_limit'})
     coarse=T.copy()
     if fine_target is not None:
         points,normals=fine_target;tree=cKDTree(points)
         for gate in (18.,9.,4.,2.,1.):
             for iteration in range(iterations):
                 moved=apply(source,T);distance,index=tree.query(moved,workers=2,distance_upper_bound=gate)
-                keep=distance<np.quantile(np.minimum(distance,gate),trim)
+                keep=(distance<gate)&(distance<=np.quantile(np.minimum(distance,gate),trim))
                 if keep.sum()<100:raise ValueError('Insufficient point-to-plane correspondences')
                 p=moved[keep];q=points[index[keep]];n=normals[index[keep]]
                 residual=np.sum((p-q)*n,axis=1);w=np.sqrt(np.minimum(1,.25/np.maximum(abs(residual),1e-9)))
@@ -86,8 +88,16 @@ def refine(source,target,initial,trim=.75,iterations=30,fine_target=None):
                 step/=max(1,np.linalg.norm(step[:3])/.08,abs(step[6])/.05,np.linalg.norm(step[3:6])/5)
                 delta=np.eye(4);delta[:3,:3]=np.exp(step[6])*Rotation.from_rotvec(step[:3]).as_matrix();delta[:3,3]=step[3:6];T=delta@T
                 if np.linalg.norm(step)<1e-6:break
-            trace.append({'stage':'point_to_plane','gate_m':gate,'iterations':iteration+1,'pairs':int(keep.sum())})
+            trace.append({'stage':'point_to_plane','gate_m':gate,'iterations':iteration+1,'pairs':int(keep.sum()),
+                          'last_update':float(np.linalg.norm(step)),'tolerance':1e-6,'update_measure':'Norm of bounded rotation/translation/log-scale increment',
+                          'stop_reason':'tolerance' if np.linalg.norm(step)<1e-6 else 'iteration_limit'})
     return T,coarse,trace
+
+
+def convergence_summary(trace):
+    return {'terminal_converged':trace[-1]['stop_reason']=='tolerance' if trace else None,
+            'stages_at_limit':sum(t['stop_reason']=='iteration_limit' for t in trace),
+            'total_iterations':sum(t['iterations'] for t in trace)}
 
 
 def fine_cloud(points,size):

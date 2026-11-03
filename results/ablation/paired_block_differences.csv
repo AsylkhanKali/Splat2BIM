@@ -1,3 +1,3 @@
 comparison,blocks,mean_block_median_change_m,ci_low_m,ci_high_m
-pca_icp minus pca_only,53,-4.671399669884451,-7.625121273431742,-2.07329521618328
+pca_icp minus pca_only,53,0.3126691129745184,-7.5606104330352855,7.852155175477621
 pca_semantic_icp minus pca_icp,53,0.0,0.0,0.0

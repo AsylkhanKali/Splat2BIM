@@ -1,6 +1,6 @@
 {
   "date": "0929",
-  "frozen_at_utc": "2026-11-03T14:23:36Z",
+  "frozen_at_utc": "2026-11-03T15:08:15Z",
   "seeds": [
     17,
     29,
@@ -15,7 +15,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": false
+      "icp": false,
+      "iterations": 500
     },
     {
       "name": "pca_icp",
@@ -25,7 +26,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "pca_semantic_icp",
@@ -35,7 +37,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "geometry_starts_4",
@@ -45,7 +48,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "semantic_starts_4",
@@ -55,7 +59,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "semantic_weight_025",
@@ -65,7 +70,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "semantic_weight_100",
@@ -75,7 +81,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "confidence_070",
@@ -85,7 +92,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "confidence_080",
@@ -95,7 +103,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "trim_060",
@@ -105,7 +114,8 @@
       "trim": 0.6,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "trim_090",
@@ -115,7 +125,8 @@
       "trim": 0.9,
       "fine_voxel_m": 0.6,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "fine_voxel_030",
@@ -125,7 +136,8 @@
       "trim": 0.75,
       "fine_voxel_m": 0.3,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "fine_voxel_120",
@@ -135,7 +147,8 @@
       "trim": 0.75,
       "fine_voxel_m": 1.2,
       "shuffle": false,
-      "icp": true
+      "icp": true,
+      "iterations": 500
     },
     {
       "name": "shuffled_source_labels",
@@ -145,7 +158,30 @@
       "trim": 0.75,
       "fine_voxel_m": 0.6,
       "shuffle": true,
-      "icp": true
+      "icp": true,
+      "iterations": 500
+    },
+    {
+      "name": "iteration_budget_030",
+      "starts": 1,
+      "weight": 0.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true,
+      "iterations": 30
+    },
+    {
+      "name": "iteration_budget_200",
+      "starts": 1,
+      "weight": 0.0,
+      "confidence": 0.6,
+      "trim": 0.75,
+      "fine_voxel_m": 0.6,
+      "shuffle": false,
+      "icp": true,
+      "iterations": 200
     }
   ],
   "input_sha256": {
@@ -154,9 +190,14 @@
     "results/segmentation/source_labels.npz": "63369abb26730e104f3a0807059e4a4fc3232d35fd5085e91c505dd6a56b43b0",
     "results/segmentation/target_labels.npz": "ac112596088727f21315cd531b8218dc0c0cf03bce7896d84660c0dbbfc04a67"
   },
+  "comparison_only_sha256": {
+    "results/0929_baseline/alignment.json": "aa1f6e0bdf9120103f21aa98d50383394a45fe34bb42565027dd6451e91ca14c",
+    "results/ablation_30_iterations/results.json": "4d0b60ad22d0afab916a3b0e6ad65b2a430772e50ac6245d412246a60558b8b1",
+    "results/ablation_30_iterations/protocol.json": "245a63f52b55dd413323e6b6b0b36ed1f487a41d165d861cdb220d1345ca651b"
+  },
   "source_sha256": {
-    "registration_ablation.py": "1cb87f4ca3e5b90d3bbfabfa76c43dcb72a862729cbfdad388da82aef36c6f56",
-    "run_registration_ablation.py": "81612cbad89dbac4bfe6b269da40f8e75d584c7ecb953986a5e4fb8322a09657",
+    "registration_ablation.py": "9fc4fa5dad3b60fce91349c4b6803c19ded3d62cb1b95b8038feab5f5f53b78a",
+    "run_registration_ablation.py": "a2055160b9373e4e52c4c44e47a1e3c3408f3629995fca1bf8f8d220c6adcbf7",
     "project_data.py": "de94149e806f89546c1d1a1093eecdd0ed36484e73a03d3a462555e816b5c43b"
   },
   "runtime": {
@@ -191,7 +232,7 @@
   "minimum_points_per_class": 128,
   "minimum_shared_classes": 2,
   "semantic_distance_cap_m": 20.0,
-  "iterations_per_gate": 30,
+  "primary_iterations_per_gate": 500,
   "point_to_point_gates_m": [
     40,
     20,
@@ -208,6 +249,14 @@
   "normal_radius_m": 3.0,
   "normal_max_neighbors": 40,
   "robust_plane_scale_m": 0.25,
+  "stopping_criteria": {
+    "point_to_point": "RMS correspondence displacement < gate * 1e-5 metres",
+    "point_to_plane": "Bounded rotation/translation/log-scale increment norm < 1e-6"
+  },
+  "quantile_ties": "Include distances equal to the trim quantile, but retain the strict distance gate. This keeps exact zero-error matches; 30-step controls are compared numerically with the archive.",
+  "convergence_policy": "Record every stage stop reason. Terminal tolerance means numerical convergence, not pose correctness. Iteration-limited candidates are retained and ranked by the same training score, never silently excluded.",
+  "fit_cache": "Within each seed, identical candidate/trim/voxel/iteration fits are reused across ranking-only variants. Every branch is independently rescored and evaluated. This is not a timing benchmark.",
+  "revision_reason": "The previous 30-step experiment reached iteration limits. A separate seed-29 diagnostic at 200 steps motivated this follow-up; it is not a blind replication.",
   "semantic_input": "Frozen fused predictions from previous 0929 development; confidence ablations only reject more cached labels, not rerun the networks",
   "semantic_stage_changes_coordinates": false,
   "bim_used_for_fit_or_evaluation": false,

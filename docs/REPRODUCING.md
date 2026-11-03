@@ -39,18 +39,41 @@ changing segmentation while varying registration settings.
 ```sh
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
   python scripts/run_registration_ablation.py --out results/ablation_new
-python scripts/report_registration_ablation.py --out results/ablation_new
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
   python scripts/verify_registration_ablation.py --out results/ablation_new
+python scripts/report_registration_ablation.py --out results/ablation_new
 ```
 
 The runner freezes its protocol before fitting and refuses to reuse an existing
 protocol directory. Evaluation always uses the same fixed source indices. The
 verifier recomputes PCA hypotheses, training candidate scores, all checkpoint
-metrics, input hashes, inverse transforms and local/global conventions. It does
-not repeat the numerical optimization itself. Runtime numbers exclude the cached
-neural inference and include first-use normal-cache work; do not use them as an
-end-to-end performance comparison.
+metrics, input hashes, inverse transforms and local/global conventions. It also
+checks stop reasons and iteration counts, independently probes two additional
+terminal updates for stationarity and two-step oscillation, and compares the
+historical transform on the same held-out cohort. It does not repeat the full
+optimization. Run it before the report
+generator, which reads these additional checks.
+
+The primary limit is 500 iterations per gate; 30- and 200-step controls isolate
+the budget effect. The previous stopping tolerances and distance gates are
+unchanged. Terminal convergence means the final numerical update reached its
+tolerance, not that every earlier coarse stage converged or that the pose is
+physically correct. Runs that still hit the limit remain in the tables.
+Exact ties at the trimming quantile are included so zero-error matches are not
+discarded. The new 30-step controls must reproduce the archived matrices and
+metrics; verification fails if they do not.
+
+Identical geometric fits are reused within each seed across variants that change
+only semantic ranking. Reuse is explicit in each candidate's JSON. Runtime excludes
+cached work and historical neural inference and includes first-use normal-cache
+work; do not use it as an end-to-end speed comparison.
+
+The [30-step archive](../results/ablation_30_iterations/ARCHIVE.md) preserves the
+previous results and identifies their original code revision. It remains a required
+comparison input, together with the historical baseline JSON. Neither its poses nor
+the historical baseline pose is supplied to fitting; only their hashes enter the
+frozen protocol, and the verifier uses them afterward. This follow-up was motivated
+by a previously observed 200-step diagnostic, not by an independent new dataset.
 
 ## Rebuilding semantic inputs
 

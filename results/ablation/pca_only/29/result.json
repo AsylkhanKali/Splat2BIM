@@ -9,7 +9,8 @@
     "trim": 0.75,
     "fine_voxel_m": 0.6,
     "shuffle": false,
-    "icp": false
+    "icp": false,
+    "iterations": 500
   },
   "initial_scores": [
     {
@@ -122,13 +123,25 @@
         "semantic": null,
         "combined": 7.77653731530172
       },
-      "trace": []
+      "trace": [],
+      "convergence": {
+        "terminal_converged": null,
+        "stages_at_limit": 0,
+        "total_iterations": 0
+      },
+      "fit_reused": false,
+      "fit_seconds": 0.0
     }
   ],
   "failures": [],
-  "registration_seconds": 0.029912833999787836,
+  "registration_seconds": 0.02531654099948355,
   "selected_index": 0,
-  "status": "evaluated_not_survey_certified",
+  "convergence": {
+    "terminal_converged": null,
+    "stages_at_limit": 0,
+    "total_iterations": 0
+  },
+  "status": "evaluated_pca_only",
   "metrics": {
     "n": 48081,
     "median_m": 2.278402761608578,

@@ -7,18 +7,19 @@ import numpy as np
 from plyfile import PlyData
 from scipy.spatial import cKDTree
 from project_data import ROOT,ORIGIN,file_hash,write_csv
-from registration_ablation import apply,voxel,sample,held_tiles,pca_hypotheses,semantic_classes,scores,refine,fine_cloud,measures,matrix_parts
+from registration_ablation import apply,voxel,sample,held_tiles,pca_hypotheses,semantic_classes,scores,refine,fine_cloud,measures,matrix_parts,convergence_summary
 
 
 def configurations():
-    base={'starts':1,'weight':.5,'confidence':.6,'trim':.75,'fine_voxel_m':.6,'shuffle':False,'icp':True}
+    base={'starts':1,'weight':.5,'confidence':.6,'trim':.75,'fine_voxel_m':.6,'shuffle':False,'icp':True,'iterations':500}
     rows=[('pca_only',{'weight':0.,'icp':False}),('pca_icp',{'weight':0.}),('pca_semantic_icp',{}),
           ('geometry_starts_4',{'weight':0.,'starts':4}),('semantic_starts_4',{'starts':4}),
           ('semantic_weight_025',{'weight':.25}),('semantic_weight_100',{'weight':1.}),
           ('confidence_070',{'confidence':.7}),('confidence_080',{'confidence':.8}),
           ('trim_060',{'trim':.6}),('trim_090',{'trim':.9}),
           ('fine_voxel_030',{'fine_voxel_m':.3}),('fine_voxel_120',{'fine_voxel_m':1.2}),
-          ('shuffled_source_labels',{'shuffle':True})]
+          ('shuffled_source_labels',{'shuffle':True}),
+          ('iteration_budget_030',{'weight':0.,'iterations':30}),('iteration_budget_200',{'weight':0.,'iterations':200})]
     return [{'name':name,**base,**changes} for name,changes in rows]
 
 
@@ -45,6 +46,7 @@ def main():
     inputs=['assets/0929/0929.ply','assets/0929/0929.las','results/segmentation/source_labels.npz','results/segmentation/target_labels.npz']
     protocol={'date':'0929','frozen_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'seeds':[17,29,43],
       'configurations':configurations(),'input_sha256':{n:file_hash(ROOT/n) for n in inputs},
+      'comparison_only_sha256':{n:file_hash(ROOT/n) for n in ['results/0929_baseline/alignment.json','results/ablation_30_iterations/results.json','results/ablation_30_iterations/protocol.json']},
       'source_sha256':{n:file_hash(ROOT/'scripts'/n) for n in ['registration_ablation.py','run_registration_ablation.py','project_data.py']},
       'runtime':{n:version(n) for n in ['numpy','scipy','open3d','laspy','plyfile']},'platform':platform.platform(),
       'source_record_stride':10,'source_opacity_logit_min':0,'source_tile_width':.4,'heldout_rule':'sum(floor(source_xyz / 0.4)) modulo 4 == 0',
@@ -53,8 +55,13 @@ def main():
       'candidate_pool':'Four proper PCA sign hypotheses; no RTK, manual seed, old fitted pose, or correspondence bank',
       'candidate_selection':'75th-percentile training geometry distance + weight * class-balanced 60th-percentile capped semantic distance',
       'semantic_classes':[1,2,3,4],'minimum_points_per_class':128,'minimum_shared_classes':2,'semantic_distance_cap_m':20.,
-      'iterations_per_gate':30,'point_to_point_gates_m':[40,20,10,5],'point_to_plane_gates_m':[18,9,4,2,1],
+      'primary_iterations_per_gate':500,'point_to_point_gates_m':[40,20,10,5],'point_to_plane_gates_m':[18,9,4,2,1],
       'normal_radius_m':3.,'normal_max_neighbors':40,'robust_plane_scale_m':.25,
+      'stopping_criteria':{'point_to_point':'RMS correspondence displacement < gate * 1e-5 metres','point_to_plane':'Bounded rotation/translation/log-scale increment norm < 1e-6'},
+      'quantile_ties':'Include distances equal to the trim quantile, but retain the strict distance gate. This keeps exact zero-error matches; 30-step controls are compared numerically with the archive.',
+      'convergence_policy':'Record every stage stop reason. Terminal tolerance means numerical convergence, not pose correctness. Iteration-limited candidates are retained and ranked by the same training score, never silently excluded.',
+      'fit_cache':'Within each seed, identical candidate/trim/voxel/iteration fits are reused across ranking-only variants. Every branch is independently rescored and evaluated. This is not a timing benchmark.',
+      'revision_reason':'The previous 30-step experiment reached iteration limits. A separate seed-29 diagnostic at 200 steps motivated this follow-up; it is not a blind replication.',
       'semantic_input':'Frozen fused predictions from previous 0929 development; confidence ablations only reject more cached labels, not rerun the networks',
       'semantic_stage_changes_coordinates':False,'bim_used_for_fit_or_evaluation':False,
       'limitations':['One previously explored capture, not an independent new-site test.','Labels/render settings were developed previously; Gaussian footprints can cross held-out boundaries.','LAS is reference geometry, not independent survey truth.','Seeds measure sampling sensitivity, not repeated independent captures.','No model-selection claim is made from the ablation outcomes.'],
@@ -71,7 +78,7 @@ def main():
     (out/'sample_counts.json').write_text(json.dumps(counts,indent=2)+'\n')
     print('Samples',counts,flush=True)
     for seed in protocol['seeds']:
-        fit=sample(voxel(train,.025),10000,seed);rank=sample(pca_source,4096,seed)
+        fit=sample(voxel(train,.025),10000,seed);rank=sample(pca_source,4096,seed);fit_cache={}
         for config in protocol['configurations']:
             started=time.perf_counter();name=config['name'];folder=out/name/str(seed);folder.mkdir(parents=True,exist_ok=True)
             classes=semantic_classes(source_labels,target_labels,config['confidence'],seed,config['shuffle']) if config['weight'] else []
@@ -80,20 +87,29 @@ def main():
             candidates=[];failures=[]
             for i in order:
                 try:
-                    T=pool[i].copy();coarse_T=T.copy();trace=[]
+                    T=pool[i].copy();coarse_T=T.copy();trace=[];reused=False;fit_seconds=0.
                     if config['icp']:
                         size=config['fine_voxel_m']
                         if size not in fine:fine[size]=fine_cloud(target,size)
-                        T,coarse_T,trace=refine(fit,coarse,T,config['trim'],30,fine[size])
+                        key=(i,config['trim'],size,config['iterations']);reused=key in fit_cache
+                        if not reused:
+                            fit_started=time.perf_counter()
+                            fitted=refine(fit,coarse,T,config['trim'],config['iterations'],fine[size])
+                            fit_cache[key]=(*fitted,time.perf_counter()-fit_started)
+                        T,coarse_T,trace,fit_seconds=fit_cache[key]
                     parts=matrix_parts(T);score=scores(T,rank,ranktree,classes,config['weight'])
-                    candidates.append({'index':i,'matrix':T.tolist(),'coarse_matrix':coarse_T.tolist(),'parts':parts,'training_score':score,'trace':trace})
+                    candidates.append({'index':i,'matrix':T.tolist(),'coarse_matrix':coarse_T.tolist(),'parts':parts,'training_score':score,'trace':trace,
+                                       'convergence':convergence_summary(trace),'fit_reused':reused,'fit_seconds':fit_seconds})
                 except (ValueError,np.linalg.LinAlgError) as error:failures.append({'index':i,'reason':str(error)})
             record={'name':name,'seed':seed,'config':config,'initial_scores':initial,'selected_starts':order,'semantic_class_ids':[c[0] for c in classes],'candidates':candidates,'failures':failures,'registration_seconds':time.perf_counter()-started}
             if not candidates:
                 record['status']='rejected_no_candidate';record['metrics']=None
                 rows.append({'name':name,'seed':seed,'status':record['status'],'candidate':None,'median_m':None,'p90_m':None,'rmse_m':None,'within_025m':None,'within_05m':None,'within_1m':None,'registration_seconds':record['registration_seconds']})
             else:
-                selected=min(candidates,key=lambda c:(c['training_score']['combined'],c['index']));T=np.array(selected['matrix']);record['selected_index']=selected['index'];record['status']='evaluated_not_survey_certified'
+                selected=min(candidates,key=lambda c:(c['training_score']['combined'],c['index']));T=np.array(selected['matrix']);record['selected_index']=selected['index']
+                record['convergence']=selected['convergence']
+                record['status']=('evaluated_pca_only' if not config['icp'] else
+                                  ('evaluated_terminal_converged' if record['convergence']['terminal_converged'] else 'evaluated_iteration_limited'))
                 error=fulltree.query(apply(evaluation,T),workers=2)[0]
                 record['metrics']=measures(error);record['matrix']=T.tolist();record['parts']=selected['parts']
                 record['stages']={}

@@ -1,0 +1,148 @@
+{
+  "conclusion": "Across three sampling seeds, mean held-out median changes from 2.278 m after PCA to 1.350 m after ICP. Adding semantic ranking changes that value by +0.000000 m. The geometric and semantic primary branches selected identical final matrices on all three seeds: no additional pose-accuracy benefit is observed here.",
+  "aggregate": [
+    {
+      "name": "pca_only",
+      "evaluated": 3,
+      "median_mean_m": 2.278402761608578,
+      "median_min_m": 2.278402761608578,
+      "median_max_m": 2.278402761608578,
+      "p90_mean_m": 14.702638143238529,
+      "within_1m_mean": 0.26419999584035275
+    },
+    {
+      "name": "pca_icp",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "pca_semantic_icp",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "geometry_starts_4",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "semantic_starts_4",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "semantic_weight_025",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "semantic_weight_100",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "confidence_070",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "confidence_080",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    },
+    {
+      "name": "trim_060",
+      "evaluated": 3,
+      "median_mean_m": 1.538917291926911,
+      "median_min_m": 1.5223643865525238,
+      "median_max_m": 1.5633626764772108,
+      "p90_mean_m": 11.708477857565555,
+      "within_1m_mean": 0.3824864984782624
+    },
+    {
+      "name": "trim_090",
+      "evaluated": 3,
+      "median_mean_m": 1.0235262481823793,
+      "median_min_m": 0.9916236724394525,
+      "median_max_m": 1.049112689870605,
+      "p90_mean_m": 4.744695829075327,
+      "within_1m_mean": 0.49268248719175284
+    },
+    {
+      "name": "fine_voxel_030",
+      "evaluated": 3,
+      "median_mean_m": 1.3959036211503602,
+      "median_min_m": 1.3442271189891517,
+      "median_max_m": 1.454656443046351,
+      "p90_mean_m": 8.545157042017747,
+      "within_1m_mean": 0.4059330435445741
+    },
+    {
+      "name": "fine_voxel_120",
+      "evaluated": 3,
+      "median_mean_m": 1.2774995976482126,
+      "median_min_m": 1.2632664672902487,
+      "median_max_m": 1.3000492448215581,
+      "p90_mean_m": 6.808994715805581,
+      "within_1m_mean": 0.42497036251325887
+    },
+    {
+      "name": "shuffled_source_labels",
+      "evaluated": 3,
+      "median_mean_m": 1.3502260714082348,
+      "median_min_m": 1.2855028682732133,
+      "median_max_m": 1.407928654911105,
+      "p90_mean_m": 8.139613566902105,
+      "within_1m_mean": 0.41472376475808187
+    }
+  ],
+  "paired_block_differences": [
+    {
+      "comparison": "pca_icp minus pca_only",
+      "blocks": 53,
+      "mean_block_median_change_m": -4.671399669884451,
+      "ci_low_m": -7.625121273431742,
+      "ci_high_m": -2.07329521618328
+    },
+    {
+      "comparison": "pca_semantic_icp minus pca_icp",
+      "blocks": 53,
+      "mean_block_median_change_m": 0.0,
+      "ci_low_m": 0.0,
+      "ci_high_m": 0.0
+    }
+  ],
+  "report_source_sha256": "5cd01914599c8fb50387b40a9fbad2ef14c6cff367f81093acb2536a3b26fe47"
+}

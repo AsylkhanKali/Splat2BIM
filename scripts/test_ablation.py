@@ -2,8 +2,9 @@ import unittest
 import numpy as np
 from scipy.spatial import cKDTree
 from scipy.spatial.transform import Rotation
-from registration_ablation import apply,similarity,pca_hypotheses,held_tiles,semantic_classes,scores,refine,matrix_parts,measures
+from registration_ablation import apply,similarity,pca_hypotheses,held_tiles,semantic_classes,scores,refine,matrix_parts,measures,convergence_summary
 from run_registration_ablation import configurations
+from verify_registration_ablation import next_plane_update
 
 class AblationTests(unittest.TestCase):
     def test_known_similarity_and_global_origin(self):
@@ -22,8 +23,27 @@ class AblationTests(unittest.TestCase):
     def test_icp_recovers_small_known_pose(self):
         x=np.random.default_rng(5).normal(size=(2500,3))*[3,2,1]
         T=np.eye(4);T[:3,:3]=1.02*Rotation.from_euler('z',.02).as_matrix();T[:3,3]=[.04,.02,-.03]
-        result,_,_=refine(x,apply(x,T),np.eye(4),iterations=40)
+        result,_,trace=refine(x,apply(x,T),np.eye(4),iterations=40)
         np.testing.assert_allclose(result,T,atol=1e-7)
+        self.assertTrue(convergence_summary(trace)['terminal_converged'])
+        self.assertLess(trace[-1]['last_update'],trace[-1]['tolerance'])
+    def test_iteration_limit_is_not_reported_as_convergence(self):
+        x=np.random.default_rng(5).normal(size=(2500,3))*[3,2,1]
+        T=np.eye(4);T[:3,:3]=1.1*Rotation.from_euler('z',.15).as_matrix();T[:3,3]=[.3,.2,-.1]
+        _,_,trace=refine(x,apply(x,T),np.eye(4),iterations=1)
+        self.assertEqual(trace[0]['stop_reason'],'iteration_limit')
+        self.assertGreaterEqual(trace[0]['last_update'],trace[0]['tolerance'])
+        self.assertFalse(convergence_summary(trace)['terminal_converged'])
+    def test_plane_convergence_is_recorded_separately(self):
+        rng=np.random.default_rng(11);x=rng.normal(size=(2000,3))*[3,2,1]
+        normals=rng.normal(size=x.shape);normals/=np.linalg.norm(normals,axis=1)[:,None]
+        _,_,trace=refine(x,x,np.eye(4),iterations=2,fine_target=(x,normals))
+        self.assertEqual(trace[-1]['stage'],'point_to_plane')
+        self.assertTrue(convergence_summary(trace)['terminal_converged'])
+        self.assertEqual(convergence_summary(trace)['stages_at_limit'],0)
+        update,after=next_plane_update(x,np.eye(4),(x,normals),.75)
+        self.assertLess(update,1e-10)
+        np.testing.assert_allclose(after,np.eye(4),atol=1e-10)
     def test_labels_change_ranking_not_coordinates(self):
         rng=np.random.default_rng(1);x=np.r_[rng.normal(scale=.1,size=(150,3)),rng.normal(scale=.1,size=(150,3))+[10,0,0]]
         a={'points':x.copy(),'labels':np.repeat([1,3],150),'confidence':np.ones(300)}

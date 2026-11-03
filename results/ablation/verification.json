@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "date": "0929",
-  "expected_runs": 42,
-  "evaluated_runs_verified": 42,
+  "expected_runs": 48,
+  "evaluated_runs_verified": 48,
   "failed_runs_retained": 0,
   "same_evaluation_indices": true,
   "fit_evaluation_overlap": 0,
@@ -12,8 +12,14 @@
   "all_stage_distances_recomputed": true,
   "semantic_label_stage_matrix_unchanged": true,
   "local_global_and_inverse_conventions_verified": true,
-  "protocol_sha256": "245a63f52b55dd413323e6b6b0b36ed1f487a41d165d861cdb220d1345ca651b",
-  "results_sha256": "4d0b60ad22d0afab916a3b0e6ad65b2a430772e50ac6245d412246a60558b8b1",
-  "verifier_sha256": "e11f7021f7adf8b6edf5c1f41ce4d1a6ec02f6f7d6bae2c77c28c23630d7da1c",
+  "stop_reasons_and_iteration_counts_verified": true,
+  "historical_30_step_controls_reproduced": 3,
+  "terminal_converged_runs": 24,
+  "iteration_limited_runs": 21,
+  "converged_runs_passing_extra_update": 24,
+  "two_step_return_runs": 4,
+  "protocol_sha256": "de884afa3d4105a2b0a822aa289446c37200b308e16a87d818ebe91c90b067ba",
+  "results_sha256": "a4f9ca7160289f483c9298c880f3d5e5cf93d73beb810dfe64c7c8135ce1616b",
+  "verifier_sha256": "e0b062b6b2b0cfc703431cdb26724879355b819e05c4463f137cb873942dc3c8",
   "limits": "Numerical and reproducibility checks, not independent survey validation. Fits were not rerun by this verifier."
 }
