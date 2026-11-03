@@ -86,6 +86,9 @@ No further dataset is assumed to be available.
 
 ## Publication scope
 
+The repository is temporarily private pending GitHub server-side cleanup of its
+former history. Rewriting the branch alone does not erase cached old commits.
+
 Only 0929 results and supporting code are published. Raw PLY/LAS/IFC inputs,
 photographs, semantic arrays, pretrained weights and full scene exports stay
 local. The public history was replaced with this single-date edition; the full

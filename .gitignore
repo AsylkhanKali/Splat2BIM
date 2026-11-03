@@ -1,6 +1,6 @@
 # All captures and generated geometry stay local.
 assets/
-.venv/
+.venv
 node_modules/
 .cache/
 __pycache__/
