@@ -1,0 +1,11 @@
+# Registration, report generation, camera localization and the numerical tests.
+# Viewing the supplied reports/scenes requires only Python's standard library.
+numpy==2.4.6
+scipy==1.17.1
+open3d==0.20.0
+laspy==2.7.0
+plyfile==1.1.5
+matplotlib==3.11.2
+opencv-python-headless==4.14.0.94
+pillow==13.0.0
+pyproj==3.7.2

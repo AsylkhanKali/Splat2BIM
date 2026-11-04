@@ -85,6 +85,7 @@ Open [the local viewer](http://127.0.0.1:8765/viewer/) or
 The report and its figures work without the raw dataset. The viewer requires the
 large local scene exports. GitHub displays Markdown; serve the repository locally
 to render the HTML report. See [reproduction instructions](docs/REPRODUCING.md).
+For a guided review and the 200-step results, see [the supervisor checklist](docs/SUPERVISOR_REVIEW.md).
 
 ## Limits
 
@@ -98,10 +99,8 @@ No further dataset is assumed to be available.
 
 ## Publication scope
 
-The repository is temporarily private pending GitHub server-side cleanup of its
-former history. Rewriting the branch alone does not erase cached old commits.
-
 Only 0929 results and supporting code are published. Raw PLY/LAS/IFC inputs,
 photographs, semantic arrays, pretrained weights and full scene exports stay
-local. The public history was replaced with this single-date edition; the full
-research archive is retained privately on the owner's computer.
+outside GitHub. This edition is published in a new independent repository with
+only its single-date history. The former repository and full research archive
+remain private; their history is not imported into this repository.
